@@ -10,27 +10,73 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{asset('/')}}css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{asset('/')}}vendor/fontawesome-free/css/all.min.css">
+{{--        <link rel="stylesheet" href="vendor/animate/animate.compat.css">--}}
+        <link rel="stylesheet" href="{{asset('/')}}vendor/simple-line-icons/css/simple-line-icons.min.css">
+{{--        <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.min.css">--}}
+{{--        <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.min.css">--}}
+{{--        <link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.min.css">--}}
 
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <link href=".{{asset('/')}}plugins/global/plugins.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css" />
+
+        <link rel="stylesheet" href="{{asset('/')}}css/theme.css">
+        <link rel="stylesheet" href="{{asset('/')}}css/theme-elements.css">
+        <link rel="stylesheet" href="{{asset('/')}}css/theme-blog.css">
+        <link rel="stylesheet" href="{{asset('/')}}css/theme-shop.css">
+        <link rel="stylesheet" href="{{asset('/')}}css/default.css">
+        <link rel="stylesheet" href="{{asset('/')}}css/custom.css">
+
+        <style>
+            .header-effect-shrink{
+                height: 50px !important;
+            }
+        </style>
+
+        <script src="{{asset('/')}}js/jquery.min.js"></script>
+        <script src="{{asset('/')}}js/jquery.appear.min.js"></script>
+        <script src="{{asset('/')}}js/jquery.easing.min.js"></script>
+        <script src="{{asset('/')}}js/jquery.cookie.min.js"></script>
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+        @include('layouts.header')
+        <div role="main" class="main mt-4">
+            {{ $slot }}
         </div>
+
+{{--        <div role="main" class="main">--}}
+{{--            @include('layouts.navigation')--}}
+{{--            <!-- Page Heading -->--}}
+{{--            <header class="bg-white shadow">--}}
+{{--                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">--}}
+{{--                    {{ $header }}--}}
+{{--                </div>--}}
+{{--            </header>--}}
+{{--            <!-- Page Content -->--}}
+{{--            <main>--}}
+{{--                {{ $slot }}--}}
+{{--            </main>--}}
+{{--        </div>--}}
+
+        <script src="{{asset('/')}}vendor/calendar/moment.js"></script>
+        <script src="{{asset('/')}}js/popper.min.js"></script>
+        <script src="{{asset('/')}}js/bootstrap.min.js"></script>
+        <script src="{{asset('/')}}js/common.min.js"></script>
+        <script src="{{asset('/')}}js/jquery.validate.min.js"></script>
+        <script src="{{asset('/')}}js/jquery.easypiechart.min.js"></script>
+        <script src="{{asset('/')}}js/jquery.gmap.min.js"></script>
+        <script src="{{asset('/')}}js/owl.carousel.min.js"></script>
+        <script src="{{asset('/')}}js/theme.js"></script>
+        <script src="{{asset('/')}}js/theme.init.js"></script>
+        <script src="{{asset('/')}}plugins/global/plugins.bundlef552.js?v=7.1.8"></script>
+        <script>
+            let token = '{{csrf_token()}}';
+            $(document).ready(function() {
+                var interval = setInterval(function() {
+                    var momentNow = moment();
+                    $('#current_time').html(momentNow.format('hh:mm'));
+                }, 100);
+            });
+        </script>
     </body>
 </html>

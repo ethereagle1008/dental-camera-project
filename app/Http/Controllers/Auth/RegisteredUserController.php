@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Permission;
 
 class RegisteredUserController extends Controller
 {
@@ -45,10 +46,15 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+//        Permission::create(['name' => 'user']);
+//        Permission::create(['name' => 'superAdmin']);
+
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        $user->givePermissionTo('user');
+
+        return redirect(RouteServiceProvider::ADMIN_HOME);
     }
 }
