@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -15,7 +17,19 @@ class AdminController extends Controller
     public function manageAdmin(){
         return view('admin.PersonMaster.admin-manager');
     }
-    public function manageAdd(){
+    public function adminAdd(){
+        return view('admin.PersonMaster.admin-add');
+    }
+    public function adminSave(Request $request){
+        $user = User::create([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => Hash::make($request->password),
+        ]);
+        $user->givePermissionTo('superAdmin');
+
         return view('admin.PersonMaster.admin-add');
     }
     public function userManage(){

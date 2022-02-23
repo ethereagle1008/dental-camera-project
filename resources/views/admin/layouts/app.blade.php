@@ -2,16 +2,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="ltr">
 <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
 <head>
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-            var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&amp;l=' + l : '';
-            j.async = true;
-            j.src = '../../../www.googletagmanager.com/gtm5445.html?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-5FS8GGP');
-    </script>
     <meta charset="utf-8"/>
     <title>山大企画</title>
     <meta name="description"
@@ -20,41 +10,26 @@
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700"/>
     <!--end::Fonts-->
-    <!--begin::Page Vendors Styles(used by this page)-->
-    <link href="{{asset('/')}}plugins/custom/fullcalendar/fullcalendar.bundlef552.css?v=7.1.8"
-          rel="stylesheet" type="text/css"/>
-    <!--end::Page Vendors Styles-->
     <!--begin::Global Theme Styles(used by all pages)-->
-    <link href="{{asset('/')}}plugins/global/plugins.bundlef552.css?v=7.1.8" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{asset('/')}}plugins/custom/prismjs/prismjs.bundlef552.css?v=7.1.8" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{asset('/')}}plugins/global/plugins.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('/')}}plugins/custom/prismjs/prismjs.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
     <link href="{{asset('/')}}css/style.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
     <!--end::Global Theme Styles-->
     <!--begin::Layout Themes(used by all pages)-->
-    <link href="{{asset('/')}}css/themes/layout/header/base/lightf552.css?v=7.1.8" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{asset('/')}}css/themes/layout/header/menu/lightf552.css?v=7.1.8" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{asset('/')}}css/themes/layout/brand/darkf552.css?v=7.1.8" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{asset('/')}}css/themes/layout/aside/darkf552.css?v=7.1.8" rel="stylesheet"
-          type="text/css"/>
-    <link href="{{asset('/')}}plugins/custom/datatables/datatables.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css" />
+    <link href="{{asset('/')}}css/themes/layout/header/base/lightf552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('/')}}css/themes/layout/header/menu/lightf552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('/')}}css/themes/layout/brand/darkf552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('/')}}css/themes/layout/aside/darkf552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
     <!--end::Layout Themes-->
-    <script>
-        (function (h, o, t, j, a, r) {
-            h.hj = h.hj || function () {
-                (h.hj.q = h.hj.q || []).push(arguments)
-            };
-            h._hjSettings = {hjid: 1070954, hjsv: 6};
-            a = o.getElementsByTagName('head')[0];
-            r = o.createElement('script');
-            r.async = 1;
-            r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
-            a.appendChild(r);
-        })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
-    </script>
+    <!--begin::Page Vendors Styles(used by this page)-->
+    <link href="{{asset('/')}}plugins/custom/fullcalendar/fullcalendar.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
+    <!--end::Page Vendors Styles-->
+
+    <script src="{{asset('/')}}js/jquery.min.js"></script>
+    <script src="{{asset('/')}}js/jquery.appear.min.js"></script>
+    <script src="{{asset('/')}}js/jquery.easing.min.js"></script>
+    <script src="{{asset('/')}}js/jquery.cookie.min.js"></script>
+    <script src="{{ asset('js/jquery.validate.js') }}"></script>
 </head>
 <!--begin::Body-->
 <body id="kt_body"
@@ -160,12 +135,16 @@
 <!--begin::Page Vendors(used by this page)-->
 <script src="{{asset('/')}}plugins/custom/fullcalendar/fullcalendar.bundlef552.js?v=7.1.8"></script>
 <script src="{{asset('/')}}js/list-datatablef552.js?v=7.1.8"></script>
-<script src="{{asset('/')}}js/add-userf552.js?v=7.1.8"></script>
+{{--<script src="{{asset('/')}}js/add-userf552.js?v=7.1.8"></script>--}}
 <script src="{{asset('/')}}plugins/custom/datatables/datatables.bundlef552.js?v=7.1.8"></script>
 <script src="{{asset('/')}}js/basicf552.js?v=7.1.8"></script>
 <!--end::Page Vendors-->
 <!--begin::Page Scripts(used by this page)-->
 <script src="{{asset('/')}}js/widgetsf552.js?v=7.1.8"></script>
 <!--end::Page Scripts-->
+<script src="{{asset('/')}}js/admin.js"></script>
+<script>
+    let token = '{{csrf_token()}}';
+</script>
 </body>
 </html>

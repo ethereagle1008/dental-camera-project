@@ -7,6 +7,7 @@ use App\Http\Controllers\PayController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,8 @@ Route::group(['middleware' => 'auth'], function (){
     Route::prefix('master')->group(function () {
         Route::group(['middleware' => ['can:superAdmin']], function () {
             Route::get('admin-manager', [AdminController::class, 'manageAdmin'])->name('master.admin-manager');
-            Route::get('admin-add', [AdminController::class, 'manageAdd'])->name('master.admin-add');
+            Route::get('admin-add', [AdminController::class, 'adminAdd'])->name('master.admin-add');
+            Route::post('admin-save', [AdminController::class, 'adminSave'])->name('master.admin-save');
             Route::get('user-manager', [AdminController::class, 'userManage'])->name('master.user-manager');
             Route::get('user-add', [AdminController::class, 'userAdd'])->name('master.user-add');
             Route::get('qualify-manager', [AdminController::class, 'qualifyManage'])->name('master.qualify-manager');
@@ -44,15 +46,19 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('pay-total-manager', [PayController::class, 'payTotalManage'])->name('master.pay-total-manager');
             Route::get('pay-request-manager', [PayController::class, 'payRequestManage'])->name('master.pay-request-manager');
             Route::get('pay-sum-manager', [PayController::class, 'paySumManage'])->name('master.pay-sum-manager');
+
+            Route::get('work-report-manager', [WorkReportController::class, 'workReportManage'])->name('master.work-report-manager');
+            Route::post('work-report-table', [WorkReportController::class, 'workReportTable'])->name('master.work-report-table');
+            Route::post('work-report-detail-table', [WorkReportController::class, 'workReportDetailTable'])->name('master.work-report-detail-table');
+            Route::get('work-report-export-excel/{id}', [WorkReportController::class, 'workReportExportExcel'])->name('master.work-report-export-excel');
         });
     });
 
     Route::group(['middleware' => ['can:user']], function () {
         Route::get('pay-request', [UserController::class, 'payRequest'])->name('pay-request');
         Route::get('daily-report', [UserController::class, 'dailyReport'])->name('daily-report');
-        Route::get('dashboard', function () {return view('dashboard');})->name('dashboard');
-        Route::post('arrive', [UserController::class, 'arrive'])->name('arrive');
-        Route::post('leave', [UserController::class, 'leave'])->name('leave');
+        Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+        Route::post('shift-post', [UserController::class, 'shiftPost'])->name('shift-post');
         Route::post('daily-report', [UserController::class, 'dailyReportPost'])->name('daily-report-post');
         Route::post('pay-request', [UserController::class, 'payRequestPost'])->name('pay-request-post');
     });

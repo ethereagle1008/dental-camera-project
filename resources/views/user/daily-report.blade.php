@@ -14,12 +14,11 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label class="required font-weight-bold text-dark text-3">現場</label>
-                                        <select data-msg-required="Please enter the subject." class="form-control" name="site" id="site" required="">
+                                        <select data-msg-required="Please enter the subject." class="form-control" name="site" id="site" required>
                                             <option value="">...</option>
-                                            <option value="Option 1">Option 1</option>
-                                            <option value="Option 2">Option 2</option>
-                                            <option value="Option 3">Option 3</option>
-                                            <option value="Option 4">Option 4</option>
+                                            @foreach($sites as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

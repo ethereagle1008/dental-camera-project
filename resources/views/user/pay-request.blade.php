@@ -13,23 +13,24 @@
                             <div class="col-md-12 mb-3">
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label class="font-weight-bold text-dark text-3">前借り可能な金額</label>
-                                        <p class="text-center text-5 text-dark">100000$</p>
+                                        <label class="font-weight-bold text-dark text-3">仮払い可能な金額</label>
+                                        <p class="text-center text-5 text-dark">{{$limit}}円</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label class="required font-weight-bold text-dark text-3">前借り希望金額</label>
-                                        <input type="number" value="" data-msg-required="Please enter your name." maxlength="100" class="form-control" name="price" id="price" required="">
+                                        <label class="required font-weight-bold text-dark text-3">仮払い希望金額</label>
+                                        <input type="hidden" id="limit" value="{{$limit}}">
+                                        <input type="number" value="0" maxlength="10" class="form-control" name="price" id="price" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-rounded btn-success box-shadow-2 mb-2 mr-4" style="width: 110px;"
                                         onclick="window.history.back()">キャンセル</button>
-                                <button type="button" id="btn_request" class="btn btn-rounded btn-danger box-shadow-2 mb-2 ml-4" style="width: 110px">退勤</button>
+                                <button type="button" id="btn_request" class="btn btn-rounded btn-danger box-shadow-2 mb-2 ml-4" style="width: 110px">申請</button>
                             </div>
                         </div>
                     </div>

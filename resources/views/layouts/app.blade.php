@@ -12,14 +12,18 @@
 
         <link rel="stylesheet" href="{{asset('/')}}css/bootstrap.min.css">
         <link rel="stylesheet" href="{{asset('/')}}vendor/fontawesome-free/css/all.min.css">
-{{--        <link rel="stylesheet" href="vendor/animate/animate.compat.css">--}}
         <link rel="stylesheet" href="{{asset('/')}}vendor/simple-line-icons/css/simple-line-icons.min.css">
-{{--        <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.min.css">--}}
-{{--        <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.min.css">--}}
-{{--        <link rel="stylesheet" href="vendor/magnific-popup/magnific-popup.min.css">--}}
-
-        <link href=".{{asset('/')}}plugins/global/plugins.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css" />
-
+        <link href="{{asset('/')}}plugins/global/plugins.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
+        <link href="{{asset('/')}}plugins/custom/prismjs/prismjs.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
+        <link href="{{asset('/')}}css/style.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
+        <link href="{{asset('/')}}css/themes/layout/header/base/lightf552.css?v=7.1.8"
+              rel="stylesheet" type="text/css"/>
+        <link href="{{asset('/')}}css/themes/layout/header/menu/lightf552.css?v=7.1.8"
+              rel="stylesheet" type="text/css"/>
+        <link href="{{asset('/')}}css/themes/layout/brand/darkf552.css?v=7.1.8" rel="stylesheet"
+              type="text/css"/>
+        <link href="{{asset('/')}}css/themes/layout/aside/darkf552.css?v=7.1.8" rel="stylesheet"
+              type="text/css"/>
         <link rel="stylesheet" href="{{asset('/')}}css/theme.css">
         <link rel="stylesheet" href="{{asset('/')}}css/theme-elements.css">
         <link rel="stylesheet" href="{{asset('/')}}css/theme-blog.css">
@@ -69,6 +73,11 @@
         <script src="{{asset('/')}}js/theme.js"></script>
         <script src="{{asset('/')}}js/theme.init.js"></script>
         <script src="{{asset('/')}}plugins/global/plugins.bundlef552.js?v=7.1.8"></script>
+        <script src="{{asset('/')}}plugins/custom/prismjs/prismjs.bundlef552.js?v=7.1.8"></script>
+{{--        <script src="{{asset('/')}}js/scripts.bundlef552.js?v=7.1.8"></script>--}}
+        <!--end::Global Theme Bundle-->
+        <!--begin::Page Scripts(used by this page)-->
+        <script src="{{asset('/')}}js/pages/features/miscellaneous/sweetalert2f552.js?v=7.1.8"></script>
         <script>
             let token = '{{csrf_token()}}';
             $(document).ready(function() {

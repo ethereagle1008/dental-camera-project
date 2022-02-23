@@ -38,91 +38,68 @@
                                     <div class="row justify-content-center py-8 px-8 py-lg-15 px-lg-10">
                                         <div class="col-xl-12 col-xxl-10">
                                             <!--begin::Wizard Form-->
-                                            <form class="form" id="kt_form">
+                                            <form class="form" id="admin_save">
                                                 <div class="row justify-content-center">
-                                                    <div class="col-xl-9">
-                                                        <!--begin::Wizard Step 1-->
-                                                        <div class="my-5 step" data-wizard-type="step-content" data-wizard-state="current">
-                                                            <h5 class="text-dark font-weight-bold mb-10">管理者詳細:</h5>
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label text-left">イメージ</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <div class="image-input image-input-outline" id="kt_user_add_avatar">
-                                                                        <div class="image-input-wrapper" style="background-image: url(../../../../theme/html/demo1/dist/assets/media/users/100_6.jpg)"></div>
-                                                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
-                                                                            <i class="fa fa-pen icon-sm text-muted"></i>
-                                                                            <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" />
-                                                                            <input type="hidden" name="profile_avatar_remove" />
-                                                                        </label>
-                                                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
-																							<i class="ki ki-bold-close icon-xs text-muted"></i>
-																						</span>
+                                                        @csrf
+                                                        <div class="col-xl-9">
+                                                            <!--begin::Wizard Step 1-->
+                                                            <div class="my-5 step" data-wizard-type="step-content" data-wizard-state="current">
+                                                                <h5 class="text-dark font-weight-bold mb-10">管理者詳細:</h5>
+                                                                <!--begin::Group-->
+                                                                <div class="form-group row">
+                                                                    <label class="col-xl-3 col-lg-3 col-form-label">名前</label>
+                                                                    <div class="col-lg-9 col-xl-9">
+                                                                        <input class="form-control form-control-solid form-control-lg" name="name" type="text" value="" required/>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <!--end::Group-->
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label">名前</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <input class="form-control form-control-solid form-control-lg" name="firstname" type="text" value="" />
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Group-->
+                                                                <!--end::Group-->
 
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label">電話番号</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <div class="input-group input-group-solid input-group-lg">
-                                                                        <div class="input-group-prepend">
-																							<span class="input-group-text">
-																								<i class="la la-phone"></i>
-																							</span>
-                                                                        </div>
-                                                                        <input type="text" class="form-control form-control-solid form-control-lg" name="phone" value="5678967456" placeholder="Phone" />
+                                                                <!--begin::Group-->
+                                                                <div class="form-group row">
+                                                                    <label class="col-xl-3 col-lg-3 col-form-label">電話番号</label>
+                                                                    <div class="col-lg-9 col-xl-9">
+                                                                        <input class="form-control form-control-solid form-control-lg" name="phone" type="text" value="" required/>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <!--end::Group-->
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label">メールアドレス</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <div class="input-group input-group-solid input-group-lg">
-                                                                        <div class="input-group-prepend">
-																							<span class="input-group-text">
-																								<i class="la la-at"></i>
-																							</span>
-                                                                        </div>
-                                                                        <input type="text" class="form-control form-control-solid form-control-lg" name="email" value="" />
+                                                                <!--end::Group-->
+                                                                <!--begin::Group-->
+                                                                <div class="form-group row">
+                                                                    <label class="col-xl-3 col-lg-3 col-form-label">メールアドレス</label>
+                                                                    <div class="col-lg-9 col-xl-9">
+                                                                        <input class="form-control form-control-solid form-control-lg" name="email" type="email" value="" required/>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <!--end::Group-->
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label" for="exampleSelect1">権限</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <select class="form-control" id="exampleSelect1">
-                                                                        <option>スーパー管理者</option>
-                                                                        <option>事務職管理者</option>
-                                                                    </select>
+                                                                <!--end::Group-->
+                                                                <!--begin::Group-->
+                                                                <div class="form-group row">
+                                                                    <label class="col-xl-3 col-lg-3 col-form-label">パスワード</label>
+                                                                    <div class="col-lg-9 col-xl-9">
+                                                                        <input class="form-control form-control-solid form-control-lg" minlength="8" name="password" type="password"  value="" required/>
+                                                                    </div>
                                                                 </div>
+                                                                <!--end::Group-->
+                                                                <!--begin::Group-->
+                                                                <div class="form-group row">
+                                                                    <label class="col-xl-3 col-lg-3 col-form-label" for="exampleSelect1">権限</label>
+                                                                    <div class="col-lg-9 col-xl-9">
+                                                                        <select class="form-control" name="role" required>
+                                                                            <option value="super">スーパー管理者</option>
+                                                                            <option value="admin">事務職管理者</option>
+                                                                        </select>
+                                                                    </div>
 
+                                                                </div>
+                                                                <!--end::Group-->
                                                             </div>
-                                                            <!--end::Group-->
-                                                        </div>
-                                                        <!--end::Wizard Step 1-->
-                                                        <!--begin::Wizard Actions-->
-                                                        <div class="d-flex justify-content-between border-top pt-10 mt-15">
-                                                            <div>
-                                                                <button type="button" class="btn btn-success font-weight-bolder px-9 py-4">登録</button>
+                                                            <!--end::Wizard Step 1-->
+                                                            <!--begin::Wizard Actions-->
+                                                            <div class="d-flex justify-content-between border-top pt-10 mt-15">
+                                                                <div>
+                                                                    <button type="button" class="btn btn-success font-weight-bolder px-9 py-4 btn_submit">登録</button>
+                                                                </div>
                                                             </div>
+                                                            <!--end::Wizard Actions-->
                                                         </div>
-                                                        <!--end::Wizard Actions-->
-                                                    </div>
                                                 </div>
                                             </form>
                                             <!--end::Wizard Form-->
@@ -143,4 +120,13 @@
         <!--end::Entry-->
     </div>
     <!--end::Content-->
+    <script>
+        let admin_save = '{{route('master.admin-save')}}';
+        $(document).ready(function () {
+            $('.btn_submit').click(function (e) {
+                e.preventDefault();
+                saveForm('admin_save', admin_save)
+            })
+        })
+    </script>
 </x-admin-layout>

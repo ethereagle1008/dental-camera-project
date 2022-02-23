@@ -20,7 +20,7 @@
                                     @csrf
                                     <a onclick="event.preventDefault();this.closest('form').submit();"
                                        class="header-nav-features-toggle text-color-white d-flex" data-focus="headerSearch">
-                                        <i class="icon-logout icons header-nav-top-icon text-color-white mt-2 mr-1"></i>ログアウト
+                                        <i class="icon-logout icons header-nav-top-icon text-color-white mt-2 mr-1" style="top: 3px"></i>ログアウト
                                     </a>
                                 </form>
                             </div>
