@@ -11,8 +11,9 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/charts/apexcharts.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/extensions/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/pickers/flatpickr/flatpickr.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -26,14 +27,18 @@
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/pages/dashboard-ecommerce.css">
-    <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/charts/chart-apex.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/extensions/ext-component-toastr.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/forms/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/forms/pickers/form-flat-pickr.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/style.css">
     <!-- END: Custom CSS-->
+
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{asset('/')}}vendors/js/vendors.min.js"></script>
+    <!-- BEGIN Vendor JS-->
 </head>
 <!--begin::Body-->
 <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="">
@@ -51,11 +56,7 @@
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper container-xxl p-0">
-        <div class="content-header row">
-        </div>
-        <div class="content-body">
-            {{ $slot }}
-        </div>
+        {{ $slot }}
     </div>
 </div>
 <!-- END: Content-->
@@ -65,12 +66,12 @@
 
 @include('admin.layouts.footer')
 
-<!-- BEGIN: Vendor JS-->
-<script src="{{asset('/')}}vendors/js/vendors.min.js"></script>
-<!-- BEGIN Vendor JS-->
+
 
 <!-- BEGIN: Page Vendor JS-->
-<script src="{{asset('/')}}vendors/js/charts/apexcharts.min.js"></script>
+<script src="{{asset('/')}}vendors/js/forms/select/select2.full.min.js"></script>
+<script src="{{asset('/')}}vendors/js/forms/validation/jquery.validate.min.js"></script>
+<script src="{{asset('/')}}vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
 <script src="{{asset('/')}}vendors/js/extensions/toastr.min.js"></script>
 <!-- END: Page Vendor JS-->
 
@@ -80,9 +81,10 @@
 <!-- END: Theme JS-->
 
 <!-- BEGIN: Page JS-->
-<script src="{{asset('/')}}js/scripts/pages/dashboard-ecommerce.js"></script>
+
 <!-- END: Page JS-->
 
+<script src="{{asset('/')}}js/admin.js"></script>
 <script>
     $(window).on('load', function() {
         if (feather) {

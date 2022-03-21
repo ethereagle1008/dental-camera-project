@@ -50,7 +50,8 @@ function getTableData(id, url, draw = true) {
 function saveForm(index, url, reload=false) {
     console.log(index);
     let id = '#' + index;
-    if($(id).validate()){
+    console.log($(id).valid())
+    if($(id).valid()){
         var paramObj = new FormData($(id)[0]);
         console.log(paramObj);
         $.ajax({

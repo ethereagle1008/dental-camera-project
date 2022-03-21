@@ -21,6 +21,10 @@ class AdminController extends Controller
         return view('admin.PersonMaster.admin-add');
     }
     public function adminSave(Request $request){
+        $is_user = User::where('email', $request->email)->first();
+        if(isset($is_user)){
+            return response()->json(['status' => false]);
+        }
         $user = User::create([
             'name' => $request->name,
             'phone' => $request->phone,
@@ -30,7 +34,7 @@ class AdminController extends Controller
         ]);
         $user->givePermissionTo('superAdmin');
 
-        return view('admin.PersonMaster.admin-add');
+        return response()->json(['status' => true]);
     }
     public function userManage(){
         return view('admin.PersonMaster.user-manager');

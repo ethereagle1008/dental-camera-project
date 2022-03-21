@@ -22,14 +22,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 Route::group(['middleware' => 'auth'], function (){
     Route::prefix('master')->group(function () {
         Route::group(['middleware' => ['can:superAdmin']], function () {
-            Route::get('admin-manager', [AdminController::class, 'manageAdmin'])->name('master.admin-manager');
-            Route::get('admin-add', [AdminController::class, 'adminAdd'])->name('master.admin-add');
-            Route::post('admin-save', [AdminController::class, 'adminSave'])->name('master.admin-save');
+            Route::get('admin-manager', [AdminController::class, 'manageAdmin'])->name('master.person-admin-manager');
+            Route::get('admin-add', [AdminController::class, 'adminAdd'])->name('master.person-admin-add');
+            Route::post('admin-save', [AdminController::class, 'adminSave'])->name('master.person-admin-save');
             Route::get('user-manager', [AdminController::class, 'userManage'])->name('master.user-manager');
             Route::get('user-add', [AdminController::class, 'userAdd'])->name('master.user-add');
             Route::get('qualify-manager', [AdminController::class, 'qualifyManage'])->name('master.qualify-manager');

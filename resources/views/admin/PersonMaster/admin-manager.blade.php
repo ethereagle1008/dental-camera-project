@@ -43,7 +43,7 @@
                 <!--begin::Toolbar-->
                 <div class="d-flex align-items-center">
                     <!--begin::Button-->
-                    <a href="{{route('master.admin-add')}}" class="btn btn-light-primary font-weight-bold btn-sm px-4 font-size-base ml-2">追加</a>
+                    <a href="{{route('master.person-admin-add')}}" class="btn btn-light-primary font-weight-bold btn-sm px-4 font-size-base ml-2">追加</a>
                     <!--end::Button-->
                 </div>
                 <!--end::Toolbar-->
