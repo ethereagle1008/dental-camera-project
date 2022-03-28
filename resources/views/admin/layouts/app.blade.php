@@ -13,6 +13,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/extensions/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/tables/datatable/responsive.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/pickers/flatpickr/flatpickr.min.css">
     <!-- END: Vendor CSS-->
 
@@ -69,6 +71,10 @@
 
 
 <!-- BEGIN: Page Vendor JS-->
+<script src="{{asset('/')}}vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+<script src="{{asset('/')}}vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+<script src="{{asset('/')}}vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
+<script src="{{asset('/')}}vendors/js/tables/datatable/responsive.bootstrap5.js"></script>
 <script src="{{asset('/')}}vendors/js/forms/select/select2.full.min.js"></script>
 <script src="{{asset('/')}}vendors/js/forms/validation/jquery.validate.min.js"></script>
 <script src="{{asset('/')}}vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
@@ -86,6 +92,7 @@
 
 <script src="{{asset('/')}}js/admin.js"></script>
 <script>
+    let token = '{{csrf_token()}}';
     $(window).on('load', function() {
         if (feather) {
             feather.replace({

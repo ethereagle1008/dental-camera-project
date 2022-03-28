@@ -29,7 +29,9 @@ Route::group(['middleware' => 'auth'], function (){
         Route::group(['middleware' => ['can:superAdmin']], function () {
             Route::get('admin-manager', [AdminController::class, 'manageAdmin'])->name('master.person-admin-manager');
             Route::get('admin-add', [AdminController::class, 'adminAdd'])->name('master.person-admin-add');
+            Route::get('admin-edit/{id}', [AdminController::class, 'adminEdit'])->name('master.person-admin-edit');
             Route::post('admin-save', [AdminController::class, 'adminSave'])->name('master.person-admin-save');
+            Route::post('admin-delete', [AdminController::class, 'adminDelete'])->name('master.person-admin-delete');
             Route::get('user-manager', [AdminController::class, 'userManage'])->name('master.user-manager');
             Route::get('user-add', [AdminController::class, 'userAdd'])->name('master.user-add');
             Route::get('qualify-manager', [AdminController::class, 'qualifyManage'])->name('master.qualify-manager');

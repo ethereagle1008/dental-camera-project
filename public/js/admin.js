@@ -80,7 +80,7 @@ function saveForm(index, url, reload=false) {
                     "hideMethod": "fadeOut"
                 };
                 if(response.status == true){
-                    toastr.success("保存しました。");
+                    toastr.success("成功しました。");
                 }
                 else {
                     toastr.warning("失敗しました。");

@@ -31,13 +31,14 @@
                             <form class="form" id="admin_save">
                                 @csrf
                                 <div class="row">
-
+                                    <input type="hidden" name="user_id" value="{{isset($user) ? $user->id : ''}}">
                                     <div class="col-xl-6 col-md-6 col-12">
                                         <div class="mb-1">
                                             <label class="form-label" for="name">名前</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i data-feather="user"></i></span>
-                                                <input type="text" id="name" class="form-control" name="name" placeholder="名前を入力してください" required/>
+                                                <input type="text" id="name" class="form-control" name="name" placeholder="名前を入力してください" required
+                                                       value="{{isset($user) ? $user->name : ''}}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -46,7 +47,8 @@
                                             <label class="form-label" for="phone">電話番号</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i data-feather="smartphone"></i></span>
-                                                <input type="number" id="phone" class="form-control" name="phone" placeholder="電話番号を入力してください" required/>
+                                                <input type="number" id="phone" class="form-control" name="phone" placeholder="電話番号を入力してください" required
+                                                       value="{{isset($user) ? $user->phone : ''}}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -55,7 +57,8 @@
                                             <label class="form-label" for="email">メールアドレス</label>
                                             <div class="input-group input-group-merge">
                                                 <span class="input-group-text"><i data-feather="mail"></i></span>
-                                                <input type="email" id="email" class="form-control" name="email" placeholder="メールアドレスを入力してください" required/>
+                                                <input type="email" id="email" class="form-control" name="email" placeholder="メールアドレスを入力してください" required
+                                                       value="{{isset($user) ? $user->email : ''}}"/>
                                             </div>
                                         </div>
                                     </div>
@@ -72,8 +75,8 @@
                                         <div class="mb-1">
                                             <label class="form-label" for="role">権限</label>
                                             <select class="form-select" id="role" name="role">
-                                                <option value="super">スーパー管理者</option>
-                                                <option value="admin">事務職管理者</option>
+                                                <option value="super" {{isset($user) && $user->role == 'super' ? 'selected' : ''}}">スーパー管理者</option>
+                                                <option value="admin" {{isset($user) && $user->role == 'admin' ? 'selected' : ''}}>事務職管理者</option>
                                             </select>
                                         </div>
                                     </div>
