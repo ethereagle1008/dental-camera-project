@@ -32,6 +32,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/extensions/ext-component-toastr.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/forms/pickers/form-flat-pickr.css">
+    <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/forms/pickers/form-pickadate.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -79,6 +80,14 @@
 <script src="{{asset('/')}}vendors/js/forms/validation/jquery.validate.min.js"></script>
 <script src="{{asset('/')}}vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
 <script src="{{asset('/')}}vendors/js/extensions/toastr.min.js"></script>
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<script src="{{asset('/')}}vendors/js/pickers/pickadate/picker.js"></script>
+<script src="{{asset('/')}}vendors/js/pickers/pickadate/picker.date.js"></script>
+<script src="{{asset('/')}}vendors/js/pickers/pickadate/picker.time.js"></script>
+<script src="{{asset('/')}}vendors/js/pickers/pickadate/legacy.js"></script>
+<script src="{{asset('/')}}vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
 <!-- END: Page Vendor JS-->
 
 <!-- BEGIN: Theme JS-->

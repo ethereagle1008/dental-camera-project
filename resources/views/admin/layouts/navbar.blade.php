@@ -34,37 +34,37 @@
 													<span class="menu-text">人事マスター</span>
 												</span>
                             </li>
-{{--                            <li class="menu-item menu-item-submenu" aria-haspopup="true"--}}
-{{--                                data-menu-toggle="hover">--}}
-{{--                                <a href="javascript:;" class="menu-link menu-toggle">--}}
-{{--                                    <i class="menu-bullet menu-bullet-line">--}}
-{{--                                        <span></span>--}}
-{{--                                    </i>--}}
-{{--                                    <span class="menu-text">管理者管理</span>--}}
-{{--                                    <i class="menu-arrow"></i>--}}
-{{--                                </a>--}}
-{{--                                <div class="menu-submenu">--}}
-{{--                                    <i class="menu-arrow"></i>--}}
-{{--                                    <ul class="menu-subnav">--}}
-{{--                                        <li class="menu-item" aria-haspopup="true">--}}
-{{--                                            <a href="{{route('master.admin-add')}}" class="menu-link">--}}
-{{--                                                <i class="menu-bullet menu-bullet-dot">--}}
-{{--                                                    <span></span>--}}
-{{--                                                </i>--}}
-{{--                                                <span class="menu-text">管理者追加</span>--}}
-{{--                                            </a>--}}
-{{--                                        </li>--}}
-{{--                                        <li class="menu-item" aria-haspopup="true">--}}
-{{--                                            <a href="{{route('master.admin-manager')}}" class="menu-link">--}}
-{{--                                                <i class="menu-bullet menu-bullet-dot">--}}
-{{--                                                    <span></span>--}}
-{{--                                                </i>--}}
-{{--                                                <span class="menu-text">管理者一覧</span>--}}
-{{--                                            </a>--}}
-{{--                                        </li>--}}
-{{--                                    </ul>--}}
-{{--                                </div>--}}
-{{--                            </li>--}}
+                            <li class="menu-item menu-item-submenu" aria-haspopup="true"
+                                data-menu-toggle="hover">
+                                <a href="javascript:;" class="menu-link menu-toggle">
+                                    <i class="menu-bullet menu-bullet-line">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">管理者管理</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="menu-submenu">
+                                    <i class="menu-arrow"></i>
+                                    <ul class="menu-subnav">
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-dot">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">管理者追加</span>
+                                            </a>
+                                        </li>
+                                        <li class="menu-item" aria-haspopup="true">
+                                            <a href="" class="menu-link">
+                                                <i class="menu-bullet menu-bullet-dot">
+                                                    <span></span>
+                                                </i>
+                                                <span class="menu-text">管理者一覧</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                             <li class="menu-item menu-item-submenu" aria-haspopup="true"
                                 data-menu-toggle="hover">
                                 <a href="javascript:;" class="menu-link menu-toggle">
@@ -79,7 +79,7 @@
                                     <ul class="menu-subnav">
                                         <li class="menu-item menu-item-submenu" aria-haspopup="true"
                                             data-menu-toggle="hover">
-                                            <a href="{{route('master.user-add')}}" class="menu-link">
+                                            <a href="" class="menu-link">
                                                 <i class="menu-bullet menu-bullet-dot">
                                                     <span></span>
                                                 </i>
@@ -87,7 +87,7 @@
                                             </a>
                                         </li>
                                         <li class="menu-item" aria-haspopup="true">
-                                            <a href="{{route('master.user-manager')}}" class="menu-link">
+                                            <a href="" class="menu-link">
                                                 <i class="menu-bullet menu-bullet-dot">
                                                     <span></span>
                                                 </i>
@@ -110,7 +110,7 @@
                                     <i class="menu-arrow"></i>
                                     <ul class="menu-subnav">
                                         <li class="menu-item" aria-haspopup="true">
-                                            <a href="{{route('master.qualify-manager')}}" class="menu-link">
+                                            <a href="" class="menu-link">
                                                 <i class="menu-bullet menu-bullet-dot">
                                                     <span></span>
                                                 </i>
@@ -484,6 +484,35 @@
                             <li class="{{ str_contains(\Request::route()->getName(), 'admin-manager') ? 'active' : '' }}">
                                 <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'admin-manager') ? '#' : route('master.person-admin-manager')}}">
                                     <span class="menu-item text-truncate" data-i18n="Third Level">管理者一覧</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub {{ str_contains(\Request::route()->getName(), 'user') ? 'sidebar-group-active open' : '' }}">
+                        <a class="d-flex align-items-center" href="#">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="ユーザー管理">ユーザー管理</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li class="{{ str_contains(\Request::route()->getName(), 'user-add') ? 'active' : '' }}">
+                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-add') ? '#' : route('master.person-user-add')}}">
+                                    <span class="menu-item text-truncate" data-i18n="Third Level">ユーザー追加</span>
+                                </a>
+                            </li>
+                            <li class="{{ str_contains(\Request::route()->getName(), 'user-manager') ? 'active' : '' }}">
+                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-manager') ? '#' : route('master.person-user-manager')}}">
+                                    <span class="menu-item text-truncate" data-i18n="Third Level">人事総括</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-sub {{ str_contains(\Request::route()->getName(), 'qualify') ? 'sidebar-group-active open' : '' }}">
+                        <a class="d-flex align-items-center" href="#">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="ユーザー管理">資格マスター</span>
+                        </a>
+                        <ul class="menu-content">
+                            <li class="{{ str_contains(\Request::route()->getName(), 'qualify-manager') ? 'active' : '' }}">
+                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'qualify-manager') ? '#' : route('master.person-qualify-manager')}}">
+                                    <span class="menu-item text-truncate" data-i18n="Third Level">資格一覧</span>
                                 </a>
                             </li>
                         </ul>

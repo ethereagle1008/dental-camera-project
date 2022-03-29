@@ -32,9 +32,17 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('admin-edit/{id}', [AdminController::class, 'adminEdit'])->name('master.person-admin-edit');
             Route::post('admin-save', [AdminController::class, 'adminSave'])->name('master.person-admin-save');
             Route::post('admin-delete', [AdminController::class, 'adminDelete'])->name('master.person-admin-delete');
-            Route::get('user-manager', [AdminController::class, 'userManage'])->name('master.user-manager');
-            Route::get('user-add', [AdminController::class, 'userAdd'])->name('master.user-add');
-            Route::get('qualify-manager', [AdminController::class, 'qualifyManage'])->name('master.qualify-manager');
+
+            Route::get('user-manager', [AdminController::class, 'userManage'])->name('master.person-user-manager');
+            Route::get('user-add', [AdminController::class, 'userAdd'])->name('master.person-user-add');
+            Route::get('user-edit/{id}', [AdminController::class, 'userEdit'])->name('master.person-user-edit');
+            Route::post('user-save', [AdminController::class, 'userSave'])->name('master.person-user-save');
+            Route::post('user-delete', [AdminController::class, 'userDelete'])->name('master.person-user-delete');
+
+            Route::get('qualify-manager', [AdminController::class, 'qualifyManage'])->name('master.person-qualify-manager');
+            Route::post('qualify-save', [AdminController::class, 'qualifySave'])->name('master.person-qualify-save');
+            Route::post('qualify-delete', [AdminController::class, 'qualifyDelete'])->name('master.person-qualify-delete');
+
             Route::get('user-summary', [AdminController::class, 'userSummary'])->name('master.user-summary');
             Route::get('office-manager', [OfficeController::class, 'officeManage'])->name('master.office-manager');
             Route::get('office-add', [OfficeController::class, 'officeAdd'])->name('master.office-add');
