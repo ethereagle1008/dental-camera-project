@@ -52,7 +52,7 @@
     <script>
         let shift_post = '{{route('shift-post')}}';
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&v=weekly&channel=2" async></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBd93WWYX4ycxgrHKerT4fsV3exeFaGfi4&region=JP&language=ja&callback=initMap&v=weekly&channel=2" async></script>
     <script src="{{asset('/')}}js/dashboard.js"></script>
 
 </x-app-layout>

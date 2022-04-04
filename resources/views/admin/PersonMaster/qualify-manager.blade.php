@@ -55,13 +55,31 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                @foreach($data as $item)
+                                    <tr>
+                                        <td>{{$item->id}}</td>
+                                        <td>{{$item->type_name}}</td>
+                                        <td>{{$item->name}}</td>
+                                        <td>{{date('Y-m-d', strtotime($item->created_at))}}</td>
+                                        <td>
+                                            <a data-id="{{$item->id}}" class="item-edit">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit font-small-4">
+                                                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                                </svg>
+                                            </a>
+                                            <a class="item-delete" data-id="{{$item->id}}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 font-small-4 me-50">
+                                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                    <line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line>
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -84,11 +102,11 @@
                 <div class="modal-body flex-grow-1">
                     <div class="mb-1">
                         <label class="form-label" for="basic-icon-default-fullname">資格名</label>
-                        <input type="text" class="form-control dt-full-name" placeholder="資格名" name="store_name" required/>
+                        <input type="text" class="form-control dt-full-name" placeholder="資格名" name="type_name" required/>
                     </div>
                     <div class="mb-1">
                         <label class="form-label" for="basic-icon-default-uname">資格等級</label>
-                        <input type="text" class="form-control dt-uname" placeholder="資格等級" name="store_account" required/>
+                        <input type="text" class="form-control dt-uname" placeholder="資格等級" name="name" required/>
                     </div>
                     <button type="submit" class="btn btn-primary me-1 data-submit" id="saveBtn">追加</button>
                     <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -99,4 +117,123 @@
         </div>
     </div>
     <!-- Modal to add new user Ends-->
+
+    <div class="modal fade text-start" id="modifyForm" tabindex="-1" aria-labelledby="myModalLabel33"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel33">資格変更</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="modify_form">
+                    @csrf
+                    <input type="hidden" id="id" name="id">
+                    <div class="modal-body">
+                        <label>資格名: </label>
+                        <div class="mb-1">
+                            <input type="text" class="form-control" placeholder="資格名" name="type_name" id="type_name" required/>
+                        </div>
+
+                        <label>資格等級: </label>
+                        <div class="mb-1">
+                            <input type="text" class="form-control" placeholder="資格等級" name="name" id="name" required/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary modifyBtn">ストア変更</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        let qualify_add = '{{route('master.person-qualify-save')}}';
+        let qualify_delete = '{{route('master.person-qualify-delete')}}';
+
+        $('#saveBtn').click(function (e) {
+            e.preventDefault();
+            if($('#qualify_add').valid()){
+                var paramObj = new FormData($('#qualify_add')[0]);
+                $.ajax({
+                    url: qualify_add,
+                    type: 'post',
+                    data: paramObj,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        $('#modals-slide-in').modal('hide');
+                        window.location.reload();
+                    },
+                });
+            }
+        })
+        $('.item-edit').click(function (e) {
+            $('#id').val($(this).data('id'));
+            $('#type_name').val($(this).parent().prev().prev().prev().text());
+            $('#name').val($(this).parent().prev().prev().text());
+            $('#modifyForm').modal('show');
+        })
+        $('.modifyBtn').click(function (e) {
+            if($('#modify_form').valid()){
+                var paramObj = new FormData($('#modify_form')[0]);
+                $.ajax({
+                    url: qualify_add,
+                    type: 'post',
+                    data: paramObj,
+                    contentType: false,
+                    processData: false,
+                    success: function(response){
+                        $('#modals-slide-in').modal('hide');
+                        $('#modifyForm').modal('hide');
+                        window.location.reload();
+                    },
+                });
+            }
+        })
+        $('.item-delete').click(function (e) {
+            let id = $(this).data('id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': token
+                }
+            });
+            $.ajax({
+                url: qualify_delete,
+                type:'post',
+                data: {
+                    id : id
+                },
+                success: function (response) {
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    if(response.status == true){
+                        toastr.success("成功しました。");
+                        window.location.reload()
+                    }
+                    else {
+                        toastr.warning("失敗しました。");
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        })
+    </script>
 </x-admin-layout>

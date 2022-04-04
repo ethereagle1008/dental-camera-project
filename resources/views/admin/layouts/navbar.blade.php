@@ -10,131 +10,6 @@
                 <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
                     <a href="javascript:;" class="menu-link menu-toggle">
 										<span class="svg-icon menu-icon">
-											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Layout/Layout-4-blocks.svg-->
-											<svg xmlns="http://www.w3.org/2000/svg"
-                                                 xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
-                                                 viewBox="0 0 24 24" version="1.1">
-												<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-													<rect x="0" y="0" width="24" height="24"/>
-													<rect fill="#000000" x="4" y="4" width="7" height="7" rx="1.5"/>
-													<path d="M5.5,13 L9.5,13 C10.3284271,13 11,13.6715729 11,14.5 L11,18.5 C11,19.3284271 10.3284271,20 9.5,20 L5.5,20 C4.67157288,20 4,19.3284271 4,18.5 L4,14.5 C4,13.6715729 4.67157288,13 5.5,13 Z M14.5,4 L18.5,4 C19.3284271,4 20,4.67157288 20,5.5 L20,9.5 C20,10.3284271 19.3284271,11 18.5,11 L14.5,11 C13.6715729,11 13,10.3284271 13,9.5 L13,5.5 C13,4.67157288 13.6715729,4 14.5,4 Z M14.5,13 L18.5,13 C19.3284271,13 20,13.6715729 20,14.5 L20,18.5 C20,19.3284271 19.3284271,20 18.5,20 L14.5,20 C13.6715729,20 13,19.3284271 13,18.5 L13,14.5 C13,13.6715729 13.6715729,13 14.5,13 Z"
-                                                          fill="#000000" opacity="0.3"/>
-												</g>
-											</svg>
-                                            <!--end::Svg Icon-->
-										</span>
-                        <span class="menu-text">人事マスター</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="menu-submenu">
-                        <i class="menu-arrow"></i>
-                        <ul class="menu-subnav">
-                            <li class="menu-item menu-item-parent" aria-haspopup="true">
-												<span class="menu-link">
-													<span class="menu-text">人事マスター</span>
-												</span>
-                            </li>
-                            <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                data-menu-toggle="hover">
-                                <a href="javascript:;" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">管理者管理</span>
-                                    <i class="menu-arrow"></i>
-                                </a>
-                                <div class="menu-submenu">
-                                    <i class="menu-arrow"></i>
-                                    <ul class="menu-subnav">
-                                        <li class="menu-item" aria-haspopup="true">
-                                            <a href="" class="menu-link">
-                                                <i class="menu-bullet menu-bullet-dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="menu-text">管理者追加</span>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item" aria-haspopup="true">
-                                            <a href="" class="menu-link">
-                                                <i class="menu-bullet menu-bullet-dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="menu-text">管理者一覧</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                data-menu-toggle="hover">
-                                <a href="javascript:;" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">ユーザー管理</span>
-                                    <i class="menu-arrow"></i>
-                                </a>
-                                <div class="menu-submenu">
-                                    <i class="menu-arrow"></i>
-                                    <ul class="menu-subnav">
-                                        <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                            data-menu-toggle="hover">
-                                            <a href="" class="menu-link">
-                                                <i class="menu-bullet menu-bullet-dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="menu-text">ユーザー追加</span>
-                                            </a>
-                                        </li>
-                                        <li class="menu-item" aria-haspopup="true">
-                                            <a href="" class="menu-link">
-                                                <i class="menu-bullet menu-bullet-dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="menu-text">ユーザー一覧</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                data-menu-toggle="hover">
-                                <a href="javascript:;" class="menu-link menu-toggle">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">資格マスター</span>
-                                    <i class="menu-arrow"></i>
-                                </a>
-                                <div class="menu-submenu">
-                                    <i class="menu-arrow"></i>
-                                    <ul class="menu-subnav">
-                                        <li class="menu-item" aria-haspopup="true">
-                                            <a href="" class="menu-link">
-                                                <i class="menu-bullet menu-bullet-dot">
-                                                    <span></span>
-                                                </i>
-                                                <span class="menu-text">資格一覧</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="menu-item menu-item-submenu" aria-haspopup="true"
-                                data-menu-toggle="hover">
-                                <a href="{{route('master.user-summary')}}" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-line">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">人事総括</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="menu-item menu-item-submenu" aria-haspopup="true" data-menu-toggle="hover">
-                    <a href="javascript:;" class="menu-link menu-toggle">
-										<span class="svg-icon menu-icon">
 											<!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Shopping/Barcode-read.svg-->
 											<svg xmlns="http://www.w3.org/2000/svg"
                                                  xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px"
@@ -518,6 +393,120 @@
                         </ul>
                     </li>
                 </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="shield"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">営業所マスター</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="app-access-roles.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">営業所追加</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="app-access-permission.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">営業所一覧</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">班マスター</span>
+                </a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="app-access-roles.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">班追加</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="app-access-permission.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">班一覧</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'company') ? 'sidebar-group-active open' : '' }}">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">請求会社マスター</span>
+                </a>
+                <ul class="menu-content">
+{{--                    <li class="{{ str_contains(\Request::route()->getName(), 'company-add') ? 'active' : '' }}">--}}
+{{--                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'company-add') ? '#' : route('master.company-add')}}">--}}
+{{--                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">請求会社追加</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+                    <li class="{{ str_contains(\Request::route()->getName(), 'company-manage') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'company-manage') ? '#' : route('master.company-manager')}}">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">請求会社一覧</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'site') ? 'sidebar-group-active open' : '' }}">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">現場マスター</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{ str_contains(\Request::route()->getName(), 'site-add') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'site-add') ? '#' : route('master.site-add')}}">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">現場追加</span>
+                        </a>
+                    </li>
+                    <li class="{{ str_contains(\Request::route()->getName(), 'site-manage') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'site-manage') ? '#' : route('master.site-manager')}}">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">現場一覧</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="credit-card"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">支払いマスター</span>
+                </a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="app-access-roles.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">支払総括ページ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="app-access-permission.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前借申請要請ページ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="app-access-permission.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前借り集計ページ</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">勤怠管理</span>
+                </a>
+                <ul class="menu-content">
+                    <li><a class="d-flex align-items-center" href="app-access-roles.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">支払総括ページ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="app-access-permission.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前借申請要請ページ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="app-access-permission.html">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前借り集計ページ</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="ui-typography.html">
+                    <i data-feather="type"></i><span class="menu-title text-truncate" data-i18n="Typography">作業日報管理</span>
+                </a>
             </li>
         </ul>
     </div>

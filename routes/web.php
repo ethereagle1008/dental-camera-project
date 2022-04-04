@@ -49,10 +49,18 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('team-manager', [TeamController::class, 'teamManage'])->name('master.team-manager');
             Route::get('team-add', [TeamController::class, 'teamAdd'])->name('master.team-add');
             Route::get('team-manager', [TeamController::class, 'teamManage'])->name('master.team-manager');
+
             Route::get('company-add', [CompanyController::class, 'companyAdd'])->name('master.company-add');
+            Route::post('company-save', [CompanyController::class, 'companySave'])->name('master.company-save');
+            Route::post('company-delete', [CompanyController::class, 'companyDelete'])->name('master.company-delete');
             Route::get('company-manager', [CompanyController::class, 'companyManage'])->name('master.company-manager');
+
             Route::get('site-add', [SiteController::class, 'siteAdd'])->name('master.site-add');
+            Route::get('site-edit/{id}', [SiteController::class, 'siteEdit'])->name('master.site-edit');
+            Route::post('site-save', [SiteController::class, 'siteSave'])->name('master.site-save');
+            Route::post('site-delete', [SiteController::class, 'siteDelete'])->name('master.site-delete');
             Route::get('site-manager', [SiteController::class, 'siteManage'])->name('master.site-manager');
+
             Route::get('pay-total-manager', [PayController::class, 'payTotalManage'])->name('master.pay-total-manager');
             Route::get('pay-request-manager', [PayController::class, 'payRequestManage'])->name('master.pay-request-manager');
             Route::get('pay-sum-manager', [PayController::class, 'paySumManage'])->name('master.pay-sum-manager');

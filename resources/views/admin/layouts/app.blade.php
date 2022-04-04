@@ -8,6 +8,8 @@
     <link rel="apple-touch-icon" href="{{asset('/')}}images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('/')}}images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('/')}}vendor/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{asset('/')}}vendor/simple-line-icons/css/simple-line-icons.min.css">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('/')}}vendors/css/vendors.min.css">

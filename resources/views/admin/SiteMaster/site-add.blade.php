@@ -1,146 +1,116 @@
 <x-admin-layout>
-    <!--begin::Content-->
-    <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-        <!--begin::Subheader-->
-        <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
-            <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Details-->
-                <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">管理者追加</h5>
-                    <!--end::Title-->
-                    <!--begin::Separator-->
-                    <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
-                    <!--end::Separator-->
-                    <!--begin::Search Form-->
-                    <div class="d-flex align-items-center" id="kt_subheader_search">
-                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">管理者の詳細を入力して送信します</span>
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">現場追加</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">現場マスター</a>
+                            </li>
+                            <li class="breadcrumb-item active">現場追加
+                            </li>
+                        </ol>
                     </div>
-                    <!--end::Search Form-->
                 </div>
-                <!--end::Details-->
             </div>
         </div>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
-        <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
-            <div class="container">
-                <!--begin::Card-->
-                <div class="card card-custom card-transparent">
-                    <div class="card-body p-0">
-                        <!--begin::Wizard-->
-                        <div class="wizard wizard-4" id="kt_wizard" data-wizard-state="step-first" data-wizard-clickable="true">
-                            <!--begin::Card-->
-                            <div class="card card-custom card-shadowless rounded-top-0">
-                                <!--begin::Body-->
-                                <div class="card-body p-0">
-                                    <div class="row justify-content-center py-8 px-8 py-lg-15 px-lg-10">
-                                        <div class="col-xl-12 col-xxl-10">
-                                            <!--begin::Wizard Form-->
-                                            <form class="form" id="kt_form">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-xl-9">
-                                                        <!--begin::Wizard Step 1-->
-                                                        <div class="my-5 step" data-wizard-type="step-content" data-wizard-state="current">
-                                                            <h5 class="text-dark font-weight-bold mb-10">管理者詳細:</h5>
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label text-left">イメージ</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <div class="image-input image-input-outline" id="kt_user_add_avatar">
-                                                                        <div class="image-input-wrapper" style="background-image: url(../../../../theme/html/demo1/dist/assets/media/users/100_6.jpg)"></div>
-                                                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
-                                                                            <i class="fa fa-pen icon-sm text-muted"></i>
-                                                                            <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg" />
-                                                                            <input type="hidden" name="profile_avatar_remove" />
-                                                                        </label>
-                                                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
-																							<i class="ki ki-bold-close icon-xs text-muted"></i>
-																						</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Group-->
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label">名前</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <input class="form-control form-control-solid form-control-lg" name="firstname" type="text" value="" />
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Group-->
-
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label">電話番号</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <div class="input-group input-group-solid input-group-lg">
-                                                                        <div class="input-group-prepend">
-																							<span class="input-group-text">
-																								<i class="la la-phone"></i>
-																							</span>
-                                                                        </div>
-                                                                        <input type="text" class="form-control form-control-solid form-control-lg" name="phone" value="5678967456" placeholder="Phone" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Group-->
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label">メールアドレス</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <div class="input-group input-group-solid input-group-lg">
-                                                                        <div class="input-group-prepend">
-																							<span class="input-group-text">
-																								<i class="la la-at"></i>
-																							</span>
-                                                                        </div>
-                                                                        <input type="text" class="form-control form-control-solid form-control-lg" name="email" value="" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Group-->
-                                                            <!--begin::Group-->
-                                                            <div class="form-group row">
-                                                                <label class="col-xl-3 col-lg-3 col-form-label" for="exampleSelect1">権限</label>
-                                                                <div class="col-lg-9 col-xl-9">
-                                                                    <select class="form-control" id="exampleSelect1">
-                                                                        <option>スーパー管理者</option>
-                                                                        <option>事務職管理者</option>
-                                                                    </select>
-                                                                </div>
-
-                                                            </div>
-                                                            <!--end::Group-->
-                                                        </div>
-                                                        <!--end::Wizard Step 1-->
-                                                        <!--begin::Wizard Actions-->
-                                                        <div class="d-flex justify-content-between border-top pt-10 mt-15">
-                                                            <div>
-                                                                <button type="button" class="btn btn-success font-weight-bolder px-9 py-4">登録</button>
-                                                            </div>
-                                                        </div>
-                                                        <!--end::Wizard Actions-->
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            <!--end::Wizard Form-->
+    </div>
+    <!--begin::Content-->
+    <div class="content-body">
+        <section id="basic-input">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">現場追加</h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" id="saveForm">
+                                @csrf
+                                <input type="hidden" name="id" value="{{isset($data) ? $data->id : ''}}">
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="name">現場名</label>
+                                        <input type="text" id="name" class="form-control" name="name" placeholder="現場名を入力してください"
+                                               value="{{isset($data) ? $data->name : ''}}" required/>
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="address">現場住所</label>
+                                        <input type="text" id="address" class="form-control" name="address" placeholder="現場住所を入力してください"
+                                               value="{{isset($data) ? $data->address : ''}}" required/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="latitude">緯度</label>
+                                        <input type="text" id="latitude" class="form-control" name="latitude" placeholder="緯度を入力してください"
+                                               value="{{isset($data) ? $data->latitude : ''}}" required/>
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="longitude">経度</label>
+                                        <input type="text" id="longitude" class="form-control" name="longitude" placeholder="経度を入力してください"
+                                               value="{{isset($data) ? $data->longitude : ''}}" required/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="contact">担当者名</label>
+                                        <input type="text" id="contact" class="form-control" name="contact" placeholder="担当者名を入力してください"
+                                               value="{{isset($data) ? $data->contact : ''}}" required/>
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="site_code">占部組現場コード</label>
+                                        <input type="number" maxlength="7" minlength="7" id="site_code" class="form-control" name="site_code"
+                                               placeholder="占部組現場コードを入力してください" value="{{isset($data) ? $data->site_code : ''}}" required/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="company_id">請求先会社</label>
+                                        <select class="form-select" id="company_id" name="company_id">
+                                            @foreach($company as $item)
+                                                <option value="{{$item->id}}" {{isset($data) ? ($data->company_id == $item->id ? 'selected' : '') : ''}}>{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label">現場状況: </label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="status" id="status1" value="1"
+                                                {{isset($data) ? ($data->status == 1 ? 'checked' : '') : 'checked'}}/>
+                                            <label class="form-check-label" for="gender1">進行中
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="status" id="status2" value="0"
+                                                {{isset($data) ? ($data->status == 0 ? 'checked' : '') : ''}}/>
+                                            <label class="form-check-label" for="gender2">終了</label>
                                         </div>
                                     </div>
                                 </div>
-                                <!--end::Body-->
-                            </div>
-                            <!--end::Card-->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button type="reset" class="btn btn-primary me-1 btn_submit">登録</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        <!--end::Wizard-->
                     </div>
                 </div>
-                <!--end::Card-->
             </div>
-            <!--end::Container-->
-        </div>
-        <!--end::Entry-->
+        </section>
     </div>
     <!--end::Content-->
+    <script>
+        let admin_save = '{{route('master.site-save')}}';
+        $(document).ready(function () {
+            $('.btn_submit').click(function (e) {
+                e.preventDefault();
+                saveForm('saveForm', admin_save)
+            })
+        })
+    </script>
 </x-admin-layout>

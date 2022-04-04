@@ -125,23 +125,23 @@ function showError(error) {
 }
 
 function getPlaceName(position, type) {
-    sendShift('place', type);
-    // let latlng = {
-    //     lat: parseFloat(position.coords.latitude),
-    //     lng: parseFloat(position.coords.longitude),
-    // };
-    // let geocoder = new google.maps.Geocoder();
-    // geocoder
-    //     .geocode({ location: latlng })
-    //     .then((response) => {
-    //         if (response.results[0]) {
-    //             console.log(response);
-    //             let place = response.result[0].address_componets[5].long_name + response.result[0].address_componets[4].long_name
-    //                 + response.result[0].address_componets[3].long_name;
-    //             sendShift(place, type);
-    //         }
-    //     })
-    //     .catch((e) => window.alert("Geocoder failed due to: " + e));
+    //sendShift('place', type);
+    let latlng = {
+        lat: parseFloat(position.coords.latitude),
+        lng: parseFloat(position.coords.longitude),
+    };
+    let geocoder = new google.maps.Geocoder();
+    geocoder
+        .geocode({ location: latlng })
+        .then((response) => {
+            if (response.results[0]) {
+                console.log(response);
+                let place = response.results[0].address_components[5].long_name + response.results[0].address_components[4].long_name + response.results[0].address_components[3].long_name
+                    + response.results[0].address_components[2].long_name;
+                sendShift(place, type);
+            }
+        })
+        .catch((e) => window.alert("Geocoder failed due to: " + e));
 }
 
 function sendShift(place, type){

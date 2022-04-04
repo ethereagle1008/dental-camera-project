@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Qualify;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -75,9 +76,26 @@ class AdminController extends Controller
     public function userAdd(){
         return view('admin.PersonMaster.user-add');
     }
+
     public function qualifyManage(){
-        return view('admin.PersonMaster.qualify-manager');
+        $data = Qualify::all();
+        return view('admin.PersonMaster.qualify-manager', compact('data'));
     }
+    public function qualifySave(Request $request){
+        if(isset($request->id)){
+            Qualify::where('id', $request->id)->update(['type_name' => $request->type_name, 'name' => $request->name]);
+        }
+        else{
+            Qualify::create(['type_name' => $request->type_name, 'name' => $request->name]);
+        }
+        return response()->json(['status' => true]);
+    }
+    public function qualifyDelete(Request $request){
+        Qualify::where('id', $request->id)->delete();
+        return response()->json(['status' => true]);
+    }
+
+
     public function userSummary(){
         return view('admin.PersonMaster.user-summary');
     }
