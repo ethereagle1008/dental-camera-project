@@ -37,11 +37,23 @@
                                 <div class="row">
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="name">氏名</label>
-                                        <input type="text" id="name" class="form-control" name="name" placeholder="氏名を入力してください" value="{{isset($user) ? $user->name : ''}}"/>
+                                        <input type="text" id="name" class="form-control" name="name" placeholder="氏名を入力してください" value="{{isset($user) ? $user->name : ''}}" required/>
                                     </div>
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="email">フリガナ</label>
-                                        <input type="email" id="furi" class="form-control" name="furi" placeholder="フリガナを入力してください" value="{{isset($user) ? $user->furi : ''}}" />
+                                        <input type="text" id="furi" class="form-control" name="furi" placeholder="フリガナを入力してください" value="{{isset($user) ? $user->furi : ''}}" required/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="email">メールアドレス</label>
+                                        <input type="email" id="email" class="form-control" name="email" placeholder="メールアドレスを入力してください"
+                                               value="{{isset($user) ? $user->email : ''}}" required/>
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="phone">パスワード</label>
+                                        <input type="password" id="phone" class="form-control" name="password"
+                                               placeholder="{{isset($user) ? '******' : 'パスワードを入力してください'}}" required/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -96,18 +108,6 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-1 col-md-6">
-                                        <label class="form-label" for="email">メールアドレス</label>
-                                        <input type="email" id="email" class="form-control" name="email" placeholder="メールアドレスを入力してください"
-                                               value="{{isset($user) ? $user->email : ''}}"/>
-                                    </div>
-                                    <div class="mb-1 col-md-6">
-                                        <label class="form-label" for="phone">個人連絡先TEL</label>
-                                        <input type="number" id="phone" class="form-control" name="phone" placeholder="個人連絡先TELを入力してください"
-                                               value="{{isset($user) ? $user->phone : ''}}" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="mb-1 col-md-6">
                                         <label class="form-label" for="emergency_name">緊急連絡先　氏名</label>
                                         <input type="text" id="emergency_name" class="form-control" name="emergency_name" placeholder="緊急連絡先　氏名を入力してください"
                                                value="{{isset($user) ? $user->emergency_name : ''}}"/>
@@ -133,8 +133,8 @@
                                         </select>
                                     </div>
                                     <div class="mb-1 col-md-6">
-                                        <label class="form-label" for="director_id">日当</label>
-                                        <select class="form-select" id="director_id" name="director_id">
+                                        <label class="form-label" for="contract_value">日当</label>
+                                        <select class="form-select" id="contract_value" name="contract_value" disabled>
                                             <option value="1">12,000円</option>
                                             <option value="2">13,500円</option>
                                             <option value="3">15,000円</option>
@@ -145,23 +145,32 @@
                                 </div>
                                 <div class="row">
                                     <div class="mb-1 col-md-6">
-                                        <label class="form-label" for="office_id">営業所</label>
-                                        <select class="form-select" id="office_id" name="office_id">
-                                            <option value="1">一般A</option>
+                                        <label class="form-label" for="select2-nested">営業所-班</label>
+                                        <select class="select2 form-select" id="select2-nested" name="team_id">
+                                            @foreach($office as $item)
+                                                <optgroup label="{{$item->name}}">
+                                                    @foreach($team as $itm)
+                                                        @if($itm->office_id == $item->id)
+                                                            <option value="{{$itm->id}}">{{$itm->name}}</option>
+                                                        @endif
+                                                    @endforeach
+                                            </optgroup>
+                                            @endforeach
                                         </select>
                                     </div>
-                                    <div class="mb-1 col-md-6">
-                                        <label class="form-label" for="team_id">班</label>
-                                        <select class="form-select" id="team_id" name="team_id">
-                                            <option value="1">12,000円</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="pring_number">pring携帯番号</label>
                                         <input type="text" id="pring_number" class="form-control" name="pring_number" placeholder="pring携帯番号を入力してください"
                                                value="{{isset($user) ? $user->pring_nmber : ''}}"/>
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="director_id">紹介した所長</label>
+                                        <select class="form-select" id="director_id" name="director_id">
+                                            <option></option>
+                                            @foreach($officeManager as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="content-header">
@@ -220,31 +229,42 @@
                                             <label class="form-check-label" for="insurance2">NO</label>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="name">労災保険料</label>
-                                            <input type="text" id="name" class="form-control" name="name" placeholder="氏名を入力してください" value="{{isset($user) ? $user->name : ''}}"/>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label">受取方法: </label>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="receive_type" id="receive_type1" value="1"
+                                                {{isset($user) ? ($user->receive_type == 1 ? 'checked' : '') : 'checked'}}/>
+                                            <label class="form-check-label" for="receive_type1">pring受取</label>
                                         </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="email">安全協力費</label>
-                                            <input type="email" id="furi" class="form-control" name="furi" placeholder="フリガナを入力してください" value="{{isset($user) ? $user->furi : ''}}" />
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="name">貸付金</label>
-                                            <input type="text" id="name" class="form-control" name="name" placeholder="氏名を入力してください" value="{{isset($user) ? $user->name : ''}}"/>
-                                        </div>
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="email">前払金</label>
-                                            <input type="email" id="furi" class="form-control" name="furi" placeholder="フリガナを入力してください" value="{{isset($user) ? $user->furi : ''}}" />
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="receive_type" id="receive_type2" value="2"
+                                                {{isset($user) ? ($user->receive_type == 2 ? 'checked' : '') : ''}}/>
+                                            <label class="form-check-label" for="receive_type2">銀行振込</label>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="mb-1 col-md-6">
-                                            <label class="form-label" for="name">受取方法※基本はpring</label>
-                                            <input type="text" id="name" class="form-control" name="name" placeholder="氏名を入力してください" value="{{isset($user) ? $user->name : ''}}"/>
-                                        </div>
+
+{{--                                    <div class="row">--}}
+{{--                                        <div class="mb-1 col-md-6">--}}
+{{--                                            <label class="form-label" for="name">貸付金</label>--}}
+{{--                                            <input type="text" id="name" class="form-control" name="name" placeholder="氏名を入力してください" value="{{isset($user) ? $user->name : ''}}"/>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="mb-1 col-md-6">--}}
+{{--                                            <label class="form-label" for="email">前払金</label>--}}
+{{--                                            <input type="email" id="furi" class="form-control" name="furi" placeholder="フリガナを入力してください" value="{{isset($user) ? $user->furi : ''}}" />--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+                                </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="name">労災保険料</label>
+                                        <input class="form-control" disabled placeholder="" value="100"/>
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="email">安全協力費</label>
+                                        <input class="form-control" disabled placeholder="" value="100"/>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="reset" class="btn btn-primary me-1 btn_submit">登録</button>
                                     </div>
                                 </div>
                             </form>
@@ -256,13 +276,17 @@
     </div>
     <!--end::Content-->
     <script>
-        let admin_save = '{{route('master.person-admin-save')}}';
+        let admin_save = '{{route('master.person-user-save')}}';
         $(document).ready(function () {
             $('.btn_submit').click(function (e) {
                 e.preventDefault();
-                saveForm('admin_save', admin_save)
+                saveForm('user_save', admin_save)
             })
             $('.flatpickr-basic').flatpickr();
+
+            $('#contract_type').change(function () {
+                $('#contract_value').val($(this).val());
+            })
         })
     </script>
 </x-admin-layout>

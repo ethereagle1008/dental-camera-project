@@ -9,9 +9,12 @@ class Team extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'team_manager_id'
+        'name', 'team_manager_id', 'office_id'
     ];
     public function teamManager(){
         return $this->hasOne(User::class, 'id', 'team_manager_id');
+    }
+    public function office(){
+        return $this->hasOne(Office::class, 'id', 'office_id');
     }
 }

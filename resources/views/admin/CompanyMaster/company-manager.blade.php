@@ -146,7 +146,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel33">資格変更</h4>
+                    <h4 class="modal-title" id="myModalLabel33">請求会社変更</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="modify_form">
@@ -182,7 +182,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary modifyBtn">ストア変更</button>
+                        <button type="button" class="btn btn-primary modifyBtn">変更</button>
                     </div>
                 </form>
             </div>
@@ -191,7 +191,23 @@
     <script>
         let qualify_add = '{{route('master.company-save')}}';
         let qualify_delete = '{{route('master.company-delete')}}';
-
+        // toastr.options = {
+        //     "closeButton": true,
+        //     "debug": false,
+        //     "newestOnTop": false,
+        //     "progressBar": false,
+        //     "positionClass": "toast-top-right",
+        //     "preventDuplicates": false,
+        //     "onclick": null,
+        //     "showDuration": "300",
+        //     "hideDuration": "1000",
+        //     "timeOut": "5000",
+        //     "extendedTimeOut": "1000",
+        //     "showEasing": "swing",
+        //     "hideEasing": "linear",
+        //     "showMethod": "fadeIn",
+        //     "hideMethod": "fadeOut"
+        // };
         $('#saveBtn').click(function (e) {
             e.preventDefault();
             if($('#company_add').valid()){
@@ -203,8 +219,15 @@
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        $('#modals-slide-in').modal('hide');
-                        window.location.reload();
+                        if(response.status == true){
+                            toastr.success("成功しました。");
+                            $('#modals-slide-in').modal('hide');
+                            window.location.reload();
+                        }
+                        else {
+                            toastr.warning("失敗しました。");
+                        }
+
                     },
                 });
             }
@@ -229,9 +252,16 @@
                     contentType: false,
                     processData: false,
                     success: function(response){
-                        $('#modals-slide-in').modal('hide');
-                        $('#modifyForm').modal('hide');
-                        window.location.reload();
+                        if(response.status == true){
+                            toastr.success("成功しました。");
+                            $('#modals-slide-in').modal('hide');
+                            $('#modifyForm').modal('hide');
+                            window.location.reload();
+                        }
+                        else {
+                            toastr.warning("失敗しました。");
+                        }
+
                     },
                 });
             }
@@ -250,23 +280,7 @@
                     id : id
                 },
                 success: function (response) {
-                    toastr.options = {
-                        "closeButton": true,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": false,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "5000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    };
+
                     if(response.status == true){
                         toastr.success("成功しました。");
                         window.location.reload()

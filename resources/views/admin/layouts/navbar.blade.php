@@ -373,8 +373,8 @@
                                     <span class="menu-item text-truncate" data-i18n="Third Level">ユーザー追加</span>
                                 </a>
                             </li>
-                            <li class="{{ str_contains(\Request::route()->getName(), 'user-manager') ? 'active' : '' }}">
-                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-manager') ? '#' : route('master.person-user-manager')}}">
+                            <li class="{{ str_contains(\Request::route()->getName(), 'user-summary') ? 'active' : '' }}">
+                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-summary') ? '#' : route('master.person-user-summary')}}">
                                     <span class="menu-item text-truncate" data-i18n="Third Level">人事総括</span>
                                 </a>
                             </li>
@@ -394,34 +394,34 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item">
+            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'office') ? 'sidebar-group-active open' : '' }}">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="shield"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">営業所マスター</span>
                 </a>
                 <ul class="menu-content">
-                    <li>
-                        <a class="d-flex align-items-center" href="app-access-roles.html">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">営業所追加</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex align-items-center" href="app-access-permission.html">
+{{--                    <li>--}}
+{{--                        <a class="d-flex align-items-center" href="app-access-roles.html">--}}
+{{--                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">営業所追加</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+                    <li class="{{ str_contains(\Request::route()->getName(), 'office-manage') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'office-manage') ? '#' : route('master.office-manager')}}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">営業所一覧</span>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item">
+            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'team') ? 'sidebar-group-active open' : '' }}">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">班マスター</span>
                 </a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="app-access-roles.html">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">班追加</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex align-items-center" href="app-access-permission.html">
+{{--                    <li><a class="d-flex align-items-center" href="app-access-roles.html">--}}
+{{--                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">班追加</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+                    <li class="{{ str_contains(\Request::route()->getName(), 'team-manage') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'team-manage') ? '#' : route('master.team-manager')}}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">班一覧</span>
                         </a>
                     </li>
@@ -503,8 +503,8 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item">
-                <a class="d-flex align-items-center" href="ui-typography.html">
+            <li class=" nav-item {{ str_contains(\Request::route()->getName(), 'work-report') ? 'sidebar-group-active' : '' }}">
+                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">
                     <i data-feather="type"></i><span class="menu-title text-truncate" data-i18n="Typography">作業日報管理</span>
                 </a>
             </li>

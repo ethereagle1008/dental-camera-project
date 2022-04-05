@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Office;
 use App\Models\Qualify;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,11 +72,70 @@ class AdminController extends Controller
         return response()->json(['status' => true]);
 
     }
+
+
     public function userManage(){
         return view('admin.PersonMaster.user-manager');
     }
     public function userAdd(){
-        return view('admin.PersonMaster.user-add');
+        $office = Office::orderBy('name')->get();
+        $team = Team::orderBy('name')->get();
+        $officeManager = User::whereNotNull('office_id')->get();
+        return view('admin.PersonMaster.user-add', compact('office', 'team', 'officeManager'));
+    }
+    public function userSave(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if(isset($user)){
+            return response()->json(['status' => false]);
+        }
+        $team_id = $request->team_id;
+        $team = Team::find($team_id);
+        $office_id = $team->office_id;
+        $office = Office::find($team->office_id);
+        if($request->contract_type == 3){
+            if(!empty($team->team_manager_id)){
+                return response()->json(['status' => false]);
+            }
+        }
+        else if($request->contract_type == 4){
+            if(!empty($office->office_manager_id)){
+                return response()->json(['status' => false]);
+            }
+        }
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'user',
+            'furi' => $request->furi,
+            'gender' => $request->gender,
+            'blood' => $request->blood,
+            'birthday' => isset($request->birthday) ? date('Y-m-d', strtotime($request->birthday)) : null,
+            'phone' => $request->phone,
+            'emergency_name' => $request->emergency_name,
+            'emergency_number' => $request->emergency_number,
+            'contract_type' => $request->contract_type,
+            'director_id' => $request->director_id,
+            'office_id' => $office_id,
+            'team_id' => $team_id,
+            'dormitory' => $request->dormitory,
+            'cloth' => $request->cloth,
+            'business_phone' => $request->business_phone,
+            'insurance' => $request->insurance,
+            'receive_type' => $request->receive_type,
+        ];
+        $users = User::create($data);
+        $users->givePermissionTo('user');
+
+        if($request->contract_type == 3){
+            Team::where('id', $team_id)->update(['team_manager_id' => $users->id]);
+        }
+        else if($request->contract_type == 4){
+            Office::where('id', $office_id)->update(['office_manager_id' => $users->id]);
+        }
+
+        return response()->json(['status' => true]);
     }
 
     public function qualifyManage(){
@@ -97,6 +158,7 @@ class AdminController extends Controller
 
 
     public function userSummary(){
-        return view('admin.PersonMaster.user-summary');
+        $data = User::where('role', 'user')->get();
+        return view('admin.PersonMaster.user-summary', compact('data'));
     }
 }

@@ -34,13 +34,13 @@ function sendCashEmail($details, $email){
 
 function contractType($contract_type){
     switch ($contract_type) {
-        case 1:
-            return "所長";
-        case 2:
-            return "班長";
-        case 3:
-            return "一般A";
         case 4:
+            return "所長";
+        case 3:
+            return "班長";
+        case 1:
+            return "一般A";
+        case 2:
             return "一般B";
         case 5:
             return "その他";

@@ -14,7 +14,7 @@ class UserController extends Controller
     //
     public function dashboard(){
         $shift = UserShift::where('user_id', Auth::user()->id)->where('shift_date', date('Y-m-d'))->first();
-        $sites = Site::all();
+        $sites = Site::where('status', 1)->get();
         return view('dashboard', compact('shift', 'sites'));
     }
     public function payRequest(){
@@ -26,7 +26,7 @@ class UserController extends Controller
         return response()->json(['status' => true]);
     }
     public function dailyReport(){
-        $sites = Site::all();
+        $sites = Site::where('status', 1)->get();
         return view('user.daily-report', compact('sites'));
     }
     public function dailyReportPost(Request $request){

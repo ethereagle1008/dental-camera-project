@@ -43,12 +43,17 @@ Route::group(['middleware' => 'auth'], function (){
             Route::post('qualify-save', [AdminController::class, 'qualifySave'])->name('master.person-qualify-save');
             Route::post('qualify-delete', [AdminController::class, 'qualifyDelete'])->name('master.person-qualify-delete');
 
-            Route::get('user-summary', [AdminController::class, 'userSummary'])->name('master.user-summary');
+            Route::get('user-summary', [AdminController::class, 'userSummary'])->name('master.person-user-summary');
+
             Route::get('office-manager', [OfficeController::class, 'officeManage'])->name('master.office-manager');
+            Route::post('office-save', [OfficeController::class, 'officeSave'])->name('master.office-save');
+            Route::post('office-delete', [OfficeController::class, 'officeDelete'])->name('master.office-delete');
             Route::get('office-add', [OfficeController::class, 'officeAdd'])->name('master.office-add');
+
             Route::get('team-manager', [TeamController::class, 'teamManage'])->name('master.team-manager');
             Route::get('team-add', [TeamController::class, 'teamAdd'])->name('master.team-add');
-            Route::get('team-manager', [TeamController::class, 'teamManage'])->name('master.team-manager');
+            Route::post('team-save', [TeamController::class, 'teamSave'])->name('master.team-save');
+            Route::post('team-delete', [TeamController::class, 'teamDelete'])->name('master.team-delete');
 
             Route::get('company-add', [CompanyController::class, 'companyAdd'])->name('master.company-add');
             Route::post('company-save', [CompanyController::class, 'companySave'])->name('master.company-save');
