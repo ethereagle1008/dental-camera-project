@@ -13,6 +13,9 @@ class PayController extends Controller
     public function payRequestManage(){
         return view('admin.PayMaster.pay-request-manager');
     }
+    public function payRequestTable(){
+        return view('admin.PayMaster.pay-request-table');
+    }
     public function paySumManage(){
         return view('admin.PayMaster.pay-sum-manager');
     }

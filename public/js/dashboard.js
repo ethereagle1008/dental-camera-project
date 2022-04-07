@@ -63,7 +63,7 @@ $(document).ready(function () {
             toastr.warning("現場を選択してください。");
             return;
         }
-        site_id = $('#site').val();
+        site_id = $(this).data('id');
         Swal.fire({
             title: "退勤報告をしますか。",
             text: "現在のアドレスが一緒にアップロードされます。",
@@ -181,10 +181,12 @@ function sendShift(place, type){
                     $('#btn_arrive')[0].disabled = true;
                     $('#site')[0].disabled = true;
                     toastr.success("出勤報告をしました。");
+                    window.location.reload();
                 }
                 else{
                     $('#btn_leave')[0].disabled = true;
                     toastr.success("退勤報告をしました。");
+                    window.location.reload();
                 }
             }
             else {

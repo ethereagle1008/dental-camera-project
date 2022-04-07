@@ -40,8 +40,9 @@ class UserController extends Controller
         return response()->json(['status' => true]);
     }
     public function shiftPost(Request $request){
-        $shift = UserShift::where('user_id', Auth::user()->id)->where('shift_date', date('Y-m-d'))->first();
+
         if($request->type == 'arrive'){
+            $shift = UserShift::where('user_id', Auth::user()->id)->where('shift_date', date('Y-m-d'))->first();
             if(isset($shift)){
                 return response()->json(['status' => false]);
             }
@@ -55,6 +56,7 @@ class UserController extends Controller
             UserShift::create($data);
         }
         else{
+            $shift = UserShift::where('id', $request->site_id)->first();
             if(!isset($shift)){
                 return response()->json(['status' => false]);
             }

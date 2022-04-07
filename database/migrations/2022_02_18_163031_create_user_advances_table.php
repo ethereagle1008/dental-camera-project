@@ -17,6 +17,7 @@ class CreateUserAdvancesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('payment');
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

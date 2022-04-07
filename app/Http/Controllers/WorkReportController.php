@@ -41,7 +41,7 @@ class WorkReportController extends Controller
     public function workReportDetailTable(Request $request){
         $report_id = $request->report_id;
         $work_report = WorkReport::find($report_id);
-        $data = UserShift::with('user')->where('site_id', $work_report->site_id)->get();
+        $data = UserShift::with('user')->where('site_id', $work_report->site_id)->where('shift_date', $work_report->report_date)->get();
         return view('admin.WorkReportMaster.work-report-detail-table', compact('data'));
     }
     public function workReportExportExcel($id){
@@ -270,5 +270,33 @@ class WorkReportController extends Controller
         header("Content-Disposition: attachment; filename=作業日報承認書.xls");  //File name extension was wrong
         $writer = IOFactory::createWriter($spreadsheet, 'Xls');
         $writer->save('php://output');
+    }
+
+    public function workShiftManage(){
+        return view('admin.WorkReportMaster.work-shift-manager');
+    }
+    public function workShiftTable(Request $request){
+        $site_name = $request->site_name;
+        if(isset($site_name)){
+            if(isset($request->report_date)){
+                $data = UserShift::with('site')->with('user')->whereHas('site', function ($query) use ($site_name){
+                    $query->where('name', 'like' , '%' . $site_name . '%');
+                })->where('shift_date', date('Y-m-d', strtotime($request->report_date)))->get();
+            }
+            else{
+                $data = UserShift::with('site')->with('user')->whereHas('site', function ($query) use ($site_name){
+                    $query->where('name', 'like' , '%' . $site_name . '%');
+                })->get();
+            }
+        }
+        else{
+            if(isset($request->report_date)){
+                $data = UserShift::with('site')->with('user')->where('shift_date', date('Y-m-d', strtotime($request->report_date)))->get();
+            }
+            else{
+                $data = UserShift::with('site')->with('user')->get();
+            }
+        }
+        return view('admin.WorkReportMaster.work-shift-table', compact('data'));
     }
 }

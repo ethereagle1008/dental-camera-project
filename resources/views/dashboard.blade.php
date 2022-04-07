@@ -30,8 +30,8 @@
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-rounded btn-success box-shadow-2 mb-2 mr-4 btn_arrive" id="btn_arrive" style="width: 110px;"
                                     {{isset($shift) ? 'disabled' : ''}}>出勤</button>
-                                <button type="button" class="btn btn-rounded btn-danger box-shadow-2 mb-2 ml-4 btn_leave" id="btn_leave" style="width: 110px"
-                                    {{(isset($shift) && isset($shift->end_time)) ? 'disabled' : ''}}>退勤</button>
+                                <button type="button" class="btn btn-rounded btn-danger box-shadow-2 mb-2 ml-4 btn_leave" id="btn_leave" data-id="{{isset($shift) ? $shift->id : ''}}" style="width: 110px"
+                                    {{!isset($shift) || (isset($shift) && isset($shift->end_time)) ? 'disabled' : ''}}>退勤</button>
                             </div>
                         </div>
                         <div class="row mt-3">

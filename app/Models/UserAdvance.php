@@ -9,7 +9,7 @@ class UserAdvance extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'payment'
+        'user_id', 'payment', 'status'
     ];
     public function user(){
         return $this->hasOne(User::class, 'id', 'user_id');

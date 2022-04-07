@@ -68,12 +68,16 @@ Route::group(['middleware' => 'auth'], function (){
 
             Route::get('pay-total-manager', [PayController::class, 'payTotalManage'])->name('master.pay-total-manager');
             Route::get('pay-request-manager', [PayController::class, 'payRequestManage'])->name('master.pay-request-manager');
+            Route::get('pay-request-table', [PayController::class, 'payRequestTable'])->name('master.pay-request-table');
             Route::get('pay-sum-manager', [PayController::class, 'paySumManage'])->name('master.pay-sum-manager');
 
             Route::get('work-report-manager', [WorkReportController::class, 'workReportManage'])->name('master.work-report-manager');
             Route::post('work-report-table', [WorkReportController::class, 'workReportTable'])->name('master.work-report-table');
             Route::post('work-report-detail-table', [WorkReportController::class, 'workReportDetailTable'])->name('master.work-report-detail-table');
             Route::get('work-report-export-excel/{id}', [WorkReportController::class, 'workReportExportExcel'])->name('master.work-report-export-excel');
+
+            Route::get('work-shift-manager', [WorkReportController::class, 'workShiftManage'])->name('master.work-shift-manager');
+            Route::post('work-shift-table', [WorkReportController::class, 'workShiftTable'])->name('master.work-shift-table');
         });
     });
 

@@ -461,7 +461,7 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item">
+            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'pay') ? 'sidebar-group-active open' : '' }}">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="credit-card"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">支払いマスター</span>
                 </a>
@@ -470,8 +470,8 @@
                             <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">支払総括ページ</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="d-flex align-items-center" href="app-access-permission.html">
+                    <li class="{{ str_contains(\Request::route()->getName(), 'pay-request') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-request-manager') ? '#' : route('master.pay-request-manager')}}>
                             <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前借申請要請ページ</span>
                         </a>
                     </li>
@@ -482,32 +482,28 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item">
+            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'work') ? 'sidebar-group-active open' : '' }}">
                 <a class="d-flex align-items-center" href="#">
-                    <i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">勤怠管理</span>
+                    <i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">作業管理</span>
                 </a>
                 <ul class="menu-content">
-                    <li><a class="d-flex align-items-center" href="app-access-roles.html">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">支払総括ページ</span>
+                    <li class="{{ str_contains(\Request::route()->getName(), 'work-shift') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-shift-manager') ? '#' : route('master.work-shift-manager')}}">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">勤怠管理</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="d-flex align-items-center" href="app-access-permission.html">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前借申請要請ページ</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex align-items-center" href="app-access-permission.html">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前借り集計ページ</span>
+                    <li class="{{ str_contains(\Request::route()->getName(), 'work-report') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">作業日報管理</span>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item {{ str_contains(\Request::route()->getName(), 'work-report') ? 'sidebar-group-active' : '' }}">
-                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">
-                    <i data-feather="type"></i><span class="menu-title text-truncate" data-i18n="Typography">作業日報管理</span>
-                </a>
-            </li>
+{{--            <li class=" nav-item {{ str_contains(\Request::route()->getName(), 'work-report') ? 'sidebar-group-active' : '' }}">--}}
+{{--                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">--}}
+{{--                    <i data-feather="type"></i><span class="menu-title text-truncate" data-i18n="Typography">作業日報管理</span>--}}
+{{--                </a>--}}
+{{--            </li>--}}
         </ul>
     </div>
 </div>

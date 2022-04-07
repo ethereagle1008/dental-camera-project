@@ -11,7 +11,8 @@
             #section-to-print {
                 position: absolute;
                 left: 0;
-                top: 0;
+                top: 0 !important;
+                box-shadow: none !important;
             }
             .disable-print{
                 display: none !important;
@@ -21,92 +22,78 @@
             }
         }
     </style>
-    <div class="content d-flex flex-column flex-column-fluid" id="">
-        <!--begin::Subheader-->
-        <div class="subheader py-2 py-lg-4 subheader-solid" id="kt_subheader">
-            <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
-                <!--begin::Details-->
-                <div class="d-flex align-items-center flex-wrap mr-2">
-                    <!--begin::Title-->
-                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">作業日報管理</h5>
-                    <!--end::Title-->
+    <div class="content-header row">
+        <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="row breadcrumbs-top">
+                <div class="col-12">
+                    <h2 class="content-header-title float-start mb-0">作業日報管理</h2>
+                    <div class="breadcrumb-wrapper">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">作業マスター</a>
+                            </li>
+                            <li class="breadcrumb-item active">作業日報管理
+                            </li>
+                        </ol>
+                    </div>
                 </div>
-                <!--end::Details-->
             </div>
         </div>
-        <!--end::Subheader-->
-        <!--begin::Entry-->
-        <div class="d-flex flex-column-fluid">
-            <!--begin::Container-->
-            <div class="container">
-                <!--begin::Card-->
-                <div class="card card-custom mb-4">
-                    <!--begin::Body-->
-                    <div class="card-body">
-                        <form id="work_report_form">
-                            @csrf
-                            <div class="form-group row">
-                                <label class="col-form-label text-right col-lg-1 col-sm-12">現場名</label>
-                                <div class="col-lg-3 col-md-9 col-sm-12">
-                                    <input type="text" name="site_name" class="form-control" placeholder="現場名を入力してください。">
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <label class="col-form-label text-right col-lg-1 col-sm-12">日付</label>
-                                <div class="col-lg-3 col-md-9 col-sm-12">
-                                    <input type="text" class="form-control" id="kt_datepicker_1" name="report_date" readonly="readonly"
-                                           value="{{date('m/d/Y')}}" placeholder="日付をご選択ください。" />
-                                </div>
-                                <button class="btn btn-success mr-2" id="btn_get_table">検　索</button>
-                            </div>
-                        </form>
-                        <form id="work_report_detail_form" class="d-none">
-                            @csrf
-                            <input type="hidden" name="report_id" id="report_id">
-                        </form>
-                    </div>
-                    <!--end::Body-->
-                </div>
-                <!--end::Card-->
-                <!--begin::Card-->
-                <div class="card card-custom">
-                    <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                        <div class="card-title">
-                            <h3 class="card-label">作業日報管理一覧
-                                <span class="d-block text-muted pt-2 font-size-sm">選択した日付の作業報告を提出した場所と班一覧を示しています。</span>
-                            </h3>
+    </div>
+    <div class="content-body">
+        <!-- Advanced Search -->
+        <section id="advanced-search-datatable">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header border-bottom">
+                            <h4 class="card-title">作業日報管理</h4>
                         </div>
-                        <div class="card-toolbar">
+                        <!--Search Form -->
+                        <div class="card-body mt-2">
+                            <form class="dt_adv_search" method="POST" id="work_report_form">
+                                @csrf
+                                <div class="row g-1 mb-md-1">
+                                    <div class="col-md-6">
+                                        <label class="form-label">現場名:</label>
+                                        <input type="text" class="form-control dt-input dt-full-name" data-column="1" name="site_name"
+                                               placeholder="現場名を入力してください。" data-column-index="0" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">日付:</label>
+                                        <input type="text" id="birthday" class="form-control flatpickr-basic" name="report_date" placeholder="YYYY-MM-DD"
+                                               data-column="2" value="{{date('Y-m-d')}}"  data-column-index="1"/>
+                                    </div>
+                                </div>
+                                <div class="row g-1">
+                                    <button class="btn btn-success mr-2" id="btn_get_table">検　索</button>
+                                </div>
+                            </form>
+                            <form id="work_report_detail_form" class="d-none">
+                                @csrf
+                                <input type="hidden" name="report_id" id="report_id">
+                            </form>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <!--begin: Datatable-->
-                        <div id="work_report">
+                        <hr class="my-0" />
+                        <div class="card-datatable px-2" id="work_report">
 
                         </div>
-
-                        <!--end: Datatable-->
                     </div>
                 </div>
-                <!--end::Card-->
             </div>
-            <!--end::Container-->
-        </div>
-        <!--end::Entry-->
+        </section>
+        <!--/ Advanced Search -->
     </div>
 
     <!-- Modal-->
-    <div class="modal fade" id="worKReportDetailModal" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-            <div class="modal-content" style="width: 80vw">
+    <div class="modal fade text-start" id="worKReportDetailModal" tabindex="-1" aria-labelledby="worKReportDetailModal" data-bs-backdrop="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">作業日報</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <i aria-hidden="true" class="ki ki-close"></i>
-                    </button>
+                    <h4 class="modal-title" id="myModalLabel16">作業日報</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="height: 600px;">
-                    <div class="card card-custom w-100" id="section-to-print">
+                <div class="modal-body" >
+                    <div class="card card-custom w-100 position-relative" id="section-to-print">
                         <div class="card-header pt-6">
                             <div class="row w-100 text-center py-3">
                                 <div class="col-md-12 text-center">
@@ -201,27 +188,60 @@
                             <div class="card-toolbar disable-print">
                                 <!--begin::Dropdown-->
                                 <div class="dropdown dropdown-inline mr-2">
-                                    <button type="button" class="btn btn-light-primary font-weight-bolder dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="la la-download"></i>Export</button>
-                                    <!--begin::Dropdown Menu-->
-                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">
-                                        <ul class="nav flex-column nav-hover">
-                                            <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2 pl-2">オプションを選択する:</li>
-                                            <li class="nav-item">
-                                                <a href="#" class="nav-link" onclick="window.print()">
-                                                    <i class="nav-icon la la-print"></i>
-                                                    <span class="nav-text">PDF印刷</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a id="export-excel" href="{{route('master.work-report-export-excel', 1)}}" class="nav-link">
-                                                    <i class="nav-icon la la-file-excel-o"></i>
-                                                    <span class="nav-text">EXCEL出力</span>
-                                                </a>
-                                            </li>
-                                        </ul>
+                                    <button id="btn_export" class="dt-button buttons-collection btn btn-outline-secondary dropdown-toggle me-2" data-toggle="collapse"
+                                            data-target="#btn_collection" aria-controls="collapse" aria-haspopup="true" aria-expanded="false">
+                                        <span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share font-small-4 me-50">
+                                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                                                <polyline points="16 6 12 2 8 6"></polyline>
+                                                <line x1="12" y1="2" x2="12" y2="15"></line>
+                                            </svg>Export
+                                        </span>
+                                    </button>
+                                    <div class="dt-button-collection collapse" id="btn_collection" style="top: 52px; left: 724.703px; display: none">
+                                        <div role="menu">
+                                            <a href="#" onclick="window.print()" class="dt-button buttons-print dropdown-item" tabindex="0"
+                                               aria-controls="DataTables_Table_0" type="button"><span><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-printer font-small-4 me-50"><polyline
+                                                            points="6 9 6 2 18 2 18 9"></polyline><path
+                                                            d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect
+                                                            x="6" y="14" width="12" height="8"></rect></svg>PDF印刷</span>
+                                            </a>
+                                            <a id="export-excel" href="{{route('master.work-report-export-excel', 1)}}"
+                                               class="dt-button buttons-excel buttons-html5 dropdown-item"
+                                               tabindex="0" aria-controls="DataTables_Table_0" type="button"><span><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                        class="feather feather-file font-small-4 me-50"><path
+                                                            d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline
+                                                            points="13 2 13 9 20 9"></polyline></svg>EXCEL出力</span>
+                                            </a>
+                                        </div>
                                     </div>
-                                    <!--end::Dropdown Menu-->
+                                    <!--begin::Dropdown Menu-->
+                                {{--                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right">--}}
+                                {{--                                        <ul class="nav flex-column nav-hover">--}}
+                                {{--                                            <li class="nav-header font-weight-bolder text-uppercase text-primary pb-2 pl-2">オプションを選択する:</li>--}}
+                                {{--                                            <li class="nav-item">--}}
+                                {{--                                                <a href="#" class="nav-link" onclick="window.print()">--}}
+                                {{--                                                    <i class="nav-icon la la-print"></i>--}}
+                                {{--                                                    <span class="nav-text">PDF印刷</span>--}}
+                                {{--                                                </a>--}}
+                                {{--                                            </li>--}}
+                                {{--                                            <li class="nav-item">--}}
+                                {{--                                                <a id="export-excel" href="{{route('master.work-report-export-excel', 1)}}" class="nav-link">--}}
+                                {{--                                                    <i class="nav-icon la la-file-excel-o"></i>--}}
+                                {{--                                                    <span class="nav-text">EXCEL出力</span>--}}
+                                {{--                                                </a>--}}
+                                {{--                                            </li>--}}
+                                {{--                                        </ul>--}}
+                                {{--                                    </div>--}}
+                                <!--end::Dropdown Menu-->
                                 </div>
                                 <!--end::Dropdown-->
                             </div>
@@ -233,7 +253,7 @@
                             </div>
                             <!--end: Datatable-->
                         </div>
-                        <div class="card-header flex-wrap border-0 py-0" style="min-height: 30px;">
+                        <div class="card-header flex-wrap border-0 pb-0 pt-3" style="min-height: 30px;">
                             <div class="card-title">
                                 <h3 class="card-label">作業内容報告</h3>
                             </div>
@@ -250,38 +270,33 @@
             </div>
         </div>
     </div>
-
     <!--end::Content-->
     <script>
         let work_report_table = '{{route('master.work-report-table')}}';
         let work_report_detail_table = '{{route('master.work-report-detail-table')}}';
         $(document).ready(function () {
             getTableData('work_report', work_report_table);
-
-            $('#kt_datepicker_1').datepicker({
-                rtl: false,
-                todayHighlight: true,
-                todayBtn: "linked",
-                orientation: "bottom left",
-                templates: {leftArrow: '<i class="la la-angle-left"></i>', rightArrow: '<i class="la la-angle-right"></i>'}
-            });
+            $('.flatpickr-basic').flatpickr();
 
             $('#btn_get_table').click(function (e) {
                 e.preventDefault();
                 getTableData('work_report', work_report_table);
             });
+            $('#btn_export').click(function () {
+                $('#btn_collection').show()
+            })
         });
         $(document).on('click', '.work_report_detail', function () {
-            $('#company_name').text($(this).parent().prev().prev().prev().prev().prev().text())
-            $('#site_code').text($(this).parent().prev().prev().prev().prev().text())
-            $('#site_name').text($(this).parent().prev().prev().prev().text())
-            $('#office_name').text($(this).parent().prev().prev().text())
-            $('#team_name').text($(this).parent().prev().text())
-            $('#company_name1').text($(this).parent().prev().prev().prev().prev().prev().text())
-            $('#site_code1').text($(this).parent().prev().prev().prev().prev().text())
-            $('#site_name1').text($(this).parent().prev().prev().prev().text())
-            $('#office_name1').text($(this).parent().prev().prev().text())
-            $('#team_name1').text($(this).parent().prev().text())
+            $('#company_name').text($(this).parent().prev().prev().prev().prev().prev().prev().text())
+            $('#site_code').text($(this).parent().prev().prev().prev().prev().prev().text())
+            $('#site_name').text($(this).parent().prev().prev().prev().prev().text())
+            $('#office_name').text($(this).parent().prev().prev().prev().text())
+            $('#team_name').text($(this).parent().prev().prev().text())
+            $('#company_name1').text($(this).parent().prev().prev().prev().prev().prev().prev().text())
+            $('#site_code1').text($(this).parent().prev().prev().prev().prev().prev().text())
+            $('#site_name1').text($(this).parent().prev().prev().prev().prev().text())
+            $('#office_name1').text($(this).parent().prev().prev().prev().text())
+            $('#team_name1').text($(this).parent().prev().prev().text())
             $('#report_date').text($(this).prev().val());
             $('#report_id').val($(this).prev().prev().val());
             $('#report').text($(this).prev().prev().prev().val());

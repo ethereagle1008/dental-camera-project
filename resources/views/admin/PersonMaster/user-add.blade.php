@@ -242,17 +242,6 @@
                                             <label class="form-check-label" for="receive_type2">銀行振込</label>
                                         </div>
                                     </div>
-
-{{--                                    <div class="row">--}}
-{{--                                        <div class="mb-1 col-md-6">--}}
-{{--                                            <label class="form-label" for="name">貸付金</label>--}}
-{{--                                            <input type="text" id="name" class="form-control" name="name" placeholder="氏名を入力してください" value="{{isset($user) ? $user->name : ''}}"/>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="mb-1 col-md-6">--}}
-{{--                                            <label class="form-label" for="email">前払金</label>--}}
-{{--                                            <input type="email" id="furi" class="form-control" name="furi" placeholder="フリガナを入力してください" value="{{isset($user) ? $user->furi : ''}}" />--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
                                 </div>
                                 <div class="row">
                                     <div class="mb-1 col-md-6">

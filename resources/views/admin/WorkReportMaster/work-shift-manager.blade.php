@@ -3,12 +3,12 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">前借申請</h2>
+                    <h2 class="content-header-title float-start mb-0">勤怠管理</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">支払いマスター</a>
+                            <li class="breadcrumb-item"><a href="#">作業マスター</a>
                             </li>
-                            <li class="breadcrumb-item active">前借申請
+                            <li class="breadcrumb-item active">勤怠管理
                             </li>
                         </ol>
                     </div>
@@ -23,7 +23,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header border-bottom">
-                            <h4 class="card-title">前借申請</h4>
+                            <h4 class="card-title">勤怠管理</h4>
                         </div>
                         <!--Search Form -->
                         <div class="card-body mt-2">
@@ -31,9 +31,14 @@
                                 @csrf
                                 <div class="row g-1 mb-md-1">
                                     <div class="col-md-6">
-                                        <label class="form-label">氏名:</label>
-                                        <input type="text" class="form-control dt-input dt-full-name" data-column="1" name="user_name"
+                                        <label class="form-label">現場名:</label>
+                                        <input type="text" class="form-control dt-input dt-full-name" data-column="1" name="site_name"
                                                placeholder="現場名を入力してください。" data-column-index="0" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">日付:</label>
+                                        <input type="text" id="birthday" class="form-control flatpickr-basic" name="report_date" placeholder="YYYY-MM-DD"
+                                               data-column="2" value="{{date('Y-m-d')}}"  data-column-index="1"/>
                                     </div>
                                 </div>
                                 <div class="row g-1">
@@ -57,9 +62,10 @@
     </div>
 
     <script>
-        let work_report_table = '{{route('master.pay-request-table')}}';
+        let work_report_table = '{{route('master.work-shift-table')}}';
         $(document).ready(function () {
             getTableData('work_report', work_report_table);
+            $('.flatpickr-basic').flatpickr();
 
             $('#btn_get_table').click(function (e) {
                 e.preventDefault();

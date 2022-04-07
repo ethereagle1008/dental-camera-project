@@ -1,29 +1,23 @@
 <table class="table table-separate table-head-custom table-checkable" id="work_report_table">
     <thead>
     <tr>
-        <th>会社名</th>
-        <th>現場ID</th>
-        <th>現場名</th>
-        <th>所属営業所</th>
-        <th>所属班名</th>
-        <th>日報内容</th>
+        <th>氏名</th>
+        <th>職責</th>
+        <th>申し込み金額</th>
+        <th>状況</th>
         <th></th>
     </tr>
     </thead>
     <tbody>
     @foreach($data as $item)
         <tr>
-            <td>{{$item->site->company->name}}</td>
-            <td>{{$item->site->site_code}}</td>
-            <td>{{$item->site->name}}</td>
-            <td>{{$item->user->office->name}}</td>
-            <td>{{$item->user->team->name}}</td>
-            <td>{{$item->report}}</td>
+            <td>{{$item->user->name}}</td>
+            <td>{{contractType($item->user->contract_type)}}</td>
+            <td>{{number_format($item->payment)}}円</td>
+            <td>{{$item->status == 0 ? '申請中' : '支払い済み'}}</td>
             <td>
-                <input type="hidden" value="{{$item->report}}">
-                <input type="hidden" value="{{$item->id}}">
-                <input type="hidden" value="{{date('Y年m月d日付分', strtotime($item->report_date))}}">
-                <a class="btn btn-sm btn-clean btn-icon mr-2 work_report_detail" title="Edit details">
+                @if($item->status == 0)
+                    <a class="btn btn-sm btn-clean btn-icon mr-2 work_report_detail" title="Edit details">
                     <span class="svg-icon svg-icon-md">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -36,7 +30,8 @@
                             </g>
                         </svg>
                     </span>
-                </a>
+                    </a>
+                @endif
             </td>
         </tr>
     @endforeach
