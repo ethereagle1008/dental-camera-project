@@ -50,6 +50,7 @@
                                     <th>資格コード</th>
                                     <th>資格名</th>
                                     <th>資格等級</th>
+                                    <th>金額</th>
                                     <th>登録日</th>
                                     <th></th>
                                 </tr>
@@ -60,6 +61,7 @@
                                         <td>{{$item->id}}</td>
                                         <td>{{$item->type_name}}</td>
                                         <td>{{$item->name}}</td>
+                                        <td>{{$item->cost}}</td>
                                         <td>{{date('Y-m-d', strtotime($item->created_at))}}</td>
                                         <td>
                                             <a data-id="{{$item->id}}" class="item-edit">
@@ -108,6 +110,10 @@
                         <label class="form-label" for="basic-icon-default-uname">資格等級</label>
                         <input type="text" class="form-control dt-uname" placeholder="資格等級" name="name" required/>
                     </div>
+                    <div class="mb-1">
+                        <label class="form-label" for="basic-icon-default-uname">金額</label>
+                        <input type="text" class="form-control dt-uname" placeholder="金額" name="cost" required/>
+                    </div>
                     <button type="submit" class="btn btn-primary me-1 data-submit" id="saveBtn">追加</button>
                     <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         キャンセル
@@ -138,6 +144,11 @@
                         <label>資格等級: </label>
                         <div class="mb-1">
                             <input type="text" class="form-control" placeholder="資格等級" name="name" id="name" required/>
+                        </div>
+
+                        <label>金額: </label>
+                        <div class="mb-1">
+                            <input type="text" class="form-control" placeholder="金額" name="cost" id="cost" required/>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -170,8 +181,9 @@
         })
         $('.item-edit').click(function (e) {
             $('#id').val($(this).data('id'));
-            $('#type_name').val($(this).parent().prev().prev().prev().text());
-            $('#name').val($(this).parent().prev().prev().text());
+            $('#type_name').val($(this).parent().prev().prev().prev().prev().text());
+            $('#name').val($(this).parent().prev().prev().prev().text());
+            $('#cost').val($(this).parent().prev().prev().text());
             $('#modifyForm').modal('show');
         })
         $('.modifyBtn').click(function (e) {

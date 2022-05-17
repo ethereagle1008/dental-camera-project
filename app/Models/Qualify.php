@@ -9,6 +9,6 @@ class Qualify extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'type_name', 'name'
+        'type_name', 'name', 'cost'
     ];
 }

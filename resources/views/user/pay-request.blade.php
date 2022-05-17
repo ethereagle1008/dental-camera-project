@@ -23,14 +23,14 @@
                                     <div class="form-group col-md-12">
                                         <label class="required font-weight-bold text-dark text-3">仮払い希望金額</label>
                                         <input type="hidden" id="limit" value="{{$limit}}">
-                                        <input type="number" value="0" maxlength="10" class="form-control" name="price" id="price" required>
+                                        <input type="number" value="{{isset($is_exist) ? $is_exist->payment : 0}}" maxlength="10" class="form-control" name="price" id="price" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
                                 <button type="button" class="btn btn-rounded btn-success box-shadow-2 mb-2 mr-4" style="width: 110px;"
                                         onclick="window.history.back()">キャンセル</button>
-                                <button type="button" id="btn_request" class="btn btn-rounded btn-danger box-shadow-2 mb-2 ml-4" style="width: 110px">申請</button>
+                                <button type="button" id="btn_request" class="btn btn-rounded btn-danger box-shadow-2 mb-2 ml-4" style="width: 110px" {{isset($is_exist) ? 'disabled' : ''}}>申請</button>
                             </div>
                         </div>
                     </div>

@@ -101,9 +101,9 @@
                                                value="{{isset($user) ? $user->birthday : ''}}"/>
                                     </div>
                                     <div class="mb-1 col-md-6">
-                                        <label class="form-label" for="phone">個人連絡先TEL</label>
-                                        <input type="number" id="phone" class="form-control" name="phone" placeholder="個人連絡先TELを入力してください"
-                                               value="{{isset($user) ? $user->phone : ''}}" />
+                                        <label class="form-label" for="phone">住所</label>
+                                        <input type="number" id="phone" class="form-control" name="address" placeholder="住所を入力してください"
+                                               value="{{isset($user) ? $user->address : ''}}" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -118,8 +118,15 @@
                                                value="{{isset($user) ? $user->emergency_number : ''}}" />
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="phone">個人連絡先TEL</label>
+                                        <input type="number" id="phone" class="form-control" name="phone" placeholder="個人連絡先TELを入力してください"
+                                               value="{{isset($user) ? $user->phone : ''}}" />
+                                    </div>
+                                </div>
                                 <div class="content-header">
-                                    <h5 class="my-1">資格情報:</h5>
+                                    <h5 class="my-1">契約情報:</h5>
                                 </div>
                                 <div class="row">
                                     <div class="mb-1 col-md-6">
@@ -135,11 +142,11 @@
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="contract_value">日当</label>
                                         <select class="form-select" id="contract_value" name="contract_value" disabled>
-                                            <option value="1">12,000円</option>
-                                            <option value="2">13,500円</option>
-                                            <option value="3">15,000円</option>
-                                            <option value="4">15,000円</option>
-                                            <option value="5">18,000円</option>
+                                            <option value="1" {{isset($user) ? ($user->contract_type == 1 ? 'selected' : '') : ''}}>12,000円</option>
+                                            <option value="2" {{isset($user) ? ($user->contract_type == 2 ? 'selected' : '') : ''}}>13,500円</option>
+                                            <option value="3" {{isset($user) ? ($user->contract_type == 3 ? 'selected' : '') : ''}}>15,000円</option>
+                                            <option value="4" {{isset($user) ? ($user->contract_type == 4 ? 'selected' : '') : ''}}>15,000円</option>
+                                            <option value="5" {{isset($user) ? ($user->contract_type == 5 ? 'selected' : '') : ''}}>18,000円</option>
                                         </select>
                                     </div>
                                 </div>
@@ -151,7 +158,7 @@
                                                 <optgroup label="{{$item->name}}">
                                                     @foreach($team as $itm)
                                                         @if($itm->office_id == $item->id)
-                                                            <option value="{{$itm->id}}">{{$itm->name}}</option>
+                                                            <option value="{{$itm->id}}" {{isset($user) && ($user->team_id == $itm->id) ? 'selected' : ''}}>{{$itm->name}}</option>
                                                         @endif
                                                     @endforeach
                                             </optgroup>
@@ -170,6 +177,32 @@
                                             @foreach($officeManager as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="content-header">
+                                    <h5 class="my-1">資格情報:</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="">資格</label>
+                                        <select class="select2 form-select" multiple="multiple" id="default-select-multi" name="qualify[]">
+                                            <?php
+                                                foreach($qualify as $itm){
+                                                    if(isset($user)){
+                                                        $is_in = '';
+                                                         foreach($user_qualify as $item){
+                                                                if($item->qualify_id == $itm->id){
+                                                                    $is_in = 'selected';
+                                                                }
+                                                         }
+                                                         echo '<option value="' . $itm->id . '" ' . $is_in . '>' . $itm->name . '</option>';
+                                                    }
+                                                    else{
+                                                        echo '<option value="' . $itm->id . '">' . $itm->name . '</option>';
+                                                    }
+                                                }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -241,19 +274,34 @@
                                                 {{isset($user) ? ($user->receive_type == 2 ? 'checked' : '') : ''}}/>
                                             <label class="form-check-label" for="receive_type2">銀行振込</label>
                                         </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="receive_type" id="receive_type3" value="3"
+                                                {{isset($user) ? ($user->receive_type == 3 ? 'checked' : '') : ''}}/>
+                                            <label class="form-check-label" for="receive_type2">現金</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="name">労災保険料</label>
-                                        <input class="form-control" disabled placeholder="" value="100"/>
+                                        <input class="form-control" disabled placeholder="" name="safe_cost" value="{{isset($user) ? (int)($user->safe_cost) : 360}}"/>
                                     </div>
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="email">安全協力費</label>
-                                        <input class="form-control" disabled placeholder="" value="100"/>
+                                        <input class="form-control" disabled placeholder="" id="insurance_cost" name="insurance_cost" value="{{isset($user) ? (int)($user->insurance_cost) : 360}}"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="name">貸付金</label>
+                                        <input class="form-control" placeholder="" name="loan" value="{{isset($user) ? (int)($user->loan) : 0}}"/>
+                                    </div>
+                                    <div class="mb-1 col-md-6">
+                                        <label class="form-label" for="email">前払金</label>
+                                        <input class="form-control" placeholder="" id="advance_pay" name="advance_pay" value="{{isset($user) ? (int)($user->advance_pay) : 0}}"/>
                                     </div>
                                     <div class="col-12">
-                                        <button type="reset" class="btn btn-primary me-1 btn_submit">登録</button>
+                                        <button type="reset" class="btn btn-primary me-1 btn_submit">{{isset($user)? '変更' : '登録'}}</button>
                                     </div>
                                 </div>
                             </form>
@@ -275,7 +323,31 @@
 
             $('#contract_type').change(function () {
                 $('#contract_value').val($(this).val());
+                let type = $(this).val();
+                if(type == 1){
+                    $('#insurance_cost').val(360)
+                }
+                else if(type == 2){
+                    $('#insurance_cost').val(405)
+                }
+                else if(type == 3 || type == 4){
+                    $('#insurance_cost').val(450)
+                }
+                else{
+                    $('#insurance_cost').val(540)
+                }
             })
+            $('.select2').each(function () {
+                var $this = $(this);
+                $this.wrap('<div class="position-relative"></div>');
+                $this.select2({
+                    // the following code is used to disable x-scrollbar when click in select input and
+                    // take 100% width in responsive also
+                    dropdownAutoWidth: true,
+                    width: '100%',
+                    dropdownParent: $this.parent()
+                });
+            });
         })
     </script>
 </x-admin-layout>

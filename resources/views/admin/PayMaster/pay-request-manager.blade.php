@@ -58,6 +58,7 @@
 
     <script>
         let work_report_table = '{{route('master.pay-request-table')}}';
+        let pay_status_status = '{{route('master.pay-request-status')}}';
         $(document).ready(function () {
             getTableData('work_report', work_report_table);
 
@@ -69,5 +70,95 @@
                 $('#btn_collection').show()
             })
         });
+        $(document).on('click', '.btn_pay', function () {
+            let id = $(this).data('id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': token
+                }
+            });
+            $.ajax({
+                url: pay_status_status,
+                type:'post',
+                data: {
+                    id : id,
+                    status:1
+                },
+                success: function (response) {
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    if(response.status == true){
+                        toastr.success("成功しました。");
+                        window.location.reload()
+                    }
+                    else {
+                        toastr.warning("失敗しました。");
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        })
+        $(document).on('click', '.btn_cancel', function () {
+            let id = $(this).data('id');
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': token
+                }
+            });
+            $.ajax({
+                url: pay_status_status,
+                type:'post',
+                data: {
+                    id : id,
+                    status:2
+                },
+                success: function (response) {
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    if(response.status == true){
+                        toastr.success("成功しました。");
+                        window.location.reload()
+                    }
+                    else {
+                        toastr.warning("失敗しました。");
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        })
     </script>
 </x-admin-layout>

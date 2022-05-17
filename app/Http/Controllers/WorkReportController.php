@@ -259,7 +259,6 @@ class WorkReportController extends Controller
             }
 
 
-
             $sheet->getCell('B'.$row_after_table2_before)->setValue('作業内容報告');
             $sheet->getCell('B'.$row_after_table1)->setValue($work_report->report);
         }

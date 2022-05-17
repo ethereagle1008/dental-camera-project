@@ -38,12 +38,11 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('user-edit/{id}', [AdminController::class, 'userEdit'])->name('master.person-user-edit');
             Route::post('user-save', [AdminController::class, 'userSave'])->name('master.person-user-save');
             Route::post('user-delete', [AdminController::class, 'userDelete'])->name('master.person-user-delete');
+            Route::get('user-summary', [AdminController::class, 'userSummary'])->name('master.person-user-summary');
 
             Route::get('qualify-manager', [AdminController::class, 'qualifyManage'])->name('master.person-qualify-manager');
             Route::post('qualify-save', [AdminController::class, 'qualifySave'])->name('master.person-qualify-save');
             Route::post('qualify-delete', [AdminController::class, 'qualifyDelete'])->name('master.person-qualify-delete');
-
-            Route::get('user-summary', [AdminController::class, 'userSummary'])->name('master.person-user-summary');
 
             Route::get('office-manager', [OfficeController::class, 'officeManage'])->name('master.office-manager');
             Route::post('office-save', [OfficeController::class, 'officeSave'])->name('master.office-save');
@@ -68,8 +67,11 @@ Route::group(['middleware' => 'auth'], function (){
 
             Route::get('pay-total-manager', [PayController::class, 'payTotalManage'])->name('master.pay-total-manager');
             Route::get('pay-request-manager', [PayController::class, 'payRequestManage'])->name('master.pay-request-manager');
-            Route::get('pay-request-table', [PayController::class, 'payRequestTable'])->name('master.pay-request-table');
+            Route::post('pay-request-table', [PayController::class, 'payRequestTable'])->name('master.pay-request-table');
+            Route::post('pay-request-status', [PayController::class, 'payRequestStatus'])->name('master.pay-request-status');
             Route::get('pay-sum-manager', [PayController::class, 'paySumManage'])->name('master.pay-sum-manager');
+            Route::get('pay-sum-person', [PayController::class, 'paySumPerson'])->name('master.pay-sum-person');
+            Route::get('pay-sum-month', [PayController::class, 'paySumMonth'])->name('master.pay-sum-month');
 
             Route::get('work-report-manager', [WorkReportController::class, 'workReportManage'])->name('master.work-report-manager');
             Route::post('work-report-table', [WorkReportController::class, 'workReportTable'])->name('master.work-report-table');
@@ -78,6 +80,8 @@ Route::group(['middleware' => 'auth'], function (){
 
             Route::get('work-shift-manager', [WorkReportController::class, 'workShiftManage'])->name('master.work-shift-manager');
             Route::post('work-shift-table', [WorkReportController::class, 'workShiftTable'])->name('master.work-shift-table');
+            Route::get('work-person-shift', [WorkReportController::class, 'workShiftPerson'])->name('master.work-person-shift');
+            Route::get('work-total-shift', [WorkReportController::class, 'workShiftTotal'])->name('master.work-total-shift');
         });
     });
 

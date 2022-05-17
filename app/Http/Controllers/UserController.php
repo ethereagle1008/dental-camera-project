@@ -19,9 +19,14 @@ class UserController extends Controller
     }
     public function payRequest(){
         $limit = 10000;
-        return view('user.pay-request', compact('limit'));
+        $is_exist = UserAdvance::where('user_id', Auth::user()->id)->where('status', 0)->first();
+        return view('user.pay-request', compact('limit', 'is_exist'));
     }
     public function payRequestPost(Request $request){
+        $is_exist = UserAdvance::where('user_id', Auth::user()->id)->where('status', 0)->first();
+        if(isset($is_exist)){
+            return response()->json(['status' => false]);
+        }
         UserAdvance::create(['user_id' => Auth::user()->id, 'payment' => $request->payment]);
         return response()->json(['status' => true]);
     }
