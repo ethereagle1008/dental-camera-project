@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\UserShift;
 use App\Models\WorkReport;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class WorkReportController extends Controller
     }
     public function workReportExportExcel($id){
         $work_report = WorkReport::with('site')->with('user')->find($id);
-        $data = UserShift::with('user')->where('site_id', $work_report->site_id)->get();
+        $data = UserShift::with('user')->where('site_id', $work_report->site_id)->where('shift_date', $work_report->report_date)->get();
         $count = $data->count();
         $row_after_table1_end = $count + 14;
         $row_after_table2_before = $count + 16;
@@ -297,5 +298,208 @@ class WorkReportController extends Controller
             }
         }
         return view('admin.WorkReportMaster.work-shift-table', compact('data'));
+    }
+
+    public function workShiftChange(Request $request){
+        $shift_id = $request->shift_id;
+        $over = $request->over;
+        $over_time = $request->over_time;
+        UserShift::where('id', $shift_id)->update(['over' => $over, 'over_time' => $over_time]);
+        return response()->json(['status' => true]);
+    }
+
+    public function workShiftTotal(){
+        return view('admin.WorkReportMaster.work-shift-total');
+    }
+    public function workShiftTotalTable(Request $request){
+        $year = $request->year;
+        $month = $request->month;
+        $next = $month + 1;
+        $start_time = date('Y-m-01', strtotime($year.'-'.$month));
+        $end_time = date('Y-m-01', strtotime($year.'-'.$next));
+        $users = User::where('role', 'user')->get();
+        $data = [];
+        foreach($users as $user){
+            $tmp = array();
+            $tmp['id'] = $user->id;
+            $tmp['name'] = $user->name;
+            $tmp['phone'] = $user->phone;
+            $cnt_shift_normal = UserShift::where('user_id', $user->id)->where('over', 1)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
+            $cnt_shift_night = UserShift::where('user_id', $user->id)->where('over', 2)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
+            $shifts_over = UserShift::where('user_id', $user->id)->where('over_time', '!=', 0)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get();
+            $tmp['price_normal'] = calculatePriceByRole($cnt_shift_normal, $user->contract_type, 1);
+            $tmp['price_night'] = calculatePriceByRole($cnt_shift_night, $user->contract_type, 2);
+            $cnt_shift_total = UserShift::where('user_id', $user->id)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
+            $price_over = 0;
+            foreach ($shifts_over as $shift){
+                $price_over = $price_over + calculatePriceByRole($shift->over_time, $user->contract_type, 3);
+            }
+            $tmp['price_over'] = $price_over;
+            $tmp['sub_staff'] = 0;
+            $tmp['sub_price'] = 0;
+            $tmp['direct_staff'] = 0;
+            $tmp['direct_price'] = 0;
+            if($user->contract_type == 4){
+                $team_id = $user->team_id;
+                $team_staffs = User::where('team_id', $team_id)->get();
+                foreach ($team_staffs as $staff){
+                    if($staff->id != $user->id){
+                        $cnt_shift_staff = UserShift::where('user_id', $staff->id)->get()->count();
+                        if($cnt_shift_staff >= 20){
+                            $tmp['sub_staff'] = $tmp['sub_staff'] + 1;
+                        }
+                    }
+                }
+                if($tmp['sub_staff'] > 3){
+                    $tmp['sub_price'] = $tmp['sub_staff'] * 7000;
+                }
+                else{
+                    $tmp['sub_staff'] = 0;
+                }
+                $direct_staffs = User::where('director_id', $user->id)->get();
+                foreach ($direct_staffs as $staff){
+                    $cnt_shift_staff = UserShift::where('user_id', $staff->id)->get()->count();
+                    if($cnt_shift_staff >= 20){
+                        $tmp['direct_staff'] = $tmp['direct_staff'] + 1;
+                    }
+                }
+                if($tmp['direct_staff'] > 3){
+                    $tmp['direct_price'] = $tmp['direct_staff'] * 3000;
+                }
+                else{
+                    $tmp['direct_staff'] = 0;
+                }
+            }
+            $tmp['a_price'] = $tmp['price_normal'] + $tmp['price_night'] + $tmp['sub_price'] + $tmp['direct_price'] + $price_over;
+
+            $tmp['insurance'] = 0;
+            if($user->insurance == 1){
+                $tmp['insurance'] = calculatePriceByType(1, 'insurance');
+            }
+            $tmp['self_insurance'] = calculatePriceByType($cnt_shift_total, 'self-insurance');
+            $tmp['safe_cost'] = calculatePriceByRole($cnt_shift_total, $user->contract_type, 'safe-cost');
+            $tmp['cloth'] = 0;
+            if($user->cloth == 1){
+                $tmp['cloth'] = calculatePriceByType($cnt_shift_total, 'cloth');
+            }
+            $tmp['helmet'] = calculatePriceByType($cnt_shift_total, 'helmet');
+            $tmp['dormitory'] = 0;
+            if($user->dormitory == 1){
+                $tmp['dormitory'] = calculatePriceByType($cnt_shift_total, 'dormitory');
+            }
+            $tmp['business_phone'] = 0;
+            if($user->business_phone == 1){
+                $tmp['business_phone'] = calculatePriceByType($cnt_shift_total, 'phone');
+            }
+            //Todo calculate pre cost
+            $tmp['pre_pay'] = 0;
+
+            $tmp['pring'] = 0;
+            if($user->receive_type == 1){
+                $tmp['pring'] = 55;
+            }
+            $tmp['b_price'] = $tmp['insurance'] + $tmp['self_insurance'] + $tmp['safe_cost'] + $tmp['cloth'] + $tmp['helmet'] + $tmp['dormitory'] + $tmp['business_phone'] + $tmp['pre_pay'] + $tmp['pring'];
+            array_push($data, $tmp);
+        }
+        return view('admin.WorkReportMaster.work-shift-total-table', compact('data'));
+    }
+    public function workShiftPerson(Request $request){
+        $year = $request->year;
+        $month = $request->month;
+        $next = $month + 1;
+        $start_time = date('Y-m-01', strtotime($year.'-'.$month));
+        $end_time = date('Y-m-01', strtotime($year.'-'.$next));
+        $user = User::find($request->user_id);
+        $tmp = array();
+        $tmp['id'] = $user->id;
+        $tmp['name'] = $user->name;
+        $tmp['phone'] = $user->phone;
+        $tmp['contract_type'] = $user->contract_type;
+        $tmp['month'] = $year.'.'.$month;
+        $total_shift = UserShift::with('site')->where('user_id', $user->id)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get();
+        $tmp['shifts'] = $total_shift;
+        $tmp['shift_total'] = $total_shift->count();
+        $shifts_over = UserShift::where('user_id', $user->id)->where('over_time', '!=', 0)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get();
+        $price_over = 0;
+        $over_time = 0;
+        foreach ($shifts_over as $shift){
+            $over_time = $over_time + $shift->over_time;
+            $price_over = $price_over + calculatePriceByRole($shift->over_time, $user->contract_type, 3);
+        }
+        $tmp['price_over'] = $price_over;
+        $tmp['over_time'] = $over_time;
+
+        $cnt_shift_normal = UserShift::where('user_id', $user->id)->where('over', 1)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
+        $cnt_shift_night = UserShift::where('user_id', $user->id)->where('over', 2)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
+        $tmp['shift_normal'] = $cnt_shift_normal;
+        $tmp['shift_night'] = $cnt_shift_night;
+        $tmp['price_normal'] = calculatePriceByRole($cnt_shift_normal, $user->contract_type, 1);
+        $tmp['price_night'] = calculatePriceByRole($cnt_shift_night, $user->contract_type, 2);
+        $cnt_shift_total = UserShift::where('user_id', $user->id)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
+        $tmp['sub_staff'] = 0;
+        $tmp['sub_price'] = 0;
+        $tmp['direct_staff'] = 0;
+        $tmp['direct_price'] = 0;
+        if($user->contract_type == 4){
+            $team_id = $user->team_id;
+            $team_staffs = User::where('team_id', $team_id)->get();
+            foreach ($team_staffs as $staff){
+                if($staff->id != $user->id){
+                    $cnt_shift_staff = UserShift::where('user_id', $staff->id)->get()->count();
+                    if($cnt_shift_staff >= 20){
+                        $tmp['sub_staff'] = $tmp['sub_staff'] + 1;
+                    }
+                }
+            }
+            if($tmp['sub_staff'] > 3){
+                $tmp['sub_price'] = $tmp['sub_staff'] * 7000;
+            }
+            else{
+                $tmp['sub_staff'] = 0;
+            }
+            $direct_staffs = User::where('director_id', $user->id)->get();
+            foreach ($direct_staffs as $staff){
+                $cnt_shift_staff = UserShift::where('user_id', $staff->id)->get()->count();
+                if($cnt_shift_staff >= 20){
+                    $tmp['direct_staff'] = $tmp['direct_staff'] + 1;
+                }
+            }
+            if($tmp['direct_staff'] > 3){
+                $tmp['direct_price'] = $tmp['direct_staff'] * 3000;
+            }
+            else{
+                $tmp['direct_staff'] = 0;
+            }
+        }
+        $tmp['a_price'] = $tmp['price_normal'] + $tmp['price_night'] + $tmp['sub_price'] + $tmp['direct_price'] + $price_over;
+
+        $tmp['insurance'] = 0;
+        if($user->insurance == 1){
+            $tmp['insurance'] = calculatePriceByType(1, 'insurance');
+        }
+        $tmp['self_insurance'] = calculatePriceByType($cnt_shift_total, 'self-insurance');
+        $tmp['safe_cost'] = calculatePriceByRole($cnt_shift_total, $user->contract_type, 'safe-cost');
+        $tmp['cloth'] = 0;
+        if($user->cloth == 1){
+            $tmp['cloth'] = calculatePriceByType($cnt_shift_total, 'cloth');
+        }
+        $tmp['helmet'] = calculatePriceByType($cnt_shift_total, 'helmet');
+        $tmp['dormitory'] = 0;
+        if($user->dormitory == 1){
+            $tmp['dormitory'] = calculatePriceByType($cnt_shift_total, 'dormitory');
+        }
+        $tmp['business_phone'] = 0;
+        if($user->business_phone == 1){
+            $tmp['business_phone'] = calculatePriceByType($cnt_shift_total, 'phone');
+        }
+        //Todo calculate pre cost
+        $tmp['pre_pay'] = 0;
+
+        $tmp['pring'] = 0;
+        if($user->receive_type == 1){
+            $tmp['pring'] = 55;
+        }
+        $tmp['b_price'] = $tmp['insurance'] + $tmp['self_insurance'] + $tmp['safe_cost'] + $tmp['cloth'] + $tmp['helmet'] + $tmp['dormitory'] + $tmp['business_phone'] + $tmp['pre_pay'] + $tmp['pring'];
+        return view('admin.WorkReportMaster.work-shift-personal', compact('tmp'));
     }
 }

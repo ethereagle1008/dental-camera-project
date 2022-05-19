@@ -86,7 +86,7 @@
 
     <!-- Modal-->
     <div class="modal fade text-start" id="worKReportDetailModal" tabindex="-1" aria-labelledby="worKReportDetailModal" data-bs-backdrop="false" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 1000px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" id="myModalLabel16">作業日報</h4>

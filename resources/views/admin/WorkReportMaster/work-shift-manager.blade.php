@@ -61,8 +61,102 @@
         <!--/ Advanced Search -->
     </div>
 
+    <!-- Modal-->
+    <div class="modal fade text-start" id="worKShiftChangeModal" tabindex="-1" aria-labelledby="worKShiftChangeModal" data-bs-backdrop="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel16">作業時間詳細</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="work_detail_change">
+                    @csrf
+                    <input type="hidden" name="shift_id" id="shift_id">
+                    <div class="modal-body">
+                        <div class="card-custom w-100 position-relative" id="section-to-print">
+                            <div class="card-header pb-0">
+                                <div class="row text-center">
+                                    <div class="col-md-12 text-center">
+                                        <h2>作業形態決定</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header flex-wrap border-0 pb-0">
+                                <div class="card-title mb-0">
+                                    <h5 class="card-label">作業時間</h5>
+                                </div>
+                            </div>
+                            <div class="card-body py-0">
+                                <div class="row w-100 disable-print">
+                                    <div class="col-md-6">
+                                        <div class="card-label">
+                                            <p>
+                                                <span>開始時間: </span><span id="start_time"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card-label">
+                                            <p>
+                                                <span>終了時間: </span><span id="end_time"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header flex-wrap border-0 pb-0" style="min-height: 30px;">
+                                <div class="card-title mb-0">
+                                    <h5 class="card-label">作業形態</h5>
+                                </div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row w-100 disable-print">
+                                    <div class="col-md-6">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="over" id="inlineRadio1" value="1" checked />
+                                            <label class="form-check-label" for="inlineRadio1">通常作業</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="over" id="inlineRadio2" value="2" />
+                                            <label class="form-check-label" for="inlineRadio2">夜間作業</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header flex-wrap border-0 pb-0" style="min-height: 30px;">
+                                <div class="card-title mb-0">
+                                    <h5 class="card-label">残業時間</h5>
+                                </div>
+                            </div>
+                            <div class="card-body pt-0">
+                                <div class="row w-100 disable-print">
+                                    <div class="col-md-9">
+                                        <label class="form-label">残業時間:</label>
+                                        <input type="number" class="form-control dt-input dt-full-name" data-column="1" name="over_time" id="over_time"
+                                               placeholder="残業時間を入力してください。" data-column-index="0" value="0"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-md-12" style="text-align: right">
+                            <button class="btn btn-success mr-2" id="btn_shift_change" style="margin-right: 15px;">変　更</button>
+                            <label class="btn btn-secondary mr-2" data-bs-dismiss="modal">戻　る</label>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!--end::Content-->
+
     <script>
         let work_report_table = '{{route('master.work-shift-table')}}';
+        let work_change_detail = '{{route('master.work-shift-change')}}';
         $(document).ready(function () {
             getTableData('work_report', work_report_table);
             $('.flatpickr-basic').flatpickr();
@@ -73,7 +167,28 @@
             });
             $('#btn_export').click(function () {
                 $('#btn_collection').show()
-            })
+            });
+            $('#btn_shift_change').click(function (e) {
+                e.preventDefault();
+                saveForm('work_detail_change', work_change_detail)
+            });
+            $('input[type=radio][name=over]').change(function() {
+                if (this.value == 3) {
+                    $('#rest').show();
+                }
+                else {
+                    $('#rest').hide();
+                }
+            });
+        });
+        $(document).on('click', '.work_shift_detail', function () {
+            $('#start_time').text($(this).parent().prev().prev().text())
+            $('#end_time').text($(this).parent().prev().text())
+            var over = $(this).prev().prev().val();
+            $("input[name=over][value=" + over + "]").prop('checked', true);
+            $("#over_time").val($(this).prev().prev().prev().val());
+            $("#shift_id").val($(this).prev().val())
+            $('#worKShiftChangeModal').modal('show');
         });
     </script>
 </x-admin-layout>

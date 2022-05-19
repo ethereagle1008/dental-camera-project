@@ -177,7 +177,7 @@
                 <ul class="menu-content">
                     <li class="{{ str_contains(\Request::route()->getName(), 'pay-request') ? 'active' : '' }}">
                         <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-request-manager') ? '#' : route('master.pay-request-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前借申請一覧</span>
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前払申請一覧</span>
                         </a>
                     </li>
                     <li class="{{ str_contains(\Request::route()->getName(), 'pay-sum-manager') ? 'active' : '' }}">
@@ -212,11 +212,11 @@
                             <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">作業日報管理</span>
                         </a>
                     </li>
-                    <li class="{{ str_contains(\Request::route()->getName(), 'work-person') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-person-shift') ? '#' : route('master.work-person-shift')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">個別勤務</span>
-                        </a>
-                    </li>
+{{--                    <li class="{{ str_contains(\Request::route()->getName(), 'work-person') ? 'active' : '' }}">--}}
+{{--                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-person-shift') ? '#' : route('master.work-person-shift')}}">--}}
+{{--                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">個別勤務</span>--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
                     <li class="{{ str_contains(\Request::route()->getName(), 'work-total') ? 'active' : '' }}">
                         <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-total-shift') ? '#' : route('master.work-total-shift')}}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">労務者総括</span>

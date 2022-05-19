@@ -40,7 +40,6 @@ function getTableData(id, url, draw = true) {
                     },
                 });
             }
-
         },
         error: function () {
 

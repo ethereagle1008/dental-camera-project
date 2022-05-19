@@ -66,57 +66,76 @@ function dayWeek($day_week){
     }
     return "";
 }
-function dealType($type, $service_type){
-    if($type == 5){
-        return "포인트";
-    }
-    switch ($service_type) {
+function calculatePriceByRole($cnt, $contract_type, $over){
+    $per_day_normal_price = 0;
+    $per_day_night_price = 0;
+    $per_time_over_price = 2344;
+    $per_day_safe_price = 0;
+
+    switch ($contract_type) {
         case 1:
-            return "가상계좌";
+            $per_day_normal_price = 12000;
+            $per_day_night_price = 18000;
+            $per_day_safe_price = 360;
+            break;
         case 2:
-            return "계좌이체";
-    }
-    return "";
-}
-function serviceType($pay_type){
-    switch ($pay_type) {
-        case 1:
-            return "가상계좌";
-        case 2:
-            return "계좌이체";
-    }
-    return "";
-}
-function payStatus($pay_status){
-    switch ($pay_status) {
-        case 0:
-            return "대기중";
-        case 1:
-            return "결제됨";
-    }
-    return "";
-}
-function coinType($coin_type){
-    switch ($coin_type) {
-        case 1:
-            return "구매";
-        case 2:
-            return "판매";
-    }
-    return "";
-}
-function sendType($send_type){
-    switch ($send_type) {
-        case 1:
-            return "일회성";
-        case 2:
-            return "매일";
+            $per_day_normal_price = 13500;
+            $per_day_night_price = 20250;
+            $per_day_safe_price = 405;
+            break;
         case 3:
-            return "매주";
+            $per_day_normal_price = 15000;
+            $per_day_night_price = 22500;
+            $per_day_safe_price = 450;
+            break;
         case 4:
-            return "매월";
+            $per_day_normal_price = 15000;
+            $per_day_night_price = 22500;
+            $per_day_safe_price = 450;
+            break;
+        case 5:
+            $per_day_normal_price = 18000;
+            $per_day_night_price = 27000;
+            $per_day_safe_price = 540;
+            break;
     }
-    return "";
+
+    if($over == 1){
+        return $cnt * $per_day_normal_price;
+    }
+    else if($over == 2){
+        return $cnt * $per_day_night_price;
+    }
+    else if($over == 3){
+        return $cnt * $per_time_over_price;
+    }
+    else{
+        return $cnt * $per_day_safe_price;
+    }
+}
+function calculatePriceByType($cnt, $type){
+    $price = 0;
+    switch ($type) {
+        case 'insurance':
+            $price = 1000;
+            break;
+        case 'self-insurance':
+            $price = 360;
+            break;
+        case 'cloth':
+            $price = 180;
+            break;
+        case 'helmet':
+            $price = 70;
+            break;
+        case 'dormitory':
+            $price = 3750;
+            break;
+        case 'phone':
+            $price = 200;
+            break;
+    }
+    return $cnt * $price;
 }
 
 function substrwords($text, $maxchar, $end='...') {

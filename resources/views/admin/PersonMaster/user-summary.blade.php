@@ -72,12 +72,12 @@
                                         <td class="px-1"></td>
                                         <td class="px-1"></td>
                                         <td class="px-1">{{$item->insurance == 1 ? 'YES' : 'NO'}}</td>
-                                        <td class="px-1"></td>
-                                        <td class="px-1"></td>
+                                        <td class="px-1">YES</td>
+                                        <td class="px-1">YES</td>
                                         <td class="px-1">{{$item->cloth == 1 ? 'YES' : 'NO'}}</td>
                                         <td class="px-1">YES</td>
                                         <td class="px-1">{{$item->dormitory == 1 ? 'YES' : 'NO'}}</td>
-                                        <td class="px-1">{{$item->phone}}</td>
+                                        <td class="px-1">{{$item->business_phone == 1 ? 'YES' : 'NO'}}</td>
                                         <td class="px-1"></td>
                                     </tr>
                                 @endforeach

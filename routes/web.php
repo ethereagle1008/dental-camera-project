@@ -80,8 +80,10 @@ Route::group(['middleware' => 'auth'], function (){
 
             Route::get('work-shift-manager', [WorkReportController::class, 'workShiftManage'])->name('master.work-shift-manager');
             Route::post('work-shift-table', [WorkReportController::class, 'workShiftTable'])->name('master.work-shift-table');
-            Route::get('work-person-shift', [WorkReportController::class, 'workShiftPerson'])->name('master.work-person-shift');
+            Route::post('work-shift-change', [WorkReportController::class, 'workShiftChange'])->name('master.work-shift-change');
+            Route::post('work-shift-person', [WorkReportController::class, 'workShiftPerson'])->name('master.work-shift-personal');
             Route::get('work-total-shift', [WorkReportController::class, 'workShiftTotal'])->name('master.work-total-shift');
+            Route::post('work-shift-total-table', [WorkReportController::class, 'workShiftTotalTable'])->name('master.work-shift-total-table');
         });
     });
 
