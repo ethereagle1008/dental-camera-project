@@ -80,7 +80,7 @@ class AdminController extends Controller
     public function userAdd(){
         $office = Office::orderBy('name')->get();
         $team = Team::orderBy('name')->get();
-        $officeManager = User::whereNotNull('office_id')->get();
+        $officeManager = User::where('contract_type', 4)->get();
         $qualify = Qualify::orderBy('name')->get();
         return view('admin.PersonMaster.user-add', compact('office', 'team', 'officeManager', 'qualify'));
     }
@@ -197,11 +197,8 @@ class AdminController extends Controller
             ];
             $users = User::create($data);
             $users->givePermissionTo('user');
-
-            if($request->contract_type == 3){
-                Team::where('id', $team_id)->update(['team_manager_id' => $users->id]);
-            }
-            else if($request->contract_type == 4){
+            Team::where('id', $team_id)->update(['team_manager_id' => $users->id]);
+           if($request->contract_type == 4){
                 Office::where('id', $office_id)->update(['office_manager_id' => $users->id]);
             }
             $qualify = $request->qualify;

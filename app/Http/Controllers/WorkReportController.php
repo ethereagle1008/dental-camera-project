@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserAdvance;
 use App\Models\UserShift;
 use App\Models\WorkReport;
 use Illuminate\Http\Request;
@@ -391,8 +392,12 @@ class WorkReportController extends Controller
             if($user->business_phone == 1){
                 $tmp['business_phone'] = calculatePriceByType($cnt_shift_total, 'phone');
             }
-            //Todo calculate pre cost
+
             $tmp['pre_pay'] = 0;
+            $history = UserAdvance::where('user_id', $user->id)->where('status', 1)->get();
+            foreach ($history as $item){
+                $tmp['pre_pay'] = $tmp['pre_pay'] + $item->payment;
+            }
 
             $tmp['pring'] = 0;
             if($user->receive_type == 1){
@@ -492,8 +497,12 @@ class WorkReportController extends Controller
         if($user->business_phone == 1){
             $tmp['business_phone'] = calculatePriceByType($cnt_shift_total, 'phone');
         }
-        //Todo calculate pre cost
+
         $tmp['pre_pay'] = 0;
+        $history = UserAdvance::where('user_id', $user->id)->where('status', 1)->get();
+        foreach ($history as $item){
+            $tmp['pre_pay'] = $tmp['pre_pay'] + $item->payment;
+        }
 
         $tmp['pring'] = 0;
         if($user->receive_type == 1){

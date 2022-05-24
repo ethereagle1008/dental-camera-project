@@ -8,23 +8,23 @@
         <th rowspan="2" class="text-center" style="vertical-align: middle"></th>
     </tr>
     <tr>
-        <th>ID</th>
-        <th>氏名</th>
-        <th>携帯番号</th>
-        <th>通常作業</th>
-        <th>夜間作業</th>
-        <th>認定残業</th>
-        <th>合計(A)</th>
-        <th>労災組合費</th>
-        <th>労災保険料</th>
-        <th>安全協力会費</th>
-        <th>作業服</th>
-        <th>ヘルメット</th>
-        <th>寮費</th>
-        <th>携帯</th>
-        <th>前払い</th>
-        <th>pring手数料</th>
-        <th>合計(B)</th>
+        <th class="text-center">ID</th>
+        <th class="text-center">氏名</th>
+        <th class="text-center">携帯番号</th>
+        <th class="text-center">通常作業</th>
+        <th class="text-center">夜間作業</th>
+        <th class="text-center">認定残業</th>
+        <th class="text-center">合計(A)</th>
+        <th class="text-center">労災組合費</th>
+        <th class="text-center">労災保険料</th>
+        <th class="text-center">安全協力会費</th>
+        <th class="text-center">作業服</th>
+        <th class="text-center">ヘルメット</th>
+        <th class="text-center">寮費</th>
+        <th class="text-center">携帯</th>
+        <th class="text-center">前払い</th>
+        <th class="text-center">pring手数料</th>
+        <th class="text-center">合計(B)</th>
     </tr>
     </thead>
     <tbody>

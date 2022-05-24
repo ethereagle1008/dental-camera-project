@@ -89,18 +89,12 @@
                             <div class="card-body py-0">
                                 <div class="row w-100 disable-print">
                                     <div class="col-md-6">
-                                        <div class="card-label">
-                                            <p>
-                                                <span>開始時間: </span><span id="start_time"></span>
-                                            </p>
-                                        </div>
+                                        <label class="form-label">開始時間:</label>
+                                        <input type="text" class="form-control flatpickr-time text-start" placeholder="HH:MM" name="start_time" id="start_time"/>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="card-label">
-                                            <p>
-                                                <span>終了時間: </span><span id="end_time"></span>
-                                            </p>
-                                        </div>
+                                        <label class="form-label">終了時間:</label>
+                                        <input type="text" class="form-control flatpickr-time text-start" placeholder="HH:MM" name="end_time" id="end_time"/>
                                     </div>
                                 </div>
                             </div>
@@ -180,14 +174,19 @@
                     $('#rest').hide();
                 }
             });
+
         });
         $(document).on('click', '.work_shift_detail', function () {
-            $('#start_time').text($(this).parent().prev().prev().text())
-            $('#end_time').text($(this).parent().prev().text())
+            $('#start_time').val($(this).parent().prev().prev().text())
+            $('#end_time').val($(this).parent().prev().text())
             var over = $(this).prev().prev().val();
             $("input[name=over][value=" + over + "]").prop('checked', true);
             $("#over_time").val($(this).prev().prev().prev().val());
-            $("#shift_id").val($(this).prev().val())
+            $("#shift_id").val($(this).prev().val());
+            $('.flatpickr-time').flatpickr({
+                enableTime: true,
+                noCalendar: true
+            });
             $('#worKShiftChangeModal').modal('show');
         });
     </script>

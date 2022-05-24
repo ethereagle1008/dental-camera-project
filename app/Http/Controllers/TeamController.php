@@ -53,7 +53,7 @@ class TeamController extends Controller
         return response()->json(['status' => true]);
     }
 
-    public function teameDelete(Request $request){
+    public function teamDelete(Request $request){
         Team::where('id', $request->id)->delete();
         return response()->json(['status' => true]);
     }

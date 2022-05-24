@@ -172,7 +172,7 @@
             </li>
             <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'pay') ? 'sidebar-group-active open' : '' }}">
                 <a class="d-flex align-items-center" href="#">
-                    <i data-feather="credit-card"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">支払いマスター</span>
+                    <i data-feather="credit-card"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">前払いマスター</span>
                 </a>
                 <ul class="menu-content">
                     <li class="{{ str_contains(\Request::route()->getName(), 'pay-request') ? 'active' : '' }}">

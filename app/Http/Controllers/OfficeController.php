@@ -51,7 +51,7 @@ class OfficeController extends Controller
         return response()->json(['status' => true]);
     }
 
-    public function officeeDelete(Request $request){
+    public function officeDelete(Request $request){
         Office::where('id', $request->id)->delete();
         return response()->json(['status' => true]);
     }
