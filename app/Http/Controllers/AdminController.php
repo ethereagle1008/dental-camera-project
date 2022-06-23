@@ -129,6 +129,7 @@ class AdminController extends Controller
                 'emergency_name' => $request->emergency_name,
                 'emergency_number' => $request->emergency_number,
                 'contract_type' => $request->contract_type,
+                'contract_value' => $request->contract_value,
                 'director_id' => $request->director_id,
                 'office_id' => $office_id,
                 'team_id' => $team_id,
@@ -186,6 +187,7 @@ class AdminController extends Controller
                 'emergency_name' => $request->emergency_name,
                 'emergency_number' => $request->emergency_number,
                 'contract_type' => $request->contract_type,
+                'contract_value' => $request->contract_value,
                 'director_id' => $request->director_id,
                 'office_id' => $office_id,
                 'team_id' => $team_id,
@@ -193,6 +195,8 @@ class AdminController extends Controller
                 'cloth' => $request->cloth,
                 'business_phone' => $request->business_phone,
                 'insurance' => $request->insurance,
+                'insurance_cost' => $request->insurance_cost,
+                'safe_cost' => $request->safe_cost,
                 'receive_type' => $request->receive_type,
             ];
             $users = User::create($data);

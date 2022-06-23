@@ -30,7 +30,13 @@
                     <h3 class="mb-3">ログイン</h3>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <input class="form-control" type="email" name="email" placeholder="メールアドレス" required autofocus>
+                        <select class="form-select mb-2" id="year" name="email" required>
+                            <option></option>
+                            @foreach($users as $item)
+                                <option value="{{$item->email}}">{{$item->name}}</option>
+                            @endforeach
+                        </select>
+{{--                        <input class="form-control" type="email" name="email" placeholder="メールアドレス" required autofocus>--}}
                         <input class="form-control" type="password" name="password" placeholder="パスワード" required>
 {{--                        <input id="remember_me" type="checkbox" class="rounded" name="remember">--}}
                         <div class="form-button">

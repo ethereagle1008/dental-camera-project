@@ -55,8 +55,12 @@
                                 <div class="row g-1 mb-md-1">
                                     <div class="col-md-6">
                                         <label class="form-label">現場名:</label>
-                                        <input type="text" class="form-control dt-input dt-full-name" data-column="1" name="site_name"
-                                               placeholder="現場名を入力してください。" data-column-index="0" />
+                                        <select class="form-select" name="site_name">
+                                            <option></option>
+                                            @foreach($sites as $item)
+                                                <option value="{{$item->name}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">日付:</label>
@@ -270,10 +274,57 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade text-start" id="worKReportEditModal" tabindex="-1" aria-labelledby="worKReportEditModal" data-bs-backdrop="false" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel16">作業日報</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" >
+                    <div class="card card-custom w-100 position-relative" id="section-to-print">
+                        <div class="card-header pt-6">
+                            <div class="row w-100 text-center py-3">
+                                <div class="col-md-12 text-center">
+                                    <h2>作　業　日　報　承　認　書</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-1 mb-md-1">
+                                <form id="report_detail_form">
+                                    @csrf
+                                    <div class="col-md-12">
+                                        <label class="form-label">現場名:</label>
+                                        <select class="form-select" name="site_id" id="site">
+                                            <option></option>
+                                            @foreach($sites as $item)
+                                                <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <input type="hidden" id="report_id_edit" name="report_id">
+                                    <div class="col-md-12">
+                                        <label class="form-label">日報内容:</label>
+                                        <textarea id="report_content" class="form-control" name="report_content" placeholder="YYYY-MM-DD"
+                                               data-column="2" value="{{date('Y-m-d')}}"  data-column-index="1"></textarea>
+                                    </div>
+                                    <button id="btn_edit_report" class="btn btn-primary waves-effect waves-float waves-light">変更</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--end::Content-->
     <script>
         let work_report_table = '{{route('master.work-report-table')}}';
         let work_report_detail_table = '{{route('master.work-report-detail-table')}}';
+        let work_report_detail_edit = '{{route('master.work-report-detail-edit')}}';
         $(document).ready(function () {
             getTableData('work_report', work_report_table);
             $('.flatpickr-basic').flatpickr();
@@ -285,6 +336,17 @@
             $('#btn_export').click(function () {
                 $('#btn_collection').show()
             })
+            $('#btn_edit_report').click(function (e) {
+                e.preventDefault();
+                saveForm('report_detail_form', work_report_detail_edit, true);
+            })
+        });
+        $(document).on('click', '.btn_edit', function () {
+            $('#report_content').text($(this).prev().prev().prev().prev().val());
+            $("#site").val($(this).prev().prev().prev().prev().prev().val());
+            $("#report_id_edit").val($(this).prev().prev().prev().val());
+            //$("#site select").val($(this).prev().prev().prev().prev().prev().val()).change();
+            $('#worKReportEditModal').modal('show');
         });
         $(document).on('click', '.work_report_detail', function () {
             $('#company_name').text($(this).parent().prev().prev().prev().prev().prev().prev().text())

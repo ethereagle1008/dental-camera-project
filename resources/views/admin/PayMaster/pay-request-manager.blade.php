@@ -33,7 +33,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label">氏名:</label>
                                         <input type="text" class="form-control dt-input dt-full-name" data-column="1" name="user_name"
-                                               placeholder="現場名を入力してください。" data-column-index="0" />
+                                               placeholder="氏名を入力してください。" data-column-index="0" />
                                     </div>
                                 </div>
                                 <div class="row g-1">

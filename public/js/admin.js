@@ -80,6 +80,9 @@ function saveForm(index, url, reload=false) {
                 };
                 if(response.status == true){
                     toastr.success("成功しました。");
+                    if(reload){
+                        window.location.reload();
+                    }
                 }
                 else {
                     toastr.warning("失敗しました。");

@@ -32,8 +32,12 @@
                                 <div class="row g-1 mb-md-1">
                                     <div class="col-md-6">
                                         <label class="form-label">現場名:</label>
-                                        <input type="text" class="form-control dt-input dt-full-name" data-column="1" name="site_name"
-                                               placeholder="現場名を入力してください。" data-column-index="0" />
+                                        <select class="form-select" name="site_name">
+                                            <option></option>
+                                            @foreach($sites as $item)
+                                                <option value="{{$item->name}}">{{$item->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="form-label">日付:</label>

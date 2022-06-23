@@ -35,6 +35,7 @@ $(document).ready(function () {
             cancelButtonText: "キャンセル"
         }).then(function(result) {
             if (result.value) {
+                //sendShift('place', 'arrive');
                 arriveLocation();
             }
         });
@@ -73,6 +74,7 @@ $(document).ready(function () {
             cancelButtonText: "キャンセル"
         }).then(function(result) {
             if (result.value) {
+                //sendShift('place', 'leave');
                 leaveLocation();
             }
         });

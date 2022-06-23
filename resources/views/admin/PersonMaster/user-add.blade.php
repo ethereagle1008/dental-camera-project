@@ -141,13 +141,15 @@
                                     </div>
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="contract_value">日当</label>
-                                        <select class="form-select" id="contract_value" name="contract_value" disabled>
+                                        <input type="number" id="contract_value" class="form-control" name="contract_value" placeholder="日当を入力してください"
+                                        value="{{isset($user) ? $user->contract_value : ''}}" />
+                                        {{-- <select class="form-select" id="contract_value" name="contract_value" disabled>
                                             <option value="1" {{isset($user) ? ($user->contract_type == 1 ? 'selected' : '') : ''}}>12,000円</option>
                                             <option value="2" {{isset($user) ? ($user->contract_type == 2 ? 'selected' : '') : ''}}>13,500円</option>
                                             <option value="3" {{isset($user) ? ($user->contract_type == 3 ? 'selected' : '') : ''}}>15,000円</option>
                                             <option value="4" {{isset($user) ? ($user->contract_type == 4 ? 'selected' : '') : ''}}>15,000円</option>
                                             <option value="5" {{isset($user) ? ($user->contract_type == 5 ? 'selected' : '') : ''}}>18,000円</option>
-                                        </select>
+                                        </select> --}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -284,11 +286,11 @@
                                 <div class="row">
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="name">労災保険料</label>
-                                        <input class="form-control" disabled placeholder="" name="safe_cost" value="{{isset($user) ? (int)($user->safe_cost) : 360}}"/>
+                                        <input class="form-control" placeholder="" name="safe_cost" value="{{isset($user) ? (int)($user->safe_cost) : 360}}"/>
                                     </div>
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="email">安全協力費</label>
-                                        <input class="form-control" disabled placeholder="" id="insurance_cost" name="insurance_cost" value="{{isset($user) ? (int)($user->insurance_cost) : 360}}"/>
+                                        <input class="form-control" placeholder="" id="insurance_cost" name="insurance_cost" value="{{isset($user) ? (int)($user->insurance_cost) : 360}}"/>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -322,7 +324,7 @@
             $('.flatpickr-basic').flatpickr();
 
             $('#contract_type').change(function () {
-                $('#contract_value').val($(this).val());
+                // $('#contract_value').val($(this).val());
                 let type = $(this).val();
                 if(type == 1){
                     $('#insurance_cost').val(360)

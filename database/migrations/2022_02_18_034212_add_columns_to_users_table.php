@@ -23,6 +23,7 @@ class AddColumnsToUsersTable extends Migration
             $table->string('emergency_name')->nullable();
             $table->string('emergency_number')->nullable();
             $table->tinyInteger('contract_type')->nullable();
+            $table->integer('contract_value')->nullable();
             $table->integer('director_id')->nullable();
             $table->integer('office_id')->nullable();
             $table->integer('team_id')->nullable();

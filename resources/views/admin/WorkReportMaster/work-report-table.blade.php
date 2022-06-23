@@ -20,6 +20,7 @@
             <td>{{$item->user->team->name}}</td>
             <td>{{$item->report}}</td>
             <td>
+                <input type="hidden" value="{{$item->site->id}}">
                 <input type="hidden" value="{{$item->report}}">
                 <input type="hidden" value="{{$item->id}}">
                 <input type="hidden" value="{{date('Y年m月d日付分', strtotime($item->report_date))}}">
@@ -37,6 +38,7 @@
                         </svg>
                     </span>
                 </a>
+                <button class="btn btn-primary waves-effect waves-float waves-light btn_edit">変更</button>
             </td>
         </tr>
     @endforeach

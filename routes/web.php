@@ -58,6 +58,7 @@ Route::group(['middleware' => 'auth'], function (){
             Route::post('company-save', [CompanyController::class, 'companySave'])->name('master.company-save');
             Route::post('company-delete', [CompanyController::class, 'companyDelete'])->name('master.company-delete');
             Route::get('company-manager', [CompanyController::class, 'companyManage'])->name('master.company-manager');
+            Route::get('invoice-manager', [CompanyController::class, 'invoiceManage'])->name('master.invoice-manager');
 
             Route::get('site-add', [SiteController::class, 'siteAdd'])->name('master.site-add');
             Route::get('site-edit/{id}', [SiteController::class, 'siteEdit'])->name('master.site-edit');
@@ -79,6 +80,7 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('work-report-manager', [WorkReportController::class, 'workReportManage'])->name('master.work-report-manager');
             Route::post('work-report-table', [WorkReportController::class, 'workReportTable'])->name('master.work-report-table');
             Route::post('work-report-detail-table', [WorkReportController::class, 'workReportDetailTable'])->name('master.work-report-detail-table');
+            Route::post('work-report-detail-edit', [WorkReportController::class, 'workReportDetailEdit'])->name('master.work-report-detail-edit');
             Route::get('work-report-export-excel/{id}', [WorkReportController::class, 'workReportExportExcel'])->name('master.work-report-export-excel');
 
             Route::get('work-shift-manager', [WorkReportController::class, 'workShiftManage'])->name('master.work-shift-manager');

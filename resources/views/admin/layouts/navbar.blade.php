@@ -151,6 +151,11 @@
                             <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">請求会社一覧</span>
                         </a>
                     </li>
+                    <li class="{{ str_contains(\Request::route()->getName(), 'invoice-manage') ? 'active' : '' }}">
+                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'invoice-manage') ? '#' : route('master.invoice-manager')}}">
+                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">請求書</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'site') ? 'sidebar-group-active open' : '' }}">

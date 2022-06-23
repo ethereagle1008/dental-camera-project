@@ -30,4 +30,9 @@ class CompanyController extends Controller
         Company::where('id', $request->id)->delete();
         return response()->json(['status' => true]);
     }
+
+    public function invoiceManage(){
+        $company = Company::all();
+        return view('admin.CompanyMaster.invoice-manager', compact('company'));
+    }
 }

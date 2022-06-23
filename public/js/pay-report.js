@@ -3,7 +3,7 @@ $(document).ready(function () {
         let price = $('#price').val();
         let limit = $('#limit').val();
         console.log(price, limit);
-        if(price == 0 || price > parseInt(limit)){
+        if(price == 0 || price > parseInt(limit) || price > 5000){
             toastr.options = {
                 "closeButton": true,
                 "debug": false,
@@ -21,7 +21,6 @@ $(document).ready(function () {
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
             };
-
             toastr.warning("前払い金額を正確に入力してください。");
             return;
         }

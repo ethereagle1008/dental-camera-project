@@ -14,14 +14,14 @@
                 </p>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
             <div class="card-label">
                 <p>
                     <span>氏名: </span><span id="user_name">{{$tmp['name']}}</span>
                 </p>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="card-label">
                 <p>
                     <span>作業月報: </span><span id="month">{{$tmp['month']}}</span><span>月分</span>
@@ -117,7 +117,7 @@
                     <td>通常作業</td>
                     <td>{{$tmp['shift_normal']}}</td>
                     <td>日</td>
-                    <td>{{calculatePriceByRole(1, $tmp['contract_type'], 1)}}</td>
+                    <td>{{}}</td>
                     <td>{{$tmp['price_normal']}}</td>
                     <td></td>
                 </tr>
@@ -224,7 +224,7 @@
                     <td>安全協力会費</td>
                     <td>{{$tmp['shift_total']}}</td>
                     <td>日</td>
-                    <td>{{calculatePriceByRole(1, $tmp['contract_type'], 'safe-cost')}}</td>
+                    <td>{{$user->safe_cost}}</td>
                     <td>{{$tmp['safe_cost']}}</td>
                     <td>日額＊3㌫</td>
                 </tr>

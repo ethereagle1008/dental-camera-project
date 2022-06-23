@@ -26,29 +26,33 @@
                             <h4 class="card-title">労　務　者　総　括　表</h4>
                         </div>
                         <!--Search Form -->
-                        <div class="card-body mt-2">
+                        <div class="card-body mt-2 pb-0">
                             <form class="dt_adv_search" method="POST" id="work_shift_total_form">
                                 @csrf
-                                <div class="row g-1 mb-md-1">
+                                <div class="row g-1 mb-0">
+                                    <div class="col-md-4 mb-1">
+                                        <label class="form-label" for="fp-range">週間選択</label>
+                                        <input type="text" id="range" class="form-control flatpickr-range" placeholder="YYYY-MM-DD to YYYY-MM-DD" name="range" required/>
+                                    </div>
+{{--                                    <div class="col-md-2">--}}
+{{--                                        <label class="form-label" for="basicSelect">年選択</label>--}}
+{{--                                        <select class="form-select" id="year" name="year">--}}
+{{--                                            @for($i = 2022; $i < 2200; $i++)--}}
+{{--                                                <option value="{{$i}}">{{$i}}</option>--}}
+{{--                                            @endfor--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="col-md-1">--}}
+{{--                                        <label class="form-label" for="basicSelect">月選択</label>--}}
+{{--                                        <select class="form-select" id="month" name="month">--}}
+{{--                                            @for($i = 1; $i < 13; $i++)--}}
+{{--                                                <option--}}
+{{--                                                    value="{{$i}}" {{$i == intval(date('m')) ? 'selected' : ''}}>{{$i}}月--}}
+{{--                                                </option>--}}
+{{--                                            @endfor--}}
+{{--                                        </select>--}}
+{{--                                    </div>--}}
                                     <div class="col-md-2">
-                                        <label class="form-label" for="basicSelect">年選択</label>
-                                        <select class="form-select" id="year" name="year">
-                                            @for($i = 2022; $i < 2200; $i++)
-                                                <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-md-1">
-                                        <label class="form-label" for="basicSelect">月選択</label>
-                                        <select class="form-select" id="month" name="month">
-                                            @for($i = 1; $i < 13; $i++)
-                                                <option
-                                                    value="{{$i}}" {{$i == intval(date('m')) ? 'selected' : ''}}>{{$i}}月
-                                                </option>
-                                            @endfor
-                                        </select>
-                                    </div>
-                                    <div class="col-md-3">
                                         <button class="btn btn-success mr-2" id="btn_get_table"
                                                 style="margin-top: 23px;">検　索
                                         </button>
@@ -58,8 +62,7 @@
                             <form id="work_shift_personal_form" class="d-none">
                                 @csrf
                                 <input type="hidden" name="user_id" id="user_id">
-                                <input type="hidden" name="year" id="year_form">
-                                <input type="hidden" name="month" id="month_form">
+                                <input type="hidden" name="range" id="range_form">
                             </form>
                         </div>
                         <hr class="my-0"/>
@@ -115,11 +118,13 @@
             // $('#btn_export').click(function () {
             //     $('#btn_collection').show()
             // })
+            $('.flatpickr-range').flatpickr({
+                mode: 'range'
+            });
         });
         $(document).on('click', '.personal_shift', function () {
             $('#user_id').val($(this).prev().val());
-            $("#year_form").val($('#year').val());
-            $('#month_form').val($('#month').val());
+            $("#range_form").val($('#range').val());
             getTableData('work_shift_personal', work_shift_personal, false);
             $('#worKPersonalShiftModal').modal('show');
         });

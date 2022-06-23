@@ -58,7 +58,7 @@ class PayController extends Controller
             $cnt_shift_normal = UserShift::where('user_id', $user->id)->where('over', 1)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
             $cnt_shift_night = UserShift::where('user_id', $user->id)->where('over', 2)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
             $shifts_over = UserShift::where('user_id', $user->id)->where('over_time', '!=', 0)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get();
-            $tmp['price_normal'] = calculatePriceByRole($cnt_shift_normal, $user->contract_type, 1);
+            $tmp['price_normal'] = $user->contract_value * $cnt_shift_normal;
             $tmp['price_night'] = calculatePriceByRole($cnt_shift_night, $user->contract_type, 2);
             $cnt_shift_total = UserShift::where('user_id', $user->id)->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->get()->count();
             $price_over = 0;
@@ -107,8 +107,8 @@ class PayController extends Controller
             if($user->insurance == 1){
                 $tmp['insurance'] = calculatePriceByType(1, 'insurance');
             }
-            $tmp['self_insurance'] = calculatePriceByType($cnt_shift_total, 'self-insurance');
-            $tmp['safe_cost'] = calculatePriceByRole($cnt_shift_total, $user->contract_type, 'safe-cost');
+            $tmp['self_insurance'] = $user->safe_cost * $cnt_shift_total;
+            $tmp['safe_cost'] = $user->safe_cost * $cnt_shift_total;
             $tmp['cloth'] = 0;
             if($user->cloth == 1){
                 $tmp['cloth'] = calculatePriceByType($cnt_shift_total, 'cloth');
