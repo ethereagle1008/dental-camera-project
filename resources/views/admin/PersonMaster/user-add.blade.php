@@ -132,8 +132,7 @@
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="contract_type">契約タイプ</label>
                                         <select class="form-select" id="contract_type" name="contract_type">
-                                            <option value="1" {{isset($user) ? ($user->contract_type == 1 ? 'selected' : '') : ''}}>一般A</option>
-                                            <option value="2" {{isset($user) ? ($user->contract_type == 2 ? 'selected' : '') : ''}}>一般B</option>
+                                            <option value="1" {{isset($user) ? ($user->contract_type == 1 ? 'selected' : '') : ''}}>一般</option>
                                             <option value="3" {{isset($user) ? ($user->contract_type == 3 ? 'selected' : '') : ''}}>班長</option>
                                             <option value="4" {{isset($user) ? ($user->contract_type == 4 ? 'selected' : '') : ''}}>所長</option>
                                             <option value="5" {{isset($user) ? ($user->contract_type == 5 ? 'selected' : '') : ''}}>その他</option>
@@ -143,13 +142,6 @@
                                         <label class="form-label" for="contract_value">日当</label>
                                         <input type="number" id="contract_value" class="form-control" name="contract_value" placeholder="日当を入力してください"
                                         value="{{isset($user) ? $user->contract_value : ''}}" />
-                                        {{-- <select class="form-select" id="contract_value" name="contract_value" disabled>
-                                            <option value="1" {{isset($user) ? ($user->contract_type == 1 ? 'selected' : '') : ''}}>12,000円</option>
-                                            <option value="2" {{isset($user) ? ($user->contract_type == 2 ? 'selected' : '') : ''}}>13,500円</option>
-                                            <option value="3" {{isset($user) ? ($user->contract_type == 3 ? 'selected' : '') : ''}}>15,000円</option>
-                                            <option value="4" {{isset($user) ? ($user->contract_type == 4 ? 'selected' : '') : ''}}>15,000円</option>
-                                            <option value="5" {{isset($user) ? ($user->contract_type == 5 ? 'selected' : '') : ''}}>18,000円</option>
-                                        </select> --}}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -180,6 +172,18 @@
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="mb-1 col-md-6 mt-2">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="deal_type" id="gender1" value="1"
+                                                {{isset($user) ? ($user->deal_type == 1 ? 'checked' : '') : 'checked'}}/>
+                                            <label class="form-check-label" for="gender1">社員</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="deal_type" id="gender2" value="2"
+                                                {{isset($user) ? ($user->deal_type == 2 ? 'checked' : '') : ''}}/>
+                                            <label class="form-check-label" for="gender2">業務委託</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="content-header">

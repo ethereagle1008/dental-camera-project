@@ -39,9 +39,7 @@ function contractType($contract_type){
         case 3:
             return "班長";
         case 1:
-            return "一般A";
-        case 2:
-            return "一般B";
+            return "一般";
         case 5:
             return "その他";
     }

@@ -43,198 +43,194 @@
         </ul>
     </div>
     <div class="shadow-bottom"></div>
-    <div class="main-menu-content">
-        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-            <li class="nav-item has-sub {{ str_contains(\Request::route()->getName(), 'person') ? 'sidebar-group-active open' : '' }}">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="人事マスター">人事マスター</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="has-sub {{ str_contains(\Request::route()->getName(), 'admin') ? 'sidebar-group-active open' : '' }}">
-                        <a class="d-flex align-items-center" href="#">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="管理者管理">管理者管理</span>
-                        </a>
-                        <ul class="menu-content">
-                            <li class="{{ str_contains(\Request::route()->getName(), 'admin-add') ? 'active' : '' }}">
-                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'admin-add') ? '#' : route('master.person-admin-add')}}">
-                                    <span class="menu-item text-truncate" data-i18n="Third Level">管理者追加</span>
-                                </a>
-                            </li>
-                            <li class="{{ str_contains(\Request::route()->getName(), 'admin-manager') ? 'active' : '' }}">
-                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'admin-manager') ? '#' : route('master.person-admin-manager')}}">
-                                    <span class="menu-item text-truncate" data-i18n="Third Level">管理者一覧</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-sub {{ str_contains(\Request::route()->getName(), 'user') ? 'sidebar-group-active open' : '' }}">
-                        <a class="d-flex align-items-center" href="#">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="ユーザー管理">ユーザー管理</span>
-                        </a>
-                        <ul class="menu-content">
-                            <li class="{{ str_contains(\Request::route()->getName(), 'user-add') ? 'active' : '' }}">
-                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-add') ? '#' : route('master.person-user-add')}}">
-                                    <span class="menu-item text-truncate" data-i18n="Third Level">ユーザー追加</span>
-                                </a>
-                            </li>
-                            <li class="{{ str_contains(\Request::route()->getName(), 'user-manager') ? 'active' : '' }}">
-                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-manager') ? '#' : route('master.person-user-manager')}}">
-                                    <span class="menu-item text-truncate" data-i18n="Third Level">ユーザー一覧</span>
-                                </a>
-                            </li>
-                            <li class="{{ str_contains(\Request::route()->getName(), 'user-summary') ? 'active' : '' }}">
-                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-summary') ? '#' : route('master.person-user-summary')}}">
-                                    <span class="menu-item text-truncate" data-i18n="Third Level">人事総括</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has-sub {{ str_contains(\Request::route()->getName(), 'qualify') ? 'sidebar-group-active open' : '' }}">
-                        <a class="d-flex align-items-center" href="#">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="ユーザー管理">資格マスター</span>
-                        </a>
-                        <ul class="menu-content">
-                            <li class="{{ str_contains(\Request::route()->getName(), 'qualify-manager') ? 'active' : '' }}">
-                                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'qualify-manager') ? '#' : route('master.person-qualify-manager')}}">
-                                    <span class="menu-item text-truncate" data-i18n="Third Level">資格一覧</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'office') ? 'sidebar-group-active open' : '' }}">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather="shield"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">営業所マスター</span>
-                </a>
-                <ul class="menu-content">
-{{--                    <li>--}}
-{{--                        <a class="d-flex align-items-center" href="app-access-roles.html">--}}
-{{--                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">営業所追加</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-                    <li class="{{ str_contains(\Request::route()->getName(), 'office-manage') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'office-manage') ? '#' : route('master.office-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">営業所一覧</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'team') ? 'sidebar-group-active open' : '' }}">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">班マスター</span>
-                </a>
-                <ul class="menu-content">
-{{--                    <li><a class="d-flex align-items-center" href="app-access-roles.html">--}}
-{{--                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">班追加</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-                    <li class="{{ str_contains(\Request::route()->getName(), 'team-manage') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'team-manage') ? '#' : route('master.team-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">班一覧</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'company') ? 'sidebar-group-active open' : '' }}">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">請求会社マスター</span>
-                </a>
-                <ul class="menu-content">
-{{--                    <li class="{{ str_contains(\Request::route()->getName(), 'company-add') ? 'active' : '' }}">--}}
-{{--                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'company-add') ? '#' : route('master.company-add')}}">--}}
-{{--                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">請求会社追加</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-                    <li class="{{ str_contains(\Request::route()->getName(), 'company-manage') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'company-manage') ? '#' : route('master.company-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">請求会社一覧</span>
-                        </a>
-                    </li>
-                    <li class="{{ str_contains(\Request::route()->getName(), 'invoice-manage') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'invoice-manage') ? '#' : route('master.invoice-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">請求書</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'site') ? 'sidebar-group-active open' : '' }}">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">現場マスター</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ str_contains(\Request::route()->getName(), 'site-add') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'site-add') ? '#' : route('master.site-add')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">現場追加</span>
-                        </a>
-                    </li>
-                    <li class="{{ str_contains(\Request::route()->getName(), 'site-manage') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'site-manage') ? '#' : route('master.site-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">現場一覧</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'pay') ? 'sidebar-group-active open' : '' }}">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather="credit-card"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">前払いマスター</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ str_contains(\Request::route()->getName(), 'pay-request') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-request-manager') ? '#' : route('master.pay-request-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前払申請一覧</span>
-                        </a>
-                    </li>
-                    <li class="{{ str_contains(\Request::route()->getName(), 'pay-sum-manager') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-sum-manager') ? '#' : route('master.pay-sum-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">前払総括</span>
-                        </a>
-                    </li>
-                    <li class="{{ str_contains(\Request::route()->getName(), 'pay-sum-person') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-sum-person') ? '#' : route('master.pay-sum-person')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前払い一覧(個人別)</span>
-                        </a>
-                    </li>
-                    <li class="{{ str_contains(\Request::route()->getName(), 'pay-sum-month') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-sum-month') ? '#' : route('master.pay-sum-month')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前払い一覧(月別)</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'work') ? 'sidebar-group-active open' : '' }}">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">作業管理</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ str_contains(\Request::route()->getName(), 'work-shift') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-shift-manager') ? '#' : route('master.work-shift-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">勤怠管理</span>
-                        </a>
-                    </li>
-                    <li class="{{ str_contains(\Request::route()->getName(), 'work-report') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">作業日報管理</span>
-                        </a>
-                    </li>
-{{--                    <li class="{{ str_contains(\Request::route()->getName(), 'work-person') ? 'active' : '' }}">--}}
-{{--                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-person-shift') ? '#' : route('master.work-person-shift')}}">--}}
-{{--                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">個別勤務</span>--}}
-{{--                        </a>--}}
-{{--                    </li>--}}
-                    <li class="{{ str_contains(\Request::route()->getName(), 'work-total') ? 'active' : '' }}">
-                        <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-total-shift') ? '#' : route('master.work-total-shift')}}">
-                            <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">労務者総括</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-{{--            <li class=" nav-item {{ str_contains(\Request::route()->getName(), 'work-report') ? 'sidebar-group-active' : '' }}">--}}
-{{--                <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">--}}
-{{--                    <i data-feather="type"></i><span class="menu-title text-truncate" data-i18n="Typography">作業日報管理</span>--}}
-{{--                </a>--}}
-{{--            </li>--}}
-        </ul>
-    </div>
+    @if(isset(\Illuminate\Support\Facades\Auth::user()->contract_type))
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'work') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">作業管理</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'work-report') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">作業日報管理</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    @else
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li class="nav-item has-sub {{ str_contains(\Request::route()->getName(), 'person') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="人事マスター">人事マスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="has-sub {{ str_contains(\Request::route()->getName(), 'admin') ? 'sidebar-group-active open' : '' }}">
+                            <a class="d-flex align-items-center" href="#">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="管理者管理">管理者管理</span>
+                            </a>
+                            <ul class="menu-content">
+                                <li class="{{ str_contains(\Request::route()->getName(), 'admin-add') ? 'active' : '' }}">
+                                    <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'admin-add') ? '#' : route('master.person-admin-add')}}">
+                                        <span class="menu-item text-truncate" data-i18n="Third Level">管理者追加</span>
+                                    </a>
+                                </li>
+                                <li class="{{ str_contains(\Request::route()->getName(), 'admin-manager') ? 'active' : '' }}">
+                                    <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'admin-manager') ? '#' : route('master.person-admin-manager')}}">
+                                        <span class="menu-item text-truncate" data-i18n="Third Level">管理者一覧</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub {{ str_contains(\Request::route()->getName(), 'user') ? 'sidebar-group-active open' : '' }}">
+                            <a class="d-flex align-items-center" href="#">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="ユーザー管理">ユーザー管理</span>
+                            </a>
+                            <ul class="menu-content">
+                                <li class="{{ str_contains(\Request::route()->getName(), 'user-add') ? 'active' : '' }}">
+                                    <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-add') ? '#' : route('master.person-user-add')}}">
+                                        <span class="menu-item text-truncate" data-i18n="Third Level">ユーザー追加</span>
+                                    </a>
+                                </li>
+                                <li class="{{ str_contains(\Request::route()->getName(), 'user-manager') ? 'active' : '' }}">
+                                    <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-manager') ? '#' : route('master.person-user-manager')}}">
+                                        <span class="menu-item text-truncate" data-i18n="Third Level">ユーザー一覧</span>
+                                    </a>
+                                </li>
+                                <li class="{{ str_contains(\Request::route()->getName(), 'user-summary') ? 'active' : '' }}">
+                                    <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-summary') ? '#' : route('master.person-user-summary')}}">
+                                        <span class="menu-item text-truncate" data-i18n="Third Level">人事総括</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="has-sub {{ str_contains(\Request::route()->getName(), 'qualify') ? 'sidebar-group-active open' : '' }}">
+                            <a class="d-flex align-items-center" href="#">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="ユーザー管理">資格マスター</span>
+                            </a>
+                            <ul class="menu-content">
+                                <li class="{{ str_contains(\Request::route()->getName(), 'qualify-manager') ? 'active' : '' }}">
+                                    <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'qualify-manager') ? '#' : route('master.person-qualify-manager')}}">
+                                        <span class="menu-item text-truncate" data-i18n="Third Level">資格一覧</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'office') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="shield"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">営業所マスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'office-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'office-manage') ? '#' : route('master.office-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">営業所一覧</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'team') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="file-text"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">班マスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'team-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'team-manage') ? '#' : route('master.team-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">班一覧</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'company') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">請求会社マスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'company-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'company-manage') ? '#' : route('master.company-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">請求会社一覧</span>
+                            </a>
+                        </li>
+                        <li class="{{ str_contains(\Request::route()->getName(), 'invoice-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'invoice-manage') ? '#' : route('master.invoice-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">請求書</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'site') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">現場マスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'site-add') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'site-add') ? '#' : route('master.site-add')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">現場追加</span>
+                            </a>
+                        </li>
+                        <li class="{{ str_contains(\Request::route()->getName(), 'site-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'site-manage') ? '#' : route('master.site-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">現場一覧</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'pay') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="credit-card"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">前払いマスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'pay-request') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-request-manager') ? '#' : route('master.pay-request-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前払申請一覧</span>
+                            </a>
+                        </li>
+                        <li class="{{ str_contains(\Request::route()->getName(), 'pay-sum-manager') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-sum-manager') ? '#' : route('master.pay-sum-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">前払総括</span>
+                            </a>
+                        </li>
+                        <li class="{{ str_contains(\Request::route()->getName(), 'pay-sum-person') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-sum-person') ? '#' : route('master.pay-sum-person')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前払い一覧(個人別)</span>
+                            </a>
+                        </li>
+                        <li class="{{ str_contains(\Request::route()->getName(), 'pay-sum-month') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'pay-sum-month') ? '#' : route('master.pay-sum-month')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">前払い一覧(月別)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'work') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="grid"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">作業管理</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'work-shift') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-shift-manager') ? '#' : route('master.work-shift-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">勤怠管理</span>
+                            </a>
+                        </li>
+                        <li class="{{ str_contains(\Request::route()->getName(), 'work-report') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">作業日報管理</span>
+                            </a>
+                        </li>
+                        <li class="{{ str_contains(\Request::route()->getName(), 'work-total') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-total-shift') ? '#' : route('master.work-total-shift')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Roles">労務者総括</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    @endif
+
 </div>
 <!-- END: Main Menu-->

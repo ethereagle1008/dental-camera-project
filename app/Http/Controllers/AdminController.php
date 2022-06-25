@@ -20,7 +20,7 @@ class AdminController extends Controller
     }
 
     public function manageAdmin(){
-        $data = User::where('role', 'super')->orWhere('role', 'admin')->get();
+        $data = User::whereNull('contract_type')->where('role', 'super')->orWhere('role', 'admin')->get();
         return view('admin.PersonMaster.admin-manager', compact('data'));
     }
     public function adminAdd(){
@@ -130,6 +130,7 @@ class AdminController extends Controller
                 'emergency_number' => $request->emergency_number,
                 'contract_type' => $request->contract_type,
                 'contract_value' => $request->contract_value,
+                'deal_type' => $request->deal_type,
                 'director_id' => $request->director_id,
                 'office_id' => $office_id,
                 'team_id' => $team_id,
@@ -188,6 +189,7 @@ class AdminController extends Controller
                 'emergency_number' => $request->emergency_number,
                 'contract_type' => $request->contract_type,
                 'contract_value' => $request->contract_value,
+                'deal_type' => $request->deal_type,
                 'director_id' => $request->director_id,
                 'office_id' => $office_id,
                 'team_id' => $team_id,

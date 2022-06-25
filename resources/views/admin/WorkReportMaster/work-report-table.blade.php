@@ -6,7 +6,10 @@
         <th>現場名</th>
         <th>所属営業所</th>
         <th>所属班名</th>
-        <th>日報内容</th>
+        <th>発注者承認印</th>
+        <th>発注者承認日</th>
+        <th>山大承認印</th>
+        <th>山大承認日</th>
         <th></th>
     </tr>
     </thead>
@@ -18,12 +21,13 @@
             <td>{{$item->site->name}}</td>
             <td>{{$item->user->office->name}}</td>
             <td>{{$item->user->team->name}}</td>
-            <td>{{$item->report}}</td>
+            <td>{{$item->company_approval}}</td>
+            <td>{{isset($item->company_approval) ? date('Y-m-d', strtotime($item->updated_at)) : ''}}</td>
+            <td>{{$item->admin_approval}}</td>
+            <td>{{isset($item->admin_approval) ? date('Y-m-d', strtotime($item->updated_at)) : ''}}</td>
             <td>
                 <input type="hidden" value="{{$item->site->id}}">
-                <input type="hidden" value="{{$item->report}}">
-                <input type="hidden" value="{{$item->id}}">
-                <input type="hidden" value="{{date('Y年m月d日付分', strtotime($item->report_date))}}">
+                <input type="hidden" value="{{date('Y年m月d日付分', strtotime($item->shift_date))}}">
                 <a class="btn btn-sm btn-clean btn-icon mr-2 work_report_detail" title="Edit details">
                     <span class="svg-icon svg-icon-md">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -38,7 +42,6 @@
                         </svg>
                     </span>
                 </a>
-                <button class="btn btn-primary waves-effect waves-float waves-light btn_edit">変更</button>
             </td>
         </tr>
     @endforeach

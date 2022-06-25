@@ -9,7 +9,7 @@ class UserShift extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'shift_date', 'start_time', 'start_place', 'end_time', 'end_place', 'site_id', 'over', 'over_time'
+        'user_id', 'shift_date', 'start_time', 'start_place', 'end_time', 'end_place', 'site_id', 'over', 'over_time', 'company_approval', 'admin_approval'
     ];
     public function user(){
         return $this->hasOne(User::class, 'id', 'user_id');

@@ -78,10 +78,13 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('pay-sum-month', [PayController::class, 'paySumMonth'])->name('master.pay-sum-month');
 
             Route::get('work-report-manager', [WorkReportController::class, 'workReportManage'])->name('master.work-report-manager');
+            Route::post('work-report-status', [WorkReportController::class, 'workReportStatus'])->name('master.work-report-status');
             Route::post('work-report-table', [WorkReportController::class, 'workReportTable'])->name('master.work-report-table');
             Route::post('work-report-detail-table', [WorkReportController::class, 'workReportDetailTable'])->name('master.work-report-detail-table');
             Route::post('work-report-detail-edit', [WorkReportController::class, 'workReportDetailEdit'])->name('master.work-report-detail-edit');
             Route::get('work-report-export-excel/{id}', [WorkReportController::class, 'workReportExportExcel'])->name('master.work-report-export-excel');
+            Route::get('work-report-export-down', [WorkReportController::class, 'workReportExportDown'])->name('master.work-report-export-down');
+            Route::get('work-report-down-list', [WorkReportController::class, 'workReportDownList'])->name('master.work-report-down-list');
 
             Route::get('work-shift-manager', [WorkReportController::class, 'workShiftManage'])->name('master.work-shift-manager');
             Route::post('work-shift-table', [WorkReportController::class, 'workShiftTable'])->name('master.work-shift-table');
