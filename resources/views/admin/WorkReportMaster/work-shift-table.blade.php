@@ -6,7 +6,9 @@
         <th>氏名</th>
         <th>職責</th>
         <th>開始時間</th>
+        <th>開始位置</th>
         <th>終了時間</th>
+        <th>終了位置</th>
         <th></th>
     </tr>
     </thead>
@@ -18,7 +20,9 @@
             <td>{{$item->user->name}}</td>
             <td>{{contractType($item->user->contract_type)}}</td>
             <td>{{date('H:i', strtotime($item->start_time))}}</td>
-            <td>{{date('H:i', strtotime($item->end_time))}}</td>
+            <td>{{$item->start_place}}</td>
+            <td>{{isset($item->end_time) ? date('H:i', strtotime($item->end_time)) : ''}}</td>
+            <td>{{isset($item->end_time) ? $item->end_place : ''}}</td>
             <td>
                 <input type="hidden" value="{{$item->over_time}}">
                 <input type="hidden" value="{{$item->over}}">

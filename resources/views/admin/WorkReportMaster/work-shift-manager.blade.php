@@ -181,8 +181,8 @@
 
         });
         $(document).on('click', '.work_shift_detail', function () {
-            $('#start_time').val($(this).parent().prev().prev().text())
-            $('#end_time').val($(this).parent().prev().text())
+            $('#start_time').val($(this).parent().prev().prev().prev().prev().text())
+            $('#end_time').val($(this).parent().prev().prev().text())
             var over = $(this).prev().prev().val();
             $("input[name=over][value=" + over + "]").prop('checked', true);
             $("#over_time").val($(this).prev().prev().prev().val());

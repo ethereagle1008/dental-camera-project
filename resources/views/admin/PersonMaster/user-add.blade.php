@@ -141,7 +141,7 @@
                                     <div class="mb-1 col-md-6">
                                         <label class="form-label" for="contract_value">日当</label>
                                         <input type="number" id="contract_value" class="form-control" name="contract_value" placeholder="日当を入力してください"
-                                        value="{{isset($user) ? $user->contract_value : ''}}" />
+                                        value="{{isset($user) ? $user->contract_value : ''}}" required/>
                                     </div>
                                 </div>
                                 <div class="row">

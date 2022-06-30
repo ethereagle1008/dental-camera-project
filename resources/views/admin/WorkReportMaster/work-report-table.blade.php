@@ -42,6 +42,9 @@
                         </svg>
                     </span>
                 </a>
+                <button class="mt-0 btn btn-primary waves-effect waves-float waves-light confirm_report"
+                            style="float:right;" >承認
+                </button>
             </td>
         </tr>
     @endforeach
