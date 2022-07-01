@@ -100,6 +100,16 @@
                                         <span class="menu-item text-truncate" data-i18n="Third Level">ユーザー一覧</span>
                                     </a>
                                 </li>
+                                {{-- <li class="{{ str_contains(\Request::route()->getName(), 'user-business-manager') ? 'active' : '' }}">
+                                    <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'business-manager') ? '#' : route('master.user-business-manager')}}">
+                                        <span class="menu-item text-truncate" data-i18n="Third Level">業務委託一覧</span>
+                                    </a>
+                                </li>
+                                <li class="{{ str_contains(\Request::route()->getName(), 'user-employee-manager') ? 'active' : '' }}">
+                                    <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'employee-manager') ? '#' : route('master.user-employee-manager')}}">
+                                        <span class="menu-item text-truncate" data-i18n="Third Level">社員一覧</span>
+                                    </a>
+                                </li> --}}
                                 <li class="{{ str_contains(\Request::route()->getName(), 'user-summary') ? 'active' : '' }}">
                                     <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'user-summary') ? '#' : route('master.person-user-summary')}}">
                                         <span class="menu-item text-truncate" data-i18n="Third Level">人事総括</span>
@@ -179,6 +189,30 @@
                         </li>
                     </ul>
                 </li>
+                {{-- <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'vehicle') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather="truck"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">車両マスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'vehicle-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'vehicle-manage') ? '#' : route('master.vehicle-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">車両一覧</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li> --}}
+                {{-- <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'travel') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather='navigation-2'></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">出張適用マスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'travel-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'travel-manage') ? '#' : route('master.travel-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">出張適用一覧</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li> --}}
                 <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'pay') ? 'sidebar-group-active open' : '' }}">
                     <a class="d-flex align-items-center" href="#">
                         <i data-feather="credit-card"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">前払いマスター</span>
@@ -218,7 +252,7 @@
                         </li>
                         <li class="{{ str_contains(\Request::route()->getName(), 'work-report') ? 'active' : '' }}">
                             <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'work-report-manager') ? '#' : route('master.work-report-manager')}}">
-                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">作業日報管理</span>
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">勤怠承認管理</span>
                             </a>
                         </li>
                         <li class="{{ str_contains(\Request::route()->getName(), 'work-total') ? 'active' : '' }}">

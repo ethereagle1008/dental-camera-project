@@ -88,7 +88,7 @@ class AdminController extends Controller
         $user = User::find($id);
         $office = Office::orderBy('name')->get();
         $team = Team::orderBy('name')->get();
-        $officeManager = User::whereNotNull('office_id')->get();
+        $officeManager = User::where('contract_type', 4)->whereNotNull('office_id')->get();
         $qualify = Qualify::orderBy('name')->get();
         $user_qualify = UserQualify::where('user_id', $id)->get();
         return view('admin.PersonMaster.user-add', compact('user','office', 'team', 'officeManager', 'qualify', 'user_qualify'));
@@ -239,5 +239,14 @@ class AdminController extends Controller
     public function userSummary(){
         $data = User::where('role', 'user')->get();
         return view('admin.PersonMaster.user-summary', compact('data'));
+    }
+
+    public function businessManager(){
+        $data = User::with('office', 'team')->where('role', 'user')->where('deal_type', 2)->get();
+        return view('admin.PersonMaster.business-manager', compact('data'));
+    }
+    public function employeeManager(){
+        $data = User::with('office', 'team')->where('role', 'user')->where('deal_type', 1)->get();
+        return view('admin.PersonMaster.employee-manager', compact('data'));
     }
 }

@@ -4,8 +4,6 @@
         <th>会社名</th>
         <th>現場ID</th>
         <th>現場名</th>
-        <th>所属営業所</th>
-        <th>所属班名</th>
         <th>発注者承認印</th>
         <th>発注者承認日</th>
         <th>山大承認印</th>
@@ -19,8 +17,6 @@
             <td>{{$item->site->company->name}}</td>
             <td>{{$item->site->site_code}}</td>
             <td>{{$item->site->name}}</td>
-            <td>{{$item->user->office->name}}</td>
-            <td>{{$item->user->team->name}}</td>
             <td>{{$item->company_approval}}</td>
             <td>{{isset($item->company_approval) ? date('Y-m-d', strtotime($item->updated_at)) : ''}}</td>
             <td>{{$item->admin_approval}}</td>

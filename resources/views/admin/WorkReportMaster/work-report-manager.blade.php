@@ -4,7 +4,7 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">作業日報管理</h2>
+                    <h2 class="content-header-title float-start mb-0">勤怠承認管理</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">作業マスター</a>
@@ -198,6 +198,7 @@
     </div>
     <!--end::Content-->
     <script>
+
         let work_report_table = '{{ route('master.work-report-table') }}';
         let work_report_status = '{{ route('master.work-report-status') }}';
         let work_report_detail_table = '{{ route('master.work-report-detail-table') }}';

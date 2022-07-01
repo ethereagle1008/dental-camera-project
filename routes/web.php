@@ -40,6 +40,11 @@ Route::group(['middleware' => 'auth'], function (){
             Route::post('user-delete', [AdminController::class, 'userDelete'])->name('master.person-user-delete');
             Route::get('user-summary', [AdminController::class, 'userSummary'])->name('master.person-user-summary');
 
+            Route::get('business-manager', [AdminController::class, 'businessManager'])->name('master.user-business-manager');
+            Route::post('business-manager-table', [AdminController::class, 'businessManagerTable'])->name('master.business-manager-table');
+            Route::get('employee-manager', [AdminController::class, 'employeeManager'])->name('master.user-employee-manager');
+            Route::post('employee-manager-table', [AdminController::class, 'employeeManagerTable'])->name('master.employee-manager-table');
+
             Route::get('qualify-manager', [AdminController::class, 'qualifyManage'])->name('master.person-qualify-manager');
             Route::post('qualify-save', [AdminController::class, 'qualifySave'])->name('master.person-qualify-save');
             Route::post('qualify-delete', [AdminController::class, 'qualifyDelete'])->name('master.person-qualify-delete');
@@ -92,6 +97,12 @@ Route::group(['middleware' => 'auth'], function (){
             Route::post('work-shift-person', [WorkReportController::class, 'workShiftPerson'])->name('master.work-shift-personal');
             Route::get('work-total-shift', [WorkReportController::class, 'workShiftTotal'])->name('master.work-total-shift');
             Route::post('work-shift-total-table', [WorkReportController::class, 'workShiftTotalTable'])->name('master.work-shift-total-table');
+
+
+            Route::get('travel-manager', [WorkReportController::class, 'travelManager'])->name('master.travel-manager');
+            Route::post('travel-manager-table', [WorkReportController::class, 'travelManagerTable'])->name('master.travel-manager-table');
+            Route::get('vehicle-manager', [WorkReportController::class, 'vehicleManager'])->name('master.vehicle-manager');
+            Route::post('vehicle-manager-table', [WorkReportController::class, 'vehicleManagerTable'])->name('master.vehicle-manager-table');
         });
     });
 
