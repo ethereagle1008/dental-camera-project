@@ -43,6 +43,14 @@
 
     <!-- BEGIN: Vendor JS-->
     <script src="{{asset('/')}}vendors/js/vendors.min.js"></script>
+    <style>
+        @media (min-width: 1440px){
+            .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+                max-width: none !important;
+            }
+        }
+
+    </style>
     <!-- BEGIN Vendor JS-->
 </head>
 <!--begin::Body-->

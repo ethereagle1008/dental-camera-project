@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddAddressToUsersTable extends Migration
+class AddColumnsToUsersTable1 extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,11 @@ class AddAddressToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('address')->nullable();
-            $table->tinyInteger('deal_type')->default(1);
+            $table->tinyInteger('employ_place')->default(1);
+            $table->date('enter_date')->nullable();
+            $table->date('exit_date')->nullable();
+            $table->tinyInteger('payment_type')->default(1);
+            $table->tinyInteger('salary_type')->nullable();
         });
     }
 
@@ -28,7 +31,7 @@ class AddAddressToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-
+            //
         });
     }
 }

@@ -6,9 +6,12 @@ use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PayController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TravelController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\WorkReportController;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +25,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    $users = User::all();
+    return view('auth.login', compact('users'));
 });
 Route::group(['middleware' => 'auth'], function (){
     Route::prefix('master')->group(function () {
@@ -99,10 +103,12 @@ Route::group(['middleware' => 'auth'], function (){
             Route::post('work-shift-total-table', [WorkReportController::class, 'workShiftTotalTable'])->name('master.work-shift-total-table');
 
 
-            Route::get('travel-manager', [WorkReportController::class, 'travelManager'])->name('master.travel-manager');
-            Route::post('travel-manager-table', [WorkReportController::class, 'travelManagerTable'])->name('master.travel-manager-table');
-            Route::get('vehicle-manager', [WorkReportController::class, 'vehicleManager'])->name('master.vehicle-manager');
-            Route::post('vehicle-manager-table', [WorkReportController::class, 'vehicleManagerTable'])->name('master.vehicle-manager-table');
+            Route::get('travel-manager', [TravelController::class, 'travelManager'])->name('master.travel-manager');
+            Route::post('travel-save', [TravelController::class, 'travelSave'])->name('master.travel-save');
+            Route::post('travel-delete', [TravelController::class, 'travelDelete'])->name('master.travel-delete');
+            Route::get('vehicle-manager', [VehicleController::class, 'vehicleManager'])->name('master.vehicle-manager');
+            Route::post('vehicle-save', [VehicleController::class, 'vehicleSave'])->name('master.vehicle-save');
+            Route::post('vehicle-delete', [VehicleController::class, 'vehicleDelete'])->name('master.vehicle-delete');
         });
     });
 

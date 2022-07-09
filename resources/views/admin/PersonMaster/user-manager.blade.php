@@ -34,10 +34,10 @@
                                 <tr>
                                     <th class="px-1">ID</th>
                                     <th class="px-1">氏名</th>
+                                    <th class="px-1">フリガナ</th>
+                                    <th class="px-1">性別</th>
                                     <th class="px-1">メールアドレス</th>
                                     <th class="px-1">職階</th>
-                                    <th class="px-1">営業所</th>
-                                    <th class="px-1">班</th>
                                     <th class="px-1"></th>
                                 </tr>
                                 </thead>
@@ -46,10 +46,10 @@
                                     <tr>
                                         <td class="px-1">{{$item->id}}</td>
                                         <td class="px-1">{{$item->name}}</td>
+                                        <td class="px-1">{{$item->furi}}</td>
+                                        <td class="px-1">{{$item->gender == 1 ? "男性" : "女性"}}</td>
                                         <td class="px-1">{{$item->email}}</td>
                                         <td class="px-1">{{contractType($item->contract_type)}}</td>
-                                        <td class="px-1">{{$item->office->name}}</td>
-                                        <td class="px-1">{{$item->team->name}}</td>
                                         <td class="px-1">
                                             <a href="{{route('master.person-user-edit', $item->id)}}" class="item-edit">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -79,7 +79,7 @@
     </div>
     <!--end::Content-->
     <script>
-        let admin_delete = '{{route('master.person-admin-delete')}}';
+        let admin_delete = '{{route('master.person-user-delete')}}';
         $(document).ready(function () {
             $('#admin-table').DataTable({
                 responsive: !0,

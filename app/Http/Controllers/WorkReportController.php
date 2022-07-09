@@ -20,6 +20,11 @@ class WorkReportController extends Controller
         $sites = Site::where('status', 1)->get();
         return view('admin.WorkReportMaster.work-report-manager', compact('sites'));
     }
+
+    public function vehicleManager(){
+        $sites = Site::where('status', 1)->get();
+        return view('admin.WorkReportMaster.vehicle-manager', compact('sites'));
+    }
     public function workReportStatus(Request $request){
         $site_id = $request->site_id;
         $report_date = $request->report_date;

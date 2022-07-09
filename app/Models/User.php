@@ -21,7 +21,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password', 'role', 'furi', 'gender', 'blood', 'birthday', 'phone', 'emergency_name', 'address',
         'emergency_number', 'contract_type', 'deal_type', 'contract_value', 'director_id', 'office_id', 'team_id', 'dormitory', 'cloth', 'business_phone',
-        'insurance', 'insurance_cost', 'safe_cost', 'receive_type', 'loan', 'advance_pay', 'desire_start', 'desire_meet'
+        'insurance', 'insurance_cost', 'safe_cost', 'receive_type', 'loan', 'advance_pay', 'desire_start', 'desire_meet', 'employ_place', 'enter_date', 'exit_date',
+        'payment_type', 'salary_type', 'move_value', 'guarantee_day', 'vehicle_license', 'heavy_license', 'helmet', 'daily_amount', 'overtime_amount', 'night_amount',
+        'overnight_amount', 'full_salary'
     ];
     public function director(){
         return $this->hasOne(User::class, 'id', 'director_id');
@@ -31,6 +33,9 @@ class User extends Authenticatable
     }
     public function team(){
         return $this->hasOne(Team::class, 'id', 'team_id');
+    }
+    public function place(){
+        return $this->hasOne(EmployPlace::class, 'id', 'employ_place');
     }
     /**
      * The attributes that should be hidden for serialization.

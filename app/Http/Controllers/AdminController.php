@@ -100,50 +100,89 @@ class AdminController extends Controller
             if(isset($user)){
                 return response()->json(['status' => false]);
             }
-            $team_id = $request->team_id;
-            $team = Team::find($team_id);
-            $office_id = $team->office_id;
-            $office = Office::find($team->office_id);
-            if($request->contract_type == 3){
-                if(!empty($team->team_manager_id) && ($user_id != $team->team_manager_id)){
-                    return response()->json(['status' => false]);
-                }
+            if(isset($request->password)){
+                $data = [
+                    'role' => 'user',
+                    'name' => $request->name,
+                    'furi' => $request->furi,
+                    'email' => $request->email,
+                    'password' => Hash::make($request->password),
+                    'birthday' => isset($request->birthday) ? date('Y-m-d', strtotime($request->birthday)) : null,
+                    'gender' => $request->gender,
+                    'blood' => $request->blood,
+                    'address' => $request->address,
+                    'emergency_name' => $request->emergency_name,
+                    'emergency_number' => $request->emergency_number,
+                    'phone' => $request->phone,
+                    'contract_type' => $request->contract_type,
+                    'contract_value' => $request->contract_value,
+                    'move_value' => $request->move_value,
+                    'guarantee_day' => $request->guarantee_day,
+                    'deal_type' => $request->deal_type,
+                    'enter_date' => isset($request->enter_date) ? date('Y-m-d', strtotime($request->enter_date)) : null,
+                    'employ_place' => $request->employ_place,
+                    'payment_type' => $request->payment_type,
+                    'salary_type' => $request->salary_type,
+                    'exit_date' => isset($request->exit_date) ? date('Y-m-d', strtotime($request->exit_date)) : null,
+                    'receive_type' => $request->receive_type,
+                    'vehicle_license' => $request->vehicle_license,
+                    'heavy_license' => $request->heavy_license,
+                    'dormitory' => $request->dormitory,
+                    'helmet' => $request->helmet,
+                    'business_phone' => $request->business_phone,
+                    'safe_cost' => $request->safe_cost,
+                    'insurance_cost' => $request->insurance_cost,
+                    'loan' => $request->loan,
+                    'advance_pay' => $request->advance_pay,
+                    'advance_pay' => $request->advance_pay,
+                    'daily_amount' => $request->daily_amount,
+                    'overtime_amount' => $request->overtime_amount,
+                    'night_amount' => $request->night_amount,
+                    'overnight_amount' => $request->overnight_amount,
+                    'full_salary' => $request->full_salary,
+                ];
             }
-            else if($request->contract_type == 4){
-                if(!empty($office->office_manager_id) && ($user_id != $team->team_manager_id)){
-                    return response()->json(['status' => false]);
-                }
+            else{
+                $data = [
+                    'role' => 'user',
+                    'name' => $request->name,
+                    'furi' => $request->furi,
+                    'email' => $request->email,
+                    'birthday' => isset($request->birthday) ? date('Y-m-d', strtotime($request->birthday)) : null,
+                    'gender' => $request->gender,
+                    'blood' => $request->blood,
+                    'address' => $request->address,
+                    'emergency_name' => $request->emergency_name,
+                    'emergency_number' => $request->emergency_number,
+                    'phone' => $request->phone,
+                    'contract_type' => $request->contract_type,
+                    'contract_value' => $request->contract_value,
+                    'move_value' => $request->move_value,
+                    'guarantee_day' => $request->guarantee_day,
+                    'deal_type' => $request->deal_type,
+                    'enter_date' => isset($request->enter_date) ? date('Y-m-d', strtotime($request->enter_date)) : null,
+                    'employ_place' => $request->employ_place,
+                    'payment_type' => $request->payment_type,
+                    'salary_type' => $request->salary_type,
+                    'exit_date' => isset($request->exit_date) ? date('Y-m-d', strtotime($request->exit_date)) : null,
+                    'receive_type' => $request->receive_type,
+                    'vehicle_license' => $request->vehicle_license,
+                    'heavy_license' => $request->heavy_license,
+                    'dormitory' => $request->dormitory,
+                    'helmet' => $request->helmet,
+                    'business_phone' => $request->business_phone,
+                    'safe_cost' => $request->safe_cost,
+                    'insurance_cost' => $request->insurance_cost,
+                    'loan' => $request->loan,
+                    'advance_pay' => $request->advance_pay,
+                    'daily_amount' => $request->daily_amount,
+                    'overtime_amount' => $request->overtime_amount,
+                    'night_amount' => $request->night_amount,
+                    'overnight_amount' => $request->overnight_amount,
+                    'full_salary' => $request->full_salary,
+                ];
             }
 
-            $data = [
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => 'user',
-                'address' => $request->address,
-                'furi' => $request->furi,
-                'gender' => $request->gender,
-                'blood' => $request->blood,
-                'birthday' => isset($request->birthday) ? date('Y-m-d', strtotime($request->birthday)) : null,
-                'phone' => $request->phone,
-                'emergency_name' => $request->emergency_name,
-                'emergency_number' => $request->emergency_number,
-                'contract_type' => $request->contract_type,
-                'contract_value' => $request->contract_value,
-                'deal_type' => $request->deal_type,
-                'director_id' => $request->director_id,
-                'office_id' => $office_id,
-                'team_id' => $team_id,
-                'dormitory' => $request->dormitory,
-                'cloth' => $request->cloth,
-                'business_phone' => $request->business_phone,
-                'insurance' => $request->insurance,
-                'receive_type' => $request->receive_type,
-                'insurance_cost' => $request->insurance_cost,
-                'safe_cost' => $request->safe_cost,
-                'loan' => $request->loan,
-                'advance_pay' => $request->advance_pay,
-            ];
             $users = User::where('id', $user_id)->update($data);
 
             $qualify = $request->qualify;
@@ -160,53 +199,48 @@ class AdminController extends Controller
                 return response()->json(['status' => false]);
             }
 
-            $team_id = $request->team_id;
-            $team = Team::find($team_id);
-            $office_id = $team->office_id;
-            $office = Office::find($team->office_id);
-            if($request->contract_type == 3){
-                if(!empty($team->team_manager_id)){
-                    return response()->json(['status' => false]);
-                }
-            }
-            else if($request->contract_type == 4){
-                if(!empty($office->office_manager_id)){
-                    return response()->json(['status' => false]);
-                }
-            }
-
             $data = [
+                'role' => 'user',
                 'name' => $request->name,
+                'furi' => $request->furi,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => 'user',
-                'furi' => $request->furi,
+                'birthday' => isset($request->birthday) ? date('Y-m-d', strtotime($request->birthday)) : null,
                 'gender' => $request->gender,
                 'blood' => $request->blood,
-                'birthday' => isset($request->birthday) ? date('Y-m-d', strtotime($request->birthday)) : null,
-                'phone' => $request->phone,
+                'address' => $request->address,
                 'emergency_name' => $request->emergency_name,
                 'emergency_number' => $request->emergency_number,
+                'phone' => $request->phone,
                 'contract_type' => $request->contract_type,
                 'contract_value' => $request->contract_value,
+                'move_value' => $request->move_value,
+                'guarantee_day' => $request->guarantee_day,
                 'deal_type' => $request->deal_type,
-                'director_id' => $request->director_id,
-                'office_id' => $office_id,
-                'team_id' => $team_id,
-                'dormitory' => $request->dormitory,
-                'cloth' => $request->cloth,
-                'business_phone' => $request->business_phone,
-                'insurance' => $request->insurance,
-                'insurance_cost' => $request->insurance_cost,
-                'safe_cost' => $request->safe_cost,
+                'enter_date' => isset($request->enter_date) ? date('Y-m-d', strtotime($request->enter_date)) : null,
+                'employ_place' => $request->employ_place,
+                'payment_type' => $request->payment_type,
+                'salary_type' => $request->salary_type,
+                'exit_date' => isset($request->exit_date) ? date('Y-m-d', strtotime($request->exit_date)) : null,
                 'receive_type' => $request->receive_type,
+                'vehicle_license' => $request->vehicle_license,
+                'heavy_license' => $request->heavy_license,
+                'dormitory' => $request->dormitory,
+                'helmet' => $request->helmet,
+                'business_phone' => $request->business_phone,
+                'safe_cost' => $request->safe_cost,
+                'insurance_cost' => $request->insurance_cost,
+                'loan' => $request->loan,
+                'advance_pay' => $request->advance_pay,
+                'advance_pay' => $request->advance_pay,
+                'daily_amount' => $request->daily_amount,
+                'overtime_amount' => $request->overtime_amount,
+                'night_amount' => $request->night_amount,
+                'overnight_amount' => $request->overnight_amount,
+                'full_salary' => $request->full_salary,
             ];
             $users = User::create($data);
             $users->givePermissionTo('user');
-            Team::where('id', $team_id)->update(['team_manager_id' => $users->id]);
-           if($request->contract_type == 4){
-                Office::where('id', $office_id)->update(['office_manager_id' => $users->id]);
-            }
             $qualify = $request->qualify;
             if(isset($qualify)){
                 foreach ($qualify as $item){
@@ -242,11 +276,11 @@ class AdminController extends Controller
     }
 
     public function businessManager(){
-        $data = User::with('office', 'team')->where('role', 'user')->where('deal_type', 2)->get();
+        $data = User::with('office', 'team', 'place')->where('role', 'user')->where('deal_type', 2)->get();
         return view('admin.PersonMaster.business-manager', compact('data'));
     }
     public function employeeManager(){
-        $data = User::with('office', 'team')->where('role', 'user')->where('deal_type', 1)->get();
+        $data = User::with('office', 'team', 'place')->where('role', 'user')->where('deal_type', 1)->get();
         return view('admin.PersonMaster.employee-manager', compact('data'));
     }
 }
