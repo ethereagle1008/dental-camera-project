@@ -146,7 +146,7 @@
                         <input type="text" class="form-control flatpickr-basic" name="start_date" placeholder="YYYY-MM-DD" required/>
                     </div>
                     <div class="mb-1">
-                        <label class="form-label" for="basic-icon-default-fullname">車種</label>
+                        <label class="form-label" for="basic-icon-default-fullname">終</label>
                         <input type="text" class="form-control flatpickr-basic" name="end_date" placeholder="YYYY-MM-DD"/>
                     </div>
                     <button type="submit" class="btn btn-primary me-1 data-submit" id="saveBtn">追加</button>
@@ -195,7 +195,7 @@
                             <input type="text" class="form-control flatpickr-basic" name="start_date" id="start_date" placeholder="YYYY-MM-DD" required/>
                         </div>
                         <div class="mb-1">
-                            <label class="form-label" for="basic-icon-default-fullname">車種</label>
+                            <label class="form-label" for="basic-icon-default-fullname">終</label>
                             <input type="text" class="form-control flatpickr-basic" name="end_date" id="end_date" placeholder="YYYY-MM-DD"/>
                         </div>
                     </div>

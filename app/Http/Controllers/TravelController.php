@@ -13,7 +13,7 @@ class TravelController extends Controller
     public function travelManager(){
         $users = User::where('role', 'user')->get();
         $sites = Site::all();
-        $data = Travel::with('user', 'site')->get()->all();
+        $data = Travel::with('user', 'site')->orderBy('created_at', 'desc')->get()->all();
         return view('admin.TravelMaster.travel-manager', compact('users', 'data', 'sites'));
     }
 

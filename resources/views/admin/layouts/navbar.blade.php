@@ -174,7 +174,7 @@
                 </li>
                 <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'site') ? 'sidebar-group-active open' : '' }}">
                     <a class="d-flex align-items-center" href="#">
-                        <i data-feather="briefcase"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">現場マスター</span>
+                        <i data-feather="shield"></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">現場マスター</span>
                     </a>
                     <ul class="menu-content">
                         <li class="{{ str_contains(\Request::route()->getName(), 'site-add') ? 'active' : '' }}">
@@ -209,6 +209,23 @@
                         <li class="{{ str_contains(\Request::route()->getName(), 'travel-manage') ? 'active' : '' }}">
                             <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'travel-manage') ? '#' : route('master.travel-manager')}}">
                                 <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">出張適用一覧</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item has-sub {{ str_contains(\Request::route()->getName(), 'borrow') ? 'sidebar-group-active open' : '' }}">
+                    <a class="d-flex align-items-center" href="#">
+                        <i data-feather='sunrise'></i><span class="menu-title text-truncate" data-i18n="Roles &amp; Permission">借入マスター</span>
+                    </a>
+                    <ul class="menu-content">
+                        <li class="{{ str_contains(\Request::route()->getName(), 'borrow-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'borrow-manage') ? '#' : route('master.borrow-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">借入一覧</span>
+                            </a>
+                        </li>
+                        <li class="{{ str_contains(\Request::route()->getName(), 'borrow-balance-manage') ? 'active' : '' }}">
+                            <a class="d-flex align-items-center" href="{{str_contains(\Request::route()->getName(), 'borrow-balance-manage') ? '#' : route('master.borrow-balance-manager')}}">
+                                <i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Permission">出力借入残高一覧</span>
                             </a>
                         </li>
                     </ul>

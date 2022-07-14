@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BorrowController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\PayController;
@@ -102,13 +103,17 @@ Route::group(['middleware' => 'auth'], function (){
             Route::get('work-total-shift', [WorkReportController::class, 'workShiftTotal'])->name('master.work-total-shift');
             Route::post('work-shift-total-table', [WorkReportController::class, 'workShiftTotalTable'])->name('master.work-shift-total-table');
 
-
             Route::get('travel-manager', [TravelController::class, 'travelManager'])->name('master.travel-manager');
             Route::post('travel-save', [TravelController::class, 'travelSave'])->name('master.travel-save');
             Route::post('travel-delete', [TravelController::class, 'travelDelete'])->name('master.travel-delete');
             Route::get('vehicle-manager', [VehicleController::class, 'vehicleManager'])->name('master.vehicle-manager');
             Route::post('vehicle-save', [VehicleController::class, 'vehicleSave'])->name('master.vehicle-save');
             Route::post('vehicle-delete', [VehicleController::class, 'vehicleDelete'])->name('master.vehicle-delete');
+
+            Route::get('borrow-manager', [BorrowController::class, 'borrowManager'])->name('master.borrow-manager');
+            Route::post('borrow-save', [BorrowController::class, 'borrowSave'])->name('master.borrow-save');
+            Route::post('borrow-delete', [BorrowController::class, 'borrowDelete'])->name('master.borrow-delete');
+            Route::get('borrow-balance-manager', [BorrowController::class, 'borrowBalanceManager'])->name('master.borrow-balance-manager');
         });
     });
 

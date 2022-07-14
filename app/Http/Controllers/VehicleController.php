@@ -11,7 +11,7 @@ class VehicleController extends Controller
 
     public function vehicleManager(){
         $users = User::where('role', 'user')->get();
-        $data = Vehicle::with('user')->get()->all();
+        $data = Vehicle::with('user')->orderBy('created_at', 'desc')->get()->all();
         return view('admin.VehicleMaster.vehicle-manager', compact('users', 'data'));
     }
 

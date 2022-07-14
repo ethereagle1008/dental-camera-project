@@ -120,12 +120,12 @@
                                     <div class="mb-1 col-md-3">
                                         <label class="form-label" for="move_value">出張手当</label>
                                         <input type="number" id="move_value" class="form-control" name="move_value" placeholder="出張手当を入力してください"
-                                               value="{{isset($user) ? $user->move_value : '1500'}}" required/>
+                                               value="{{isset($user) ? $user->move_value : '1500'}}"/>
                                     </div>
                                     <div class="mb-1 col-md-3">
                                         <label class="form-label" for="guarantee_day">保証日数</label>
                                         <input type="number" id="guarantee_day" class="form-control" name="guarantee_day" placeholder="保証日数を入力してください"
-                                               value="{{isset($user) ? $user->guarantee_day : '20'}}" required/>
+                                               value="{{isset($user) ? $user->guarantee_day : '20'}}"/>
                                     </div>
                                 </div>
                                 <div class="row">

@@ -37,7 +37,6 @@
                                         <th rowspan="3" class="text-center" style="vertical-align: middle">氏名</th>
                                         <th rowspan="3" class="text-center" style="vertical-align: middle">採用場所</th>
                                         <th colspan="2" class="text-center">入退社日時</th>
-                                        <th rowspan="3" class="text-center" style="vertical-align: middle">採用場所</th>
                                         <th rowspan="3" class="text-center" style="vertical-align: middle">日給月給　OR　月給</th>
                                         <th rowspan="3" class="text-center" style="vertical-align: middle">給料支払いサイト　週OR月</th>
                                         <th colspan="14" class="text-center">給料項目</th>
@@ -105,9 +104,6 @@
                                 </table>
                             </div>
                         </div>
-                        {{--                        <div class="card-body" id="table-part" style="overflow:auto; width: 250% !important;">--}}
-                        {{--                           --}}
-                        {{--                        </div>--}}
                     </div>
                 </div>
             </div>
