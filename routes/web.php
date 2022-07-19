@@ -123,6 +123,8 @@ Route::group(['middleware' => 'auth'], function (){
         Route::get('dashboard', [UserController::class, 'dashboard'])->name('dashboard');
         Route::post('shift-post', [UserController::class, 'shiftPost'])->name('shift-post');
         Route::post('daily-report', [UserController::class, 'dailyReportPost'])->name('daily-report-post');
+        Route::get('vehicle-report', [UserController::class, 'vehicleReport'])->name('vehicle-report');
+        Route::post('vehicle-report', [UserController::class, 'vehicleReportPost'])->name('vehicle-report-post');
         Route::post('pay-request', [UserController::class, 'payRequestPost'])->name('pay-request-post');
     });
 });

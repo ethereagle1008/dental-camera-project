@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="{{asset('/')}}css/bootstrap.min.css">
         <link rel="stylesheet" href="{{asset('/')}}vendor/fontawesome-free/css/all.min.css">
         <link rel="stylesheet" href="{{asset('/')}}vendor/simple-line-icons/css/simple-line-icons.min.css">
+        <link rel="stylesheet" type="text/css" href="{{asset('/')}}css/plugins/forms/form-validation.css">
         <link href="{{asset('/')}}plugins/global/plugins.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
         <link href="{{asset('/')}}plugins/custom/prismjs/prismjs.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
         <link href="{{asset('/')}}css/style.bundlef552.css?v=7.1.8" rel="stylesheet" type="text/css"/>
@@ -30,7 +31,6 @@
         <link rel="stylesheet" href="{{asset('/')}}css/theme-shop.css">
         <link rel="stylesheet" href="{{asset('/')}}css/default.css">
         <link rel="stylesheet" href="{{asset('/')}}css/custom.css">
-
         <style>
             .header-effect-shrink{
                 height: 50px !important;
@@ -41,6 +41,7 @@
         <script src="{{asset('/')}}js/jquery.appear.min.js"></script>
         <script src="{{asset('/')}}js/jquery.easing.min.js"></script>
         <script src="{{asset('/')}}js/jquery.cookie.min.js"></script>
+        <script src="{{asset('/')}}vendors/js/forms/validation/jquery.validate.min.js"></script>
     </head>
     <body class="font-sans antialiased">
         @include('layouts.header')
@@ -52,7 +53,8 @@
         <script src="{{asset('/')}}js/popper.min.js"></script>
         <script src="{{asset('/')}}js/bootstrap.min.js"></script>
         <script src="{{asset('/')}}js/common.min.js"></script>
-        <script src="{{asset('/')}}js/jquery.validate.min.js"></script>
+
+{{--        <script src="{{asset('/')}}js/jquery.validate.min.js"></script>--}}
         <script src="{{asset('/')}}js/jquery.easypiechart.min.js"></script>
         <script src="{{asset('/')}}js/jquery.gmap.min.js"></script>
         <script src="{{asset('/')}}js/owl.carousel.min.js"></script>

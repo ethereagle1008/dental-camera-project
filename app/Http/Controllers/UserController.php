@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Site;
 use App\Models\UserAdvance;
 use App\Models\UserShift;
+use App\Models\Vehicle;
+use App\Models\VehicleReport;
 use App\Models\WorkReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,7 @@ class UserController extends Controller
         UserAdvance::create(['user_id' => Auth::user()->id, 'payment' => $request->payment]);
         return response()->json(['status' => true]);
     }
+
     public function dailyReport(){
         $sites = Site::where('status', 1)->get();
         return view('user.daily-report', compact('sites'));
@@ -44,6 +47,39 @@ class UserController extends Controller
         }
         return response()->json(['status' => true]);
     }
+
+    public function vehicleReport(){
+        $sites = Site::where('status', 1)->get();
+        $vehicles = Vehicle::all();
+        return view('user.vehicle-report', compact('sites', 'vehicles'));
+    }
+    public function vehicleReportPost(Request $request){
+        $site_id = $request->site_id;
+        $vehicle_id = $request->vehicle_id;
+        $report = VehicleReport::where('site_id', $site_id)->where('vehicle_id', $vehicle_id)->where('report_date', date('Y-m-d'))->first();
+        $data = [
+            'site_id' => $site_id,
+            'vehicle_id' => $vehicle_id,
+            'report_type' => $request->report_type,
+            'report_date' => date('Y-m-d'),
+            'etc_value' => $request->etc_value,
+            'etc_apply' => $request->etc_apply,
+            'oil_value' => $request->oil_value,
+            'oil_apply' => $request->oil_apply,
+            'parking_value' => $request->parking_value,
+            'parking_apply' => $request->parking_apply,
+            'other_value' => $request->other_value,
+            'other_apply' => $request->other_apply
+        ];
+        if(isset($report)){
+            VehicleReport::where('id', $report->id)->update($data);
+        }
+        else{
+            VehicleReport::create($data);
+        }
+        return response()->json(['status' => true]);
+    }
+
     public function shiftPost(Request $request){
 
         if($request->type == 'arrive'){

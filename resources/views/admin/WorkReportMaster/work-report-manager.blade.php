@@ -35,7 +35,7 @@
                                         <div class="row g-1 mb-md-1">
                                             <div class="col-md-6">
                                                 <label class="form-label">日選択:</label>
-                                                <input type="text" class="form-control flatpickr-basic"
+                                                <input type="text" class="form-control flatpickr-basic" id="report_date_2"
                                                     name="report_date" placeholder="YYYY-MM-DD" data-column="2"
                                                     value="{{ date('Y-m-d') }}" data-column-index="1" />
 
@@ -125,18 +125,13 @@
                                         <p>
                                             <span>現場ID: </span><span id="site_code"></span>
                                         </p>
-                                        <p>
-                                            <span>現場名: </span><span id="site_name"></span>
-                                        </p>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="card-label">
                                         <p>
-                                            <span>所属営業所: </span><span id="office_name"></span>
-                                        </p>
-                                        <p>
-                                            <span>所属班名: </span><span id="team_name"></span>
+                                            <span>現場名: </span><span id="site_name"></span>
                                         </p>
                                     </div>
                                 </div>
@@ -281,12 +276,9 @@
             $('#worKReportEditModal').modal('show');
         });
         $(document).on('click', '.work_report_detail', function() {
-            $('#company_name').text($(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().prev()
-                .text())
-            $('#site_code').text($(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text())
-            $('#site_name').text($(this).parent().prev().prev().prev().prev().prev().prev().prev().text())
-            $('#office_name').text($(this).parent().prev().prev().prev().prev().prev().prev().text())
-            $('#team_name').text($(this).parent().prev().prev().prev().prev().prev().text())
+            $('#company_name').text($(this).parent().prev().prev().prev().prev().prev().prev().prev().text())
+            $('#site_code').text($(this).parent().prev().prev().prev().prev().prev().prev().text())
+            $('#site_name').text($(this).parent().prev().prev().prev().prev().prev().text())
             console.log($(this).parent().prev().prev().text())
             if ($("#contract_type").val()) {
                 if ($(this).parent().prev().prev().prev().prev().text() != '') {
@@ -306,7 +298,7 @@
 
             $('#report_date').text($(this).prev().val());
             $('#site_id').val($(this).prev().prev().val());
-            $('#report_date_form').val($('#report_date_1').val())
+            $('#report_date_form').val($('#report_date_2').val())
             getTableData('work_report_detail', work_report_detail_table, false);
             $('#worKReportDetailModal').modal('show');
         })

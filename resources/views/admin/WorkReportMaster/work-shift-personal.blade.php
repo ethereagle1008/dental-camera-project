@@ -117,7 +117,7 @@
                     <td>通常作業</td>
                     <td>{{$tmp['shift_normal']}}</td>
                     <td>日</td>
-                    <td>{{}}</td>
+                    <td></td>
                     <td>{{$tmp['price_normal']}}</td>
                     <td></td>
                 </tr>
@@ -224,7 +224,7 @@
                     <td>安全協力会費</td>
                     <td>{{$tmp['shift_total']}}</td>
                     <td>日</td>
-                    <td>{{$user->safe_cost}}</td>
+                    <td></td>
                     <td>{{$tmp['safe_cost']}}</td>
                     <td>日額＊3㌫</td>
                 </tr>
@@ -342,6 +342,5 @@
                 </p>
             </div>
         </div>
-
     </div>
 </div>
