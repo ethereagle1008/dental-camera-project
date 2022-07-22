@@ -6,6 +6,8 @@ use App\Models\Site;
 use App\Models\User;
 use App\Models\UserAdvance;
 use App\Models\UserShift;
+use App\Models\Vehicle;
+use App\Models\VehicleReport;
 use App\Models\WorkReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,6 +62,12 @@ class WorkReportController extends Controller
         $data = UserShift::with('user')->where('site_id', $site_id)->where('shift_date', $report_date)->get();
         return view('admin.WorkReportMaster.work-report-detail-table', compact('data'));
     }
+    public function vehicleReportDetailTable(Request $request){
+        $site_id = $request->site_id;
+        $report_date = $request->report_date;
+        $data = VehicleReport::with('vehicle', 'site')->where('site_id', $site_id)->where('report_date', $report_date)->get();
+        return view('admin.WorkReportMaster.vehicle-report-detail-table', compact('data'));
+    }
     public function workReportDetailEdit(Request $request){
         $report_id = $request->report_id;
         $work_report = WorkReport::where('id', $report_id)->update(['site_id' => $request->site_id, 'report' => $request->report_content]);
@@ -68,7 +76,6 @@ class WorkReportController extends Controller
 
     public function workReportExportDown(Request $request){
         $report_date = $request->report_date;
-        $shift_data = UserShift::where('shift_date', date('Y-m-d', strtotime($report_date)))->get()->toArray();
         $data = UserShift::with('site')->with('user')->whereIn('id', function($query) use ($report_date) {
             $query->from('user_shifts')->where('shift_date', date('Y-m-d', strtotime($report_date)))->groupBy('site_id')->selectRaw('MAX(id)');
         })->pluck('site_id')->toArray();
@@ -134,6 +141,38 @@ class WorkReportController extends Controller
         }
 
         $row_after_table = $row_after_table + $row_team_leader + $row_business;
+
+        $vehicle_report = VehicleReport::with('vehicle', 'site')->where('report_date', date('Y-m-d', strtotime($report_date)))->get();
+        $row_vehicles = 0; $row_company_vehicle = 0; $row_personal_vehicle = 0;
+        $company_vehicle = []; $personal_vehicle = [];
+        if($vehicle_report->count() != 0){
+            $row_vehicles = $vehicle_report->count();
+            foreach ($vehicle_report as $data){
+                if($data->vehicle->owner_type == 1){
+                    $row_company_vehicle++;
+                    $tmp = array();
+                    $tmp['id'] = $data->vehicle->id;
+                    $tmp['type'] = $data->vehicle->type;
+                    $tmp['number'] = $data->vehicle->number;
+                    $tmp['site_id'] = $data->site_id;
+                    array_push($company_vehicle, $tmp);
+                }
+                else{
+                    $row_personal_vehicle = $row_personal_vehicle + 1;
+                    $tmp = array();
+                    $tmp['id'] = $data->vehicle->id;
+                    $tmp['name'] = $data->vehicle->user->name;
+                    $tmp['type'] = $data->vehicle->type;
+                    $tmp['number'] = $data->vehicle->number;
+                    $tmp['site_id'] = $data->site_id;
+                    array_push($personal_vehicle, $tmp);
+                }
+            }
+        }
+
+//        print_r($row_personal_vehicle);
+//        die();
+
 
         $style_border_outline_thin = [
             'borders' => [
@@ -209,6 +248,144 @@ class WorkReportController extends Controller
             $sheet->mergeCells('B8:B' . $column_1);
             $sheet->getStyle('B8')->applyFromArray($style_title);
             $sheet->getCell('B8')->setValue('労務者出勤');
+
+            if($row_vehicles != 0){
+                $row_after_table = $row_after_table + $row_vehicles + 16;
+                $column_3 = $column_1 + 1;
+                $column_4 = $column_1 + $row_vehicles;
+                $sheet->mergeCells('B' . $column_3 . ':B' . $column_4);
+                $sheet->getStyle('B' . $column_3)->applyFromArray($style_title);
+                $sheet->getCell('B' . $column_3)->setValue('輸送関連');
+                if($row_company_vehicle != 0){
+                    $column_5 = $column_1 + 1;
+                    $column_6 = $column_1 + $row_company_vehicle;
+                    $sheet->mergeCells('C' . $column_5 . ':C' . $column_6);
+                    $sheet->getStyle('C' . $column_5)->applyFromArray($style_title);
+                    $sheet->getCell('C' . $column_5)->setValue('社用車');
+                    for ($i = 0; $i < $row_company_vehicle; $i++){
+                        $column = $column_5 + $i;
+                        $sheet->getStyle('D' . $column)->applyFromArray($style_title);
+                        $sheet->getCell('D' . $column)->setValue($company_vehicle[$i]['id']);
+                        $sheet->mergeCells('E' . $column . ':F' . $column);
+                        $sheet->getStyle('E' . $column)->applyFromArray($style_title);
+                        $sheet->getCell('E' . $column)->setValue($company_vehicle[$i]['type']);
+                        $sheet->getStyle('G' . $column)->applyFromArray($style_title);
+                        $sheet->getCell('G' . $column)->setValue($company_vehicle[$i]['number']);
+                        for($j = 0; $j < $cnt_site; $j++){
+                            if($site_data[$j]->id == $company_vehicle[$i]['site_id']){
+                                $sheet->getCellByColumnAndRow(8 + $j, $column)->setValue('○');
+                            }
+                        }
+                    }
+
+                }
+                if($row_personal_vehicle != 0){
+                    $column_7 = $column_1 + $row_company_vehicle + 1;
+                    $column_8 = $column_1 + $row_company_vehicle + $row_personal_vehicle;
+                    $sheet->mergeCells('C' . $column_7 . ':C' . $column_8);
+                    $sheet->getStyle('C' . $column_7)->applyFromArray($style_title);
+                    $sheet->getCell('C' . $column_7)->setValue('庸車');
+                    for ($i = 0; $i < $row_personal_vehicle; $i++){
+                        $column = $column_7 + $i;
+                        $sheet->getStyle('D' . $column)->applyFromArray($style_title);
+                        $sheet->getCell('D' . $column)->setValue($personal_vehicle[$i]['id']);
+                        $sheet->getStyle('E' . $column)->applyFromArray($style_title);
+                        $sheet->getCell('E' . $column)->setValue($personal_vehicle[$i]['name']);
+                        $sheet->getStyle('F' . $column)->applyFromArray($style_title);
+                        $sheet->getCell('F' . $column)->setValue($personal_vehicle[$i]['type']);
+                        $sheet->getStyle('G' . $column)->applyFromArray($style_title);
+                        $sheet->getCell('G' . $column)->setValue($personal_vehicle[$i]['number']);
+                        for($j = 0; $j < $cnt_site; $j++){
+                            if($site_data[$j]->id == $personal_vehicle[$i]['site_id']){
+                                $sheet->getStyleByColumnAndRow(8 + $j, $column)->applyFromArray($style_title);
+                                $sheet->getCellByColumnAndRow(8 + $j, $column)->setValue('○');
+                            }
+                        }
+                    }
+                }
+                $column_9 = $column_1 + $row_vehicles + 1;
+                $column_91 = $column_9 + 7;
+                $column_92 = $column_9 + 8;
+                $column_10 = $column_9 + 15;
+                $sheet->mergeCells('B' . $column_9 . ':B' . $column_10);
+                $sheet->getStyle('B' . $column_9)->applyFromArray($style_title);
+                $sheet->getCell('B' . $column_9)->setValue('経費関連');
+                $sheet->mergeCells('C' . $column_9 . ':F' . $column_91);
+                $sheet->getStyle('C' . $column_9)->applyFromArray($style_title);
+                $sheet->getCell('C' . $column_9)->setValue('元受請求分立替経費');
+                $sheet->mergeCells('C' . $column_92 . ':F' . $column_10);
+                $sheet->getStyle('C' . $column_92)->applyFromArray($style_title);
+                $sheet->getCell('C' . $column_92)->setValue('自社経費');
+                $sheet->getStyle('G' . $column_9)->applyFromArray($style_title);
+                $sheet->getCell('G' . $column_9)->setValue('ETC高速代');
+                $sheet->getStyle('G' . ($column_9 + 1))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_9 + 1))->setValue('摘要');
+                $sheet->getStyle('G' . ($column_9 + 2))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_9 + 2))->setValue('ガソリン代');
+                $sheet->getStyle('G' . ($column_9 + 3))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_9 + 3))->setValue('摘要');
+                $sheet->getStyle('G' . ($column_9 + 4))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_9 + 4))->setValue('駐車場代');
+                $sheet->getStyle('G' . ($column_9 + 5))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_9 + 5))->setValue('摘要');
+                $sheet->getStyle('G' . ($column_9 + 6))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_9 + 6))->setValue('その他経費');
+                $sheet->getStyle('G' . ($column_9 + 7))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_9 + 7))->setValue('摘要');
+                $sheet->getStyle('G' . $column_92)->applyFromArray($style_title);
+                $sheet->getCell('G' . $column_92)->setValue('ETC高速代');
+                $sheet->getStyle('G' . ($column_92 + 1))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_92 + 1))->setValue('摘要');
+                $sheet->getStyle('G' . ($column_92 + 2))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_92 + 2))->setValue('ガソリン代');
+                $sheet->getStyle('G' . ($column_92 + 3))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_92 + 3))->setValue('摘要');
+                $sheet->getStyle('G' . ($column_92 + 4))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_92 + 4))->setValue('駐車場代');
+                $sheet->getStyle('G' . ($column_92 + 5))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_92 + 5))->setValue('摘要');
+                $sheet->getStyle('G' . ($column_92 + 6))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_92 + 6))->setValue('その他経費');
+                $sheet->getStyle('G' . ($column_92 + 7))->applyFromArray($style_title);
+                $sheet->getCell('G' . ($column_92 + 7))->setValue('摘要');
+                for($i = 0; $i < $cnt_site; $i++){
+                    $etc_value1 = 0; $oil_value1 = 0; $parking_value1 = 0; $other_value1 = 0;
+                    $etc_value2 = 0; $oil_value2 = 0; $parking_value2 = 0; $other_value2 = 0;
+                    foreach ($vehicle_report as $data){
+                        if($data->site_id == $site_data[$i]->id){
+                            if($data->report_type == 1){
+                                $etc_value1 = $etc_value1 + $data->etc_value;
+                                $oil_value1 = $oil_value1 + $data->oil_value;
+                                $parking_value1 = $parking_value1 + $data->parking_value;
+                                $other_value1 = $other_value1 + $data->other_value;
+                            }
+                            else{
+                                $etc_value2 = $etc_value2 + $data->etc_value;
+                                $oil_value2 = $oil_value2 + $data->oil_value;
+                                $parking_value2 = $parking_value2 + $data->parking_value;
+                                $other_value2 = $other_value2 + $data->other_value;
+                            }
+                        }
+                    }
+                    $sheet->getStyleByColumnAndRow(8 + $i, $column_9)->applyFromArray($style_title);
+                    $sheet->getCellByColumnAndRow(8 + $i, $column_9)->setValue($etc_value1);
+                    $sheet->getStyleByColumnAndRow(8 + $i, $column_9 + 2)->applyFromArray($style_title);
+                    $sheet->getCellByColumnAndRow(8 + $i, $column_9 +2 )->setValue($oil_value1);
+                    $sheet->getStyleByColumnAndRow(8 + $i, $column_9 + 4)->applyFromArray($style_title);
+                    $sheet->getCellByColumnAndRow(8 + $i, $column_9 + 4)->setValue($parking_value1);
+                    $sheet->getStyleByColumnAndRow(8 + $i, $column_9 + 6)->applyFromArray($style_title);
+                    $sheet->getCellByColumnAndRow(8 + $i, $column_9 + 6)->setValue($other_value1);
+                    $sheet->getStyleByColumnAndRow(8 + $i, $column_92)->applyFromArray($style_title);
+                    $sheet->getCellByColumnAndRow(8 + $i, $column_92)->setValue($etc_value2);
+                    $sheet->getStyleByColumnAndRow(8 + $i, $column_92 + 2)->applyFromArray($style_title);
+                    $sheet->getCellByColumnAndRow(8 + $i, $column_92 +2 )->setValue($oil_value2);
+                    $sheet->getStyleByColumnAndRow(8 + $i, $column_92 + 4)->applyFromArray($style_title);
+                    $sheet->getCellByColumnAndRow(8 + $i, $column_92 + 4)->setValue($parking_value2);
+                    $sheet->getStyleByColumnAndRow(8 + $i, $column_92 + 6)->applyFromArray($style_title);
+                    $sheet->getCellByColumnAndRow(8 + $i, $column_92 + 6)->setValue($other_value2);
+                }
+
+            }
 
             $sheet->getStyle('G8')->applyFromArray($style_title);
             $sheet->getCell('G8')->setValue('社員');
@@ -369,7 +546,13 @@ class WorkReportController extends Controller
             $query->from('user_shifts')->where('shift_date', '>=', $start_time)->where('shift_date', '<', $end_time)->groupBy('site_id')->selectRaw('MAX(id)');
         })->pluck('site_id')->toArray();
 
+        $vehicle_id_data = VehicleReport::with('vehicle')->whereIn('id', function($query) use ($start_time, $end_time) {
+            $query->from('vehicle_reports')->where('report_date', '>=', $start_time)->where('report_date', '<', $end_time)->groupBy('vehicle_id')->selectRaw('MAX(id)');
+        })->pluck('vehicle_id')->toArray();
+
         $site_data = Site::with('company')->whereIn('id', $data)->get();
+        $vehicle_data = Vehicle::with('user')->whereIn('id', $vehicle_id_data)->get();
+        $cnt_vehicle = $vehicle_data->count();
         $cnt_site = $site_data->count();
 
         $spreadsheet = new Spreadsheet();
@@ -390,7 +573,6 @@ class WorkReportController extends Controller
                 ],
             ],
         ];
-
 
         $style_border_outline_double2 = [
             'borders' => [
@@ -437,26 +619,43 @@ class WorkReportController extends Controller
         $sheet->getColumnDimension('H')->setWidth(20);
         $sheet->getRowDimension(11)->setRowHeight(5);
 
+        $row_vehicle_start = 18 + 2 * $numberDays;
+
         try{
             $sheet->mergeCells('D9:H10');
             $sheet->mergeCells('D12:G13');
+            $sheet->mergeCells('D' . $row_vehicle_start . ':G' . ($row_vehicle_start + 1));
             for($i = 0; $i < $numberDays; $i++){
                 $sheet->mergeCells('D' . (14 + 2 * $i) . ':D' . (15 + 2 * $i));
+                $sheet->mergeCells('D' . ($row_vehicle_start + 2 + 2 * $i) . ':D' . ($row_vehicle_start + 3 + 2 * $i));
                 $sheet->getCell('D' . (14 + 2 * $i))->setValue(date('m', strtotime('+' . $i . 'days', strtotime($dateArr[0]))));
+                $sheet->getCell('D' . ($row_vehicle_start + 2 + 2 * $i))->setValue(date('m', strtotime('+' . $i . 'days', strtotime($dateArr[0]))));
                 $sheet->mergeCells('E' . (14 + 2 * $i) . ':E' . (15 + 2 * $i));
+                $sheet->mergeCells('E' . ($row_vehicle_start + 2 + 2 * $i) . ':E' . ($row_vehicle_start + 3 + 2 * $i));
                 $sheet->getCell('E' . (14 + 2 * $i))->setValue('月');
+                $sheet->getCell('E' . ($row_vehicle_start + 2 + 2 * $i))->setValue('月');
                 $sheet->mergeCells('F' . (14 + 2 * $i) . ':F' . (15 + 2 * $i));
+                $sheet->mergeCells('F' . ($row_vehicle_start + 2 + 2 * $i) . ':F' . ($row_vehicle_start + 3 + 2 * $i));
                 $sheet->getCell('F' . (14 + 2 * $i))->setValue(date('d', strtotime('+' . $i . 'days', strtotime($dateArr[0]))));
+                $sheet->getCell('F' . ($row_vehicle_start + 2 + 2 * $i))->setValue(date('d', strtotime('+' . $i . 'days', strtotime($dateArr[0]))));
                 $sheet->mergeCells('G' . (14 + 2 * $i) . ':G' . (15 + 2 * $i));
+                $sheet->mergeCells('G' . ($row_vehicle_start + 2 + 2 * $i) . ':G' . ($row_vehicle_start + 3 + 2 * $i));
                 $sheet->getCell('G' . (14 + 2 * $i))->setValue('日');
+                $sheet->getCell('G' . ($row_vehicle_start + 2 + 2 * $i))->setValue('日');
 
                 $sheet->getStyle('H' . (14 + 2 * $i) . ':H' . (15 + 2 * $i))->applyFromArray($style_border_outline_double);
                 $sheet->getStyle('H' . (14 + 2 * $i) . ':H' . (15 + 2 * $i))->applyFromArray($style_title);
+                $sheet->getStyle('H' . ($row_vehicle_start + 2 + 2 * $i) . ':H' . ($row_vehicle_start + 3 + 2 * $i))->applyFromArray($style_border_outline_double);
+                $sheet->getStyle('H' . ($row_vehicle_start + 2 + 2 * $i) . ':H' . ($row_vehicle_start + 3 + 2 * $i))->applyFromArray($style_title);
                 $sheet->getCell('H' . (14 + 2 * $i))->setValue('発注者承認印');
                 $sheet->getCell('H' . (15 + 2 * $i))->setValue('山大承認印');
+                $sheet->getCell('H' . ($row_vehicle_start + 2 + 2 * $i))->setValue('車両報告');
+                $sheet->getCell('H' . ($row_vehicle_start + 3 + 2 * $i))->setValue('山大承認印');
 
                 $sheet->getStyleByColumnAndRow(9, 14 + 2 * $i, 8 + $cnt_site, 15 + 2 * $i)->applyFromArray($style_border_outline_double);
                 $sheet->getStyleByColumnAndRow(9, 14 + 2 * $i, 8 + $cnt_site, 15 + 2 * $i)->applyFromArray($style_title);
+                $sheet->getStyleByColumnAndRow(9, $row_vehicle_start + 2 + 2 * $i, 8 + $cnt_site, $row_vehicle_start + 3 + 2 * $i)->applyFromArray($style_border_outline_double);
+                $sheet->getStyleByColumnAndRow(9, $row_vehicle_start + 2 + 2 * $i, 8 + $cnt_site, $row_vehicle_start + 3 + 2 * $i)->applyFromArray($style_title);
 
                 for($j = 0; $j < $cnt_site; $j++){
                     $user_shift = UserShift::where('site_id', $site_data[$j]->id)
@@ -464,6 +663,15 @@ class WorkReportController extends Controller
                     if(isset($user_shift)){
                         $sheet->getCellByColumnAndRow(9 + $j, 14 + 2 * $i)->setValue($user_shift->company_approval);
                         $sheet->getCellByColumnAndRow(9 + $j, 15 + 2 * $i)->setValue($user_shift->admin_approval);
+                    }
+                }
+
+                for($j = 0; $j < $cnt_vehicle; $j++){
+                    $vehicle_report = VehicleReport::where('vehicle_id', $vehicle_data[$j]->id)
+                        ->where('report_date', date('Y-m-d', strtotime('+' . $i . 'days', strtotime($dateArr[0]))))->get()->first();
+                    if(isset($vehicle_report)){
+                        $sheet->getCellByColumnAndRow(9 + $j, $row_vehicle_start + 2 + 2 * $i)->setValue('○');
+                        $sheet->getCellByColumnAndRow(9 + $j, $row_vehicle_start + 3 + 2 * $i)->setValue('スーパー管理者');
                     }
                 }
             }
@@ -475,6 +683,13 @@ class WorkReportController extends Controller
                 $sheet->getCellByColumnAndRow(9 + $i, 13)->setValue($site_data[$i]->name);
             }
 
+            for($i = 0; $i < $cnt_vehicle; $i++){
+                $sheet->getStyleByColumnAndRow(9 + $i, $row_vehicle_start, 8 + $cnt_vehicle, $row_vehicle_start + 1)->applyFromArray($style_border_outline_double);
+                $sheet->getStyleByColumnAndRow(9 + $i, $row_vehicle_start, 8 + $cnt_vehicle, $row_vehicle_start + 1)->applyFromArray($style_title);
+                $sheet->getCellByColumnAndRow(9 + $i, $row_vehicle_start)->setValue($vehicle_data[$i]->id);
+                $sheet->getCellByColumnAndRow(9 + $i, $row_vehicle_start + 1)->setValue($vehicle_data[$i]->number);
+            }
+
             $sheet->getStyle('D9')->applyFromArray($style_item_left);
             $sheet->getCell('D9')->setValue('承認一覧表');
 
@@ -482,13 +697,25 @@ class WorkReportController extends Controller
             $sheet->getStyle('D12')->applyFromArray($style_title);
             $sheet->getCell('D12')->setValue('現場情報');
 
+            $sheet->getStyle('D' . $row_vehicle_start . ':G' . ($row_vehicle_start + 1))->applyFromArray($style_border_outline_double);
+            $sheet->getStyle('D' . $row_vehicle_start)->applyFromArray($style_title);
+            $sheet->getCell('D' . $row_vehicle_start)->setValue('車両報告');
+
             $sheet->getStyle('D14:G' . (15 + 2 * ($numberDays - 1)))->applyFromArray($style_border_outline_double2);
             $sheet->getStyle('D14:G' . (15 + 2 * ($numberDays - 1)))->applyFromArray($style_title);
+
+            $sheet->getStyle('D' . ($row_vehicle_start + 2). ':G' . ($row_vehicle_start + 3 + 2 * ($numberDays - 1)))->applyFromArray($style_border_outline_double2);
+            $sheet->getStyle('D' . ($row_vehicle_start + 2) . ':G' . ($row_vehicle_start + 3 + 2 * ($numberDays - 1)))->applyFromArray($style_title);
 
             $sheet->getStyle('H12:H13')->applyFromArray($style_border_outline_double);
             $sheet->getStyle('H12:H13')->applyFromArray($style_title);
             $sheet->getCell('H12')->setValue('ID');
             $sheet->getCell('H13')->setValue('現場名');
+
+            $sheet->getStyle('H' . $row_vehicle_start . ':H' . ($row_vehicle_start + 1))->applyFromArray($style_border_outline_double);
+            $sheet->getStyle('H' . $row_vehicle_start . ':H' . ($row_vehicle_start + 1))->applyFromArray($style_title);
+            $sheet->getCell('H' . $row_vehicle_start)->setValue('車両ID');
+            $sheet->getCell('H' . ($row_vehicle_start + 1))->setValue('車両番号');
         }
         catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
             Log::error('Exception:' . $e);

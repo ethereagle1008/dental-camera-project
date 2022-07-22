@@ -91,6 +91,13 @@
                                 <input type="hidden" name="report_name" id="report_name"
                                     value="{{ \Illuminate\Support\Facades\Auth::user()->name }}">
                             </form>
+                            <form id="vehicle_report_detail_form" class="d-none">
+                                @csrf
+                                <input type="hidden" name="site_id" id="site_id_vehicle">
+                                <input type="hidden" name="report_date" id="report_date_form_vehicle">
+                                <input type="hidden" name="report_name" id="report_name"
+                                       value="{{ \Illuminate\Support\Facades\Auth::user()->name }}">
+                            </form>
                         </div>
                         <hr class="my-0" />
                         <div class="card-datatable px-2" id="work_report">
@@ -150,6 +157,10 @@
                             <div id="work_report_detail">
 
                             </div>
+
+                            <div id="vehicle_report_detail" class="mt-2" style="overflow:scroll;">
+
+                            </div>
                             <!--end: Datatable-->
                         </div>
                     </div>
@@ -197,6 +208,7 @@
         let work_report_table = '{{ route('master.work-report-table') }}';
         let work_report_status = '{{ route('master.work-report-status') }}';
         let work_report_detail_table = '{{ route('master.work-report-detail-table') }}';
+        let vehicle_report_detail_table = '{{ route('master.vehicle-report-detail-table') }}';
         let work_report_detail_edit = '{{ route('master.work-report-detail-edit') }}';
         let work_report_export_down = '{{ route('master.work-report-export-down') }}';
         let work_report_down_list = '{{ route('master.work-report-down-list') }}';
@@ -262,7 +274,7 @@
         $(document).on('click', '.confirm_report', function() {
             console.log("d");
             $('#site_id').val($(this).prev().prev().prev().val());
-            $('#report_date_form').val($('#report_date_1').val())
+            $('#report_date_form').val($('#report_date_2').val())
             if ($("#contract_type").val()) {
                 $('#worKReportStatusModal').modal('show');
             } else {
@@ -294,12 +306,13 @@
                 }
             }
 
-            console.log($(this).parent().prev().prev().prev().prev().text())
-
             $('#report_date').text($(this).prev().val());
             $('#site_id').val($(this).prev().prev().val());
             $('#report_date_form').val($('#report_date_2').val())
+            $('#site_id_vehicle').val($(this).prev().prev().val());
+            $('#report_date_form_vehicle').val($('#report_date_2').val())
             getTableData('work_report_detail', work_report_detail_table, false);
+            getTableData('vehicle_report_detail', vehicle_report_detail_table, false);
             $('#worKReportDetailModal').modal('show');
         })
     </script>
