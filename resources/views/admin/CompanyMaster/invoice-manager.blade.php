@@ -33,7 +33,7 @@
                                 <div class="row g-1 mb-md-1">
                                     <div class="col-md-3">
                                         <label class="form-label" for="basicSelect">請求会社選択</label>
-                                        <select class="form-select" id="year" name="year">
+                                        <select class="form-select" name="year">
                                             @foreach($company as $item)
                                                 <option value="{{$item->id}}">{{$item->name}}</option>
                                             @endforeach
@@ -58,9 +58,12 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <button class="btn btn-success mr-2" id="btn_get_table"
-                                                style="margin-top: 23px;">検　索
-                                        </button>
+                                        <a class="btn btn-success mr-2"
+                                           href="{{ route('master.invoice-detail-export-down') }}?request_month={{ date('Y-m') }}"
+                                           id="btn_down_table1" style="float: right; margin-top: 23px;">請求書（明細）</a>
+                                        <a class="btn btn-success mr-2"
+                                           href="{{ route('master.invoice-export-down') }}?request_month={{ date('Y-m') }}"
+                                           id="btn_down_table2" style="float: right; margin-top: 23px; margin-right: 10px">請求総括表</a>
                                     </div>
                                 </div>
                             </form>
@@ -109,6 +112,20 @@
     </div>
     <!--end::Content-->
     <script>
+        let invoice_detail_export = '{{ route('master.invoice-detail-export-down') }}';
+        let invoice_export_down = '{{ route('master.invoice-export-down') }}';
+        $('#year').change(function(e) {
+            let new_url = invoice_detail_export + '?request_month=' + $(this).val() + '-' + $('#month').val();
+            $('#btn_down_table1').attr('href', new_url);
+            new_url = invoice_export_down + '?request_month=' + $(this).val() + '-' + $('#month').val();
+            $('#btn_down_table2').attr('href', new_url);
+        });
+        $('#month').change(function(e) {
+            let new_url = invoice_detail_export + '?request_month=' + $('#year').val() + '-' + $(this).val();
+            $('#btn_down_table1').attr('href', new_url);
+            new_url = invoice_export_down + '?request_month=' + $('#year').val() + '-' + $(this).val();
+            $('#btn_down_table2').attr('href', new_url);
+        });
 
     </script>
 </x-admin-layout>
