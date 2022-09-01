@@ -69,6 +69,8 @@ Route::group(['middleware' => 'auth'], function (){
             Route::post('company-delete', [CompanyController::class, 'companyDelete'])->name('master.company-delete');
             Route::get('company-manager', [CompanyController::class, 'companyManage'])->name('master.company-manager');
             Route::get('invoice-manager', [CompanyController::class, 'invoiceManage'])->name('master.invoice-manager');
+            Route::post('invoice-table', [CompanyController::class, 'invoiceTable'])->name('master.invoice-table');
+            Route::post('invoice-change', [CompanyController::class, 'invoiceChange'])->name('master.invoice-change');
             Route::get('invoice-detail-export-down', [CompanyController::class, 'invoiceDetailExportDown'])->name('master.invoice-detail-export-down');
             Route::get('invoice-export-down', [CompanyController::class, 'invoiceExportDown'])->name('master.invoice-export-down');
 

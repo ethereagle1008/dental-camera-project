@@ -252,6 +252,15 @@ class AdminController extends Controller
         return response()->json(['status' => true]);
     }
 
+    public function userDelete(Request $request){
+//        $user_id = $request->user_id;
+//        if(Auth::user()->id == $user_id){
+//            return response()->json(['status' => false]);
+//        }
+//        User::find($user_id)->delete();
+//        return response()->json(['status' => true]);
+    }
+
     public function qualifyManage(){
         $data = Qualify::all();
         return view('admin.PersonMaster.qualify-manager', compact('data'));
@@ -273,6 +282,12 @@ class AdminController extends Controller
     public function userSummary(){
         $data = User::where('role', 'user')->get();
         return view('admin.PersonMaster.user-summary', compact('data'));
+    }
+
+    public function userDeleteInfo(Request  $request){
+        $user_id = $request->user_id;
+        User::delete($user_id);
+        return response()->json(['status' => true]);
     }
 
     public function businessManager(){

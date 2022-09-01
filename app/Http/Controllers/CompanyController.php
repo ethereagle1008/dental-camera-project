@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Invoice;
 use App\Models\Site;
 use App\Models\User;
 use App\Models\UserShift;
 use App\Models\VehicleReport;
+use Faker\Provider\en_IN\Internet;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -41,6 +43,37 @@ class CompanyController extends Controller
     public function invoiceManage(){
         $company = Company::all();
         return view('admin.CompanyMaster.invoice-manager', compact('company'));
+    }
+    public function invoiceTable(Request $request){
+        $month = $request->year . '-'. $request->month;
+        $sites = Site::where('status', 1)->get();
+        $data = [];
+        foreach ($sites as $site){
+            $tmp = [];
+            $tmp['id'] = $site->id;
+            $tmp['name'] = $site->name;
+            $invoice = Invoice::where('site_id', $site->id)->where('month', $month)->get()->first();
+            if(!empty($invoice)){
+                $tmp['amount'] = $invoice->amount;
+            }
+            else{
+                $tmp['amount'] = 0;
+            }
+            array_push($data, $tmp);
+        }
+
+        return view('admin.CompanyMaster.invoice-table', compact('data'));
+    }
+    public function invoiceChange(Request $request){
+        $site_id = $request->site_id;
+        $month = $request->year . '-'. $request->month;
+        $data = [
+            'site_id' => $site_id,
+            'month' => $month,
+        ];
+
+        Invoice::updateOrCreate($data, ['amount' => $request->amount]);
+        return response()->json(['status' => true]);
     }
     public function invoiceDetailExportDown(Request $request){
         $request_month = $request->request_month;
@@ -229,9 +262,7 @@ class CompanyController extends Controller
     }
     public function invoiceExportDown(Request $request){
         $request_month = $request->request_month;
-        $start_date = date('Y-m-01', strtotime($request_month));
-        $end_date = date('Y-m-d', strtotime('+1 month', strtotime($request_month)));
-
+        $invoices = Invoice::with('site')->where('month', $request_month)->get();
         $style_table = [
             'font' => [
                 'color' => ['rgb' => '000000'],
@@ -413,6 +444,17 @@ class CompanyController extends Controller
                 $sheet->mergeCellsByColumnAndRow(13, $i, 15, $i);
                 $sheet->mergeCellsByColumnAndRow(16, $i, 18, $i);
             }
+            $total = 0;
+            foreach ($invoices as $index => $invoice){
+                $sheet->getCellByColumnAndRow(1, 11 + $index)->setValue($index+1);
+                $sheet->getCellByColumnAndRow(2, 11 + $index)->setValue($invoice->site->name);
+                $sheet->getCellByColumnAndRow(10, 11 + $index)->setValue(1);
+                $sheet->getCellByColumnAndRow(12, 11 + $index)->setValue('式');
+                $sheet->getCellByColumnAndRow(13, 11 + $index)->setValue($invoice->amount);
+                $sheet->getCellByColumnAndRow(16, 11 + $index)->setValue($invoice->amount);
+                $total += $invoice->amount;
+            }
+            $sheet->getCell('C6')->setValue(number_format($total) . '円');
 
             $sheet->getStyleByColumnAndRow(1, 10, 18, 26)->applyFromArray($style_table);
             $sheet->mergeCells('A30:B33');

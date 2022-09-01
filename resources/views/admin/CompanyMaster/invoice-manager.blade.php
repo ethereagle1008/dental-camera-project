@@ -51,19 +51,19 @@
                                         <label class="form-label" for="basicSelect">月選択</label>
                                         <select class="form-select" id="month" name="month">
                                             @for($i = 1; $i < 13; $i++)
-                                                <option
-                                                    value="{{$i}}" {{$i == intval(date('m')) ? 'selected' : ''}}>{{$i}}月
-                                                </option>
+                                                <option value="{{$i}}" {{$i == intval(date('m')) ? 'selected' : ''}}>{{$i}}月</option>
                                             @endfor
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-success mr-2" id="btn_get_invoice" style="margin-top: 23px;">請求総括表</button>
+                                        <a class="btn btn-success mr-2"
+                                           href="{{ route('master.invoice-export-down') }}?request_month={{ date('Y-n') }}"
+                                           id="btn_down_table2" style="margin-top: 23px;">請求総括表(ダウンロード)</a>
                                         <a class="btn btn-success mr-2"
                                            href="{{ route('master.invoice-detail-export-down') }}?request_month={{ date('Y-m') }}"
-                                           id="btn_down_table1" style="float: right; margin-top: 23px;">請求書（明細）</a>
-                                        <a class="btn btn-success mr-2"
-                                           href="{{ route('master.invoice-export-down') }}?request_month={{ date('Y-m') }}"
-                                           id="btn_down_table2" style="float: right; margin-top: 23px; margin-right: 10px">請求総括表</a>
+                                           id="btn_down_table1" style="margin-top: 23px;">請求書（明細）</a>
+
                                     </div>
                                 </div>
                             </form>
@@ -114,6 +114,15 @@
     <script>
         let invoice_detail_export = '{{ route('master.invoice-detail-export-down') }}';
         let invoice_export_down = '{{ route('master.invoice-export-down') }}';
+        let invoice_table = '{{route('master.invoice-table')}}';
+        let invoice_change = '{{route('master.invoice-change')}}';
+        $(document).ready(function () {
+            getTableData('pay_sum', invoice_table);
+            $('#btn_get_invoice').click(function (e) {
+                e.preventDefault();
+                getTableData('pay_sum', invoice_table);
+            });
+        });
         $('#year').change(function(e) {
             let new_url = invoice_detail_export + '?request_month=' + $(this).val() + '-' + $('#month').val();
             $('#btn_down_table1').attr('href', new_url);
@@ -126,6 +135,56 @@
             new_url = invoice_export_down + '?request_month=' + $('#year').val() + '-' + $(this).val();
             $('#btn_down_table2').attr('href', new_url);
         });
+
+        $(document).on('click', '.ex_change', function () {
+            let id = $(this).data('id');
+            let amount = $(this).parent().prev().find('input').val();
+            console.log(amount);
+            var paramObj = new FormData($('#pay_sum_form')[0]);
+            paramObj.append('site_id', id);
+            paramObj.append('amount', amount);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': token
+                }
+            });
+            $.ajax({
+                url: invoice_change,
+                type:'post',
+                data: paramObj,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    toastr.options = {
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    };
+                    if(response.status == true){
+                        toastr.success("変更しました。");
+                        window.location.reload()
+                    }
+                    else {
+                        toastr.warning("失敗しました。");
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        })
 
     </script>
 </x-admin-layout>
