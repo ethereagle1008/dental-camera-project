@@ -294,7 +294,6 @@
                                         <input class="form-control" placeholder="" id="full_salary" name="full_salary" value="{{isset($user) ? (int)($user->full_salary) : 0}}"/>
                                     </div>
                                 </div>
-                                </div>
                                 <div class="row">
 
                                     <div class="col-12">
